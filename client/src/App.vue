@@ -56,4 +56,21 @@ export default Vue.extend({
 .material-icons.btn:hover {
   background-color: var(--primary-color--on-hover);
 }
+
+.material-btn {
+  background-color: transparent;
+  border: none;
+  color: var(--text-on-primary);
+  /* padding: 0.5rem; */
+}
+
+.material-btn--text-only {
+  cursor: pointer;
+  border-radius: 2.5px;
+  padding: 0.25rem;
+}
+
+.material-btn--text-only:hover {
+  background-color: var(--primary-color--on-hover);
+}
 </style>

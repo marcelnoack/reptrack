@@ -1,243 +1,39 @@
 <template>
-  <div class="container">
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
-    <div class="workout">
-      test
-    </div>
+  <div class="workouts-container">
+    <app-workout :workout="myWorkout" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-export default Vue.extend({});
+import AppWorkout from "../components/AppWorkout.vue";
+import { Workout } from "../store/types";
+
+export default Vue.extend({
+  data() {
+    return {
+      myWorkout: {
+        name: "My Workout" as string,
+        lastTraining: {
+          startDate: new Date(),
+          endDate: new Date(),
+          duration: 6000
+        }
+      } as Workout
+    };
+  },
+  components: {
+    appWorkout: AppWorkout
+  }
+});
 </script>
 
 <style scoped>
-.container {
+.workouts-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-}
-
-.workout {
-  margin: 1rem;
-  width: 80%;
-  background-color: var(--primary-color--light);
-  height: 100px;
-  border-radius: 5px;
 }
 </style>

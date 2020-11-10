@@ -27,6 +27,10 @@ npm run serve
 npm run build
 ```
 
+## Additional Info
+
+Note, that this application is intended to be primarily used on mobile, hence it is targeted to be a gym assistant.
+
 ## Roadmap
 
 A list of features and the current status of each can be found in the [projects](https://github.com/marcelnoack/reptrack/projects/1) section of the repository.

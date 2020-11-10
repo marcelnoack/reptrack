@@ -4,7 +4,11 @@ import VueRouter, { RouteConfig } from "vue-router";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-  { path: "/", component: () => import("../views/TheWorkouts.vue") }
+  {
+    path: "/",
+    name: "My Workouts",
+    component: () => import("../views/TheWorkouts.vue")
+  }
   // { path: "/messages", component: () => import("../views/TheMessages") }
 ];
 

@@ -2,7 +2,7 @@
   <div class="layout-container">
     <nav class="layout-container__nav">Nav</nav>
     <header class="layout-container__header">
-      <app-header pageTitle="Test" />
+      <app-header :pageTitle="documentTitle" />
     </header>
     <main class="layout-container__content">
       <transition name="slide-fade" mode="out-in">
@@ -15,8 +15,15 @@
 <script lang="ts">
 import Vue from "vue";
 import AppHeader from "./AppHeader.vue";
+import documentTitleMixin from "../mixins/documentTitleMixin";
 
 export default Vue.extend({
+  computed: {
+    documentTitle() {
+      return this.$route.name;
+    }
+  },
+  mixins: [documentTitleMixin],
   components: {
     appHeader: AppHeader
   }

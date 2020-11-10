@@ -1,7 +1,7 @@
 <template>
   <div class="app-header-container">
     <div class="app-header-container__header-start">
-      <button class="app-header__btn">
+      <button class="material-btn">
         <i class="material-icons md-light btn">menu</i>
       </button>
       <p>
@@ -9,7 +9,7 @@
       </p>
     </div>
     <div class="app-header-container__header-end">
-      <button class="app-header__btn app-header__btn--material-text-only">
+      <button class="material-btn material-btn--text-only">
         SIGN IN
       </button>
     </div>
@@ -53,22 +53,5 @@ export default Vue.extend({
   grid-template-columns: auto;
   grid-template-rows: none;
   align-items: center;
-}
-
-.app-header__btn {
-  background-color: transparent;
-  border: none;
-  color: var(--text-on-primary);
-  /* padding: 0.5rem; */
-}
-
-.app-header__btn--material-text-only {
-  cursor: pointer;
-  border-radius: 2.5px;
-  padding: 0.25rem;
-}
-
-.app-header__btn--material-text-only:hover {
-  background-color: var(--primary-color--on-hover);
 }
 </style>
