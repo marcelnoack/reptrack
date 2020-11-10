@@ -1,33 +1,32 @@
 # reptrack
-<<<<<<< HEAD
 
-## Project setup
+Gym assistant to track your exercise repitions, sets and be able to share them easily with your coach.
+
+## Installation
+
+1. Clone the Repository
+
+2.
+
 ```
+cd client
 npm install
 ```
 
+## Usage
+
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
 
 ### Compiles and minifies for production
+
 ```
 npm run build
 ```
 
-### Run your unit tests
-```
-npm run test:unit
-```
+## Roadmap
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-=======
-Gym assistant to track your exercise repitions, sets and be able to share them easily with your coach
->>>>>>> 1795d946148b5ff13c48b0bed4c351493afb9359
+A list of features and the current status of each can be found in the [projects](https://github.com/marcelnoack/reptrack/projects/1) section of the repository.
