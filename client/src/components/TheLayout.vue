@@ -15,7 +15,6 @@
 <script lang="ts">
 import Vue from "vue";
 import AppHeader from "./AppHeader.vue";
-import documentTitleMixin from "../mixins/documentTitleMixin";
 
 export default Vue.extend({
   computed: {
@@ -23,7 +22,6 @@ export default Vue.extend({
       return this.$route.name;
     }
   },
-  mixins: [documentTitleMixin],
   components: {
     appHeader: AppHeader
   }
