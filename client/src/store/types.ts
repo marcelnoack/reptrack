@@ -1,4 +1,8 @@
-export interface Exercise {}
+export interface Exercise {
+  name: string;
+  description?: string;
+  muscleGroups: string[];
+}
 
 export interface Workout {
   name: string;

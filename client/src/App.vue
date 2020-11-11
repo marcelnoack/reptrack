@@ -35,11 +35,14 @@ export default Vue.extend({
   --secondary-color--light: #6effff;
   --secondary-color--dark: #00ae9b;
 
+  --subtle-color: #b0b0b0;
+
   --text-on-primary: #ffffff;
   --text-on-secondary: #000000;
 }
 
 :root.light-theme {
+  --subtle-color: #777777;
 }
 
 .material-icons.md-light {

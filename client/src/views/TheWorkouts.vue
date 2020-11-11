@@ -14,6 +14,18 @@ export default Vue.extend({
     return {
       myWorkout: {
         name: "My Workout" as string,
+        exercises: [
+          {
+            name: "Bench Press",
+            muscleGroups: ["Chest", "Triceps"]
+          },
+          {
+            name: "Deadlift",
+            muscleGroups: ["Gluteus", "Quadriceps", "Hamstrings", "Adductor", "Erector Spinae"]
+          },
+          { name: "Lat-Pulldown", muscleGroups: ["Lat"] },
+          { name: "Push-Ups", muscleGroups: ["Chest", "Triceps"] }
+        ],
         lastTraining: {
           startDate: new Date(),
           endDate: new Date(),

@@ -8,7 +8,8 @@ const routes: Array<RouteConfig> = [
     path: "/workouts",
     name: "My Workouts",
     component: () => import("../views/TheWorkouts.vue")
-  }
+  },
+  { path: "/", redirect: "/workouts" }
   // { path: "/messages", component: () => import("../views/TheMessages") }
 ];
 
