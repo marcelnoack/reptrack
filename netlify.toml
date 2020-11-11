@@ -3,8 +3,3 @@
   base = "client/"
   public = "dist/"
   command = "npm run build"
-
-[[redirects]]
-
-  from = "/*"
-  to = "index.html"
