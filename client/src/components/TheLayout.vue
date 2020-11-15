@@ -1,10 +1,22 @@
 <template>
-  <div class="layout-container">
-    <nav class="layout-container__nav">Nav</nav>
+  <div class="layout-container" :class="{ 'layout-container--nav-show': showNav }">
+    <nav
+      class="layout-container__nav"
+      :class="{
+        'layout-container__nav--show': showNav
+      }"
+    >
+      <the-sidenav></the-sidenav>
+    </nav>
     <header class="layout-container__header">
-      <app-header :pageTitle="documentTitle" />
+      <app-header :pageTitle="documentTitle" @toggle="toggleNav" />
     </header>
-    <main class="layout-container__content">
+    <main
+      class="layout-container__content"
+      :class="{
+        'layout-container__content--push': showNav
+      }"
+    >
       <transition name="slide-fade" mode="out-in">
         <router-view></router-view>
       </transition>
@@ -15,14 +27,26 @@
 <script lang="ts">
 import Vue from "vue";
 import AppHeader from "./AppHeader.vue";
+import TheSidenav from "./TheSidenav.vue";
 
 export default Vue.extend({
+  data() {
+    return {
+      showNav: false as boolean
+    };
+  },
   computed: {
     documentTitle() {
       return this.$route.name;
     }
   },
+  methods: {
+    toggleNav(): void {
+      this.showNav = !this.showNav;
+    }
+  },
   components: {
+    theSidenav: TheSidenav,
     appHeader: AppHeader
   }
 });
@@ -31,18 +55,39 @@ export default Vue.extend({
 <style>
 .layout-container {
   --header-height: 64px;
+  --sidenav-width: 200px;
   display: grid;
   grid-template-rows: var(--header-height) calc(100vh - var(--header-height));
   grid-template-columns: auto;
   grid-template-areas: "header" "content";
+
   background-color: var(--primary-color);
   color: var(--text-on-primary);
 }
 
+/* .layout-container--nav-show {
+  grid-template-columns: var(--sidenav-width) auto;
+  grid-template-areas:
+    "header header"
+    "nav content";
+} */
+
 .layout-container__nav {
-  display: none;
-  grid-area: nav;
-  background-color: aqua;
+  /* display: none; */
+  left: -100%;
+  top: var(--header-height);
+  position: fixed;
+  height: 100vh;
+  width: var(--sidenav-width);
+  z-index: 1;
+  /* grid-area: nav; */
+  background-color: red;
+  transition: all 0.5s ease;
+}
+
+.layout-container__nav--show {
+  left: 0;
+  display: initial;
 }
 
 .layout-container__header {
@@ -54,10 +99,12 @@ export default Vue.extend({
 .layout-container__content {
   grid-area: content;
   background-color: transparent;
-  display: flex;
+  z-index: 0;
+  /* display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column; */
   overflow-y: auto;
+  overflow-x: hidden;
   /* justify-content: center; */
 }
 

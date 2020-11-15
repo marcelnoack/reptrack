@@ -1,7 +1,7 @@
 <template>
   <div class="app-header-container">
     <div class="app-header-container__header-start">
-      <button class="material-btn">
+      <button class="material-btn" @click="toggleNav">
         <i class="material-icons md-light btn">menu</i>
       </button>
       <p>
@@ -23,6 +23,11 @@ export default Vue.extend({
     pageTitle: {
       type: String,
       required: false
+    }
+  },
+  methods: {
+    toggleNav() {
+      this.$emit("toggle");
     }
   }
 });
