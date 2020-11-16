@@ -8,12 +8,14 @@
     <app-workout :workout="myWorkout" />
     <app-workout :workout="myWorkout" />
     <app-workout :workout="myWorkout" />
+    <app-fab icon="add" @click="handleCreate" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import AppWorkout from "../components/AppWorkout.vue";
+import AppFAB from "../components/AppFAB.vue";
 import { Workout } from "../store/types";
 
 export default Vue.extend({
@@ -41,8 +43,14 @@ export default Vue.extend({
       } as Workout
     };
   },
+  methods: {
+    handleCreate() {
+      console.log("Create new workout");
+    }
+  },
   components: {
-    appWorkout: AppWorkout
+    appWorkout: AppWorkout,
+    appFab: AppFAB
   }
 });
 </script>

@@ -50,7 +50,7 @@ export default Vue.extend({
 }
 
 .material-icons.pr {
-  padding-right: 1rem;
+  padding-right: 12px;
 }
 
 .material-icons.secondary {
