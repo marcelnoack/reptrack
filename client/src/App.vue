@@ -49,6 +49,14 @@ export default Vue.extend({
   color: #ffffff;
 }
 
+.material-icons.pr {
+  padding-right: 1rem;
+}
+
+.material-icons.secondary {
+  color: var(--secondary-color);
+}
+
 .material-icons.btn {
   cursor: pointer;
   background-color: transparent;

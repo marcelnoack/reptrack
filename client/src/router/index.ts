@@ -9,6 +9,11 @@ const routes: Array<RouteConfig> = [
     name: "My Workouts",
     component: () => import("../views/TheWorkouts.vue")
   },
+  {
+    path: "/chat",
+    name: "Chats",
+    component: () => import("../views/TheMessages.vue")
+  },
   { path: "/", redirect: "/workouts" }
   // { path: "/messages", component: () => import("../views/TheMessages") }
 ];
