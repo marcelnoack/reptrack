@@ -1,6 +1,13 @@
 <template>
   <div class="workouts-container">
     <app-workout :workout="myWorkout" />
+    <app-workout :workout="myWorkout" />
+    <app-workout :workout="myWorkout" />
+    <app-workout :workout="myWorkout" />
+    <app-workout :workout="myWorkout" />
+    <app-workout :workout="myWorkout" />
+    <app-workout :workout="myWorkout" />
+    <app-workout :workout="myWorkout" />
   </div>
 </template>
 

@@ -126,13 +126,15 @@ export default Vue.extend({
   height: 100vh;
   left: 0;
   top: 0;
-  z-index: 1;
+  /* default z-index -1 to avoid the overlay from blocking scroll */
+  z-index: -1;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: opacity 0.25s ease;
 }
 
 .overlay--show {
+  z-index: 1;
   opacity: 1;
 }
 </style>
