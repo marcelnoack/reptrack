@@ -1,5 +1,5 @@
 <template>
-  <div class="workouts-container">
+  <div class="workouts" :class="{ 'workouts--no-scroll': showModal }">
     <app-workout :workout="myWorkout" />
     <app-workout :workout="myWorkout" />
     <app-workout :workout="myWorkout" />
@@ -9,6 +9,13 @@
     <app-workout :workout="myWorkout" />
     <app-workout :workout="myWorkout" />
     <app-fab icon="add" @click="handleCreate" />
+    <app-fs-modal
+      :show="showModal"
+      label="New Workout"
+      primaryActionLabel="Save"
+      @close="handleCloseModal"
+      @primary-action="handleSaveNewWorkout"
+    ></app-fs-modal>
   </div>
 </template>
 
@@ -16,6 +23,7 @@
 import Vue from "vue";
 import AppWorkout from "../components/AppWorkout.vue";
 import AppFAB from "../components/AppFAB.vue";
+import AppFullScreenModal from "../components/AppFullscreenModal.vue";
 import { Workout } from "../store/types";
 
 export default Vue.extend({
@@ -40,27 +48,44 @@ export default Vue.extend({
           endDate: new Date(),
           duration: 6000
         }
-      } as Workout
+      } as Workout,
+      showModal: false as boolean
     };
   },
   methods: {
     handleCreate() {
       console.log("Create new workout");
+      this.showModal = true;
+    },
+    handleCloseModal() {
+      // TODO: reset local form data
+      this.showModal = false;
+    },
+    handleSaveNewWorkout() {
+      // TODO: handle saving local form data
+      this.handleCloseModal();
     }
   },
   components: {
     appWorkout: AppWorkout,
-    appFab: AppFAB
+    appFab: AppFAB,
+    appFsModal: AppFullScreenModal
   }
 });
 </script>
 
 <style scoped>
-.workouts-container {
+.workouts {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+.workouts--no-scroll {
+  position: fixed;
+  overflow-y: hidden;
+  height: 100vh;
 }
 </style>

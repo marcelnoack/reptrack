@@ -26,6 +26,7 @@ export default Vue.extend({
 }
 
 :root {
+  --header-height: 64px;
   --primary-color: #31294d;
   --primary-color--light: #3b3363;
   --primary-color--dark: #0c0025;

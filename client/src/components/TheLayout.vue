@@ -58,7 +58,6 @@ export default Vue.extend({
 
 <style>
 .layout-container {
-  --header-height: 64px;
   --sidenav-width: 85%;
   display: grid;
   grid-template-rows: var(--header-height) calc(100vh - var(--header-height));
@@ -90,7 +89,7 @@ export default Vue.extend({
 .layout-container__header {
   grid-area: header;
   background-color: transparent;
-  z-index: 1;
+  z-index: 0;
 }
 
 .layout-container__content {

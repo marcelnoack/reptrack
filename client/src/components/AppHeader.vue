@@ -49,7 +49,6 @@ export default Vue.extend({
   justify-content: flex-start;
   height: 100%;
   column-gap: 0.25rem;
-  align-items: center;
   font-size: 1.25rem;
 }
 
