@@ -95,6 +95,11 @@ export default Vue.extend({
 .fullscreen-modal__modal-content {
   width: 100%;
   height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
   overflow: auto;
 }
 </style>

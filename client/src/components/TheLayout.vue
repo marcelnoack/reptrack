@@ -8,7 +8,6 @@
     >
       <the-sidenav></the-sidenav>
     </nav>
-    <div class="overlay" :class="{ 'overlay--show': showNav }" @click="hideNav"></div>
     <header class="layout-container__header">
       <app-header :pageTitle="documentTitle" @toggle="toggleNav" />
     </header>
@@ -33,7 +32,9 @@ import TheSidenav from "./TheSidenav.vue";
 export default Vue.extend({
   data() {
     return {
-      showNav: false as boolean
+      showNav: false as boolean,
+      startX: null,
+      diffX: null
     };
   },
   computed: {
@@ -44,9 +45,6 @@ export default Vue.extend({
   methods: {
     toggleNav(): void {
       this.showNav = !this.showNav;
-    },
-    hideNav(): void {
-      if (this.showNav) this.showNav = false;
     }
   },
   components: {
@@ -58,7 +56,8 @@ export default Vue.extend({
 
 <style>
 .layout-container {
-  --sidenav-width: 85%;
+  --header-height: 64px;
+  --sidenav-width: 200px;
   display: grid;
   grid-template-rows: var(--header-height) calc(100vh - var(--header-height));
   grid-template-columns: auto;
@@ -68,17 +67,24 @@ export default Vue.extend({
   color: var(--text-on-primary);
 }
 
+/* .layout-container--nav-show {
+  grid-template-columns: var(--sidenav-width) auto;
+  grid-template-areas:
+    "header header"
+    "nav content";
+} */
+
 .layout-container__nav {
   /* display: none; */
   left: -100%;
   top: 0;
   position: fixed;
-  height: 100vh;
+  height: 100%;
   width: var(--sidenav-width);
-  z-index: 2;
+  z-index: 0;
   /* grid-area: nav; */
-  background-color: var(--primary-color);
-  transition: all 0.25s ease;
+  background-color: red;
+  transition: all 0.5s ease;
 }
 
 .layout-container__nav--show {
@@ -95,7 +101,6 @@ export default Vue.extend({
 .layout-container__content {
   grid-area: content;
   background-color: transparent;
-  z-index: 0;
   /* display: flex;
   align-items: center;
   flex-direction: column; */
@@ -117,23 +122,5 @@ export default Vue.extend({
 .slide-fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
-}
-
-.overlay {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  left: 0;
-  top: 0;
-  /* default z-index -1 to avoid the overlay from blocking scroll */
-  z-index: -1;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.overlay--show {
-  z-index: 1;
-  opacity: 1;
 }
 </style>

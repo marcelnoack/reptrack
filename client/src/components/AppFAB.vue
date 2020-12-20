@@ -1,6 +1,11 @@
 <template>
-  <button class="app-fab mdc-ripple-surface" :class="{ 'app-fab--extended': text, 'app-fab--mini': mini && !text }">
-    <i class="material-icons" :class="{ pr: text }" @click="$emit('click')">{{ icon }}</i>
+  <button
+    class="app-fab mdc-ripple-surface"
+    :class="{ 'app-fab--extended': text, 'app-fab--mini': mini && !text }"
+    @click="$emit('click')"
+    tabindex="0"
+  >
+    <i class="material-icons" :class="{ pr: text }">{{ icon }}</i>
     <label v-if="text">{{ text }}</label>
   </button>
 </template>
@@ -28,7 +33,7 @@ export default Vue.extend({
 
 <style scoped>
 .app-fab {
-  position: fixed;
+  position: absolute;
   bottom: 16px;
   right: 16px;
   height: 56px;
@@ -36,6 +41,7 @@ export default Vue.extend({
   border: none;
   border-radius: 50%;
   background-color: var(--secondary-color);
+  border: 1px solid transparent;
   color: black;
   display: flex;
   align-items: center;
@@ -43,6 +49,11 @@ export default Vue.extend({
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
   /* box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12); */
   outline: none;
+}
+
+.app-fab:focus {
+  background-color: var(--secondary-color--light);
+  border-color: black;
 }
 
 .app-fab:hover {

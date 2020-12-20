@@ -26,7 +26,6 @@ export default Vue.extend({
 }
 
 :root {
-  --header-height: 64px;
   --primary-color: #31294d;
   --primary-color--light: #3b3363;
   --primary-color--dark: #0c0025;
@@ -36,7 +35,18 @@ export default Vue.extend({
   --secondary-color--light: #6effff;
   --secondary-color--dark: #00ae9b;
 
+  /* Helper colors */
   --subtle-color: #b0b0b0;
+
+  /* Misc. global styles */
+  --header-height: 64px;
+
+  /* Indicator colors */
+  --success-color: #00c851;
+  --error-color: #ff4444;
+  --warning-color: #ffbb33;
+  --info-color: #1976d2;
+  --neutral-color: #2e2e2e;
 
   --text-on-primary: #ffffff;
   --text-on-secondary: #000000;
@@ -44,6 +54,10 @@ export default Vue.extend({
 
 :root.light-theme {
   --subtle-color: #777777;
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
 }
 
 .material-icons.md-light {

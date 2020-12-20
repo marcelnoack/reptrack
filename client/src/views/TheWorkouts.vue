@@ -15,7 +15,21 @@
       primaryActionLabel="Save"
       @close="handleCloseModal"
       @primary-action="handleSaveNewWorkout"
-    ></app-fs-modal>
+    >
+      <div class="new-workout">
+        <app-input v-model="newWorkout.name" background="transparent" :maxLength="20" label="Name" />
+        <div class="new-workout__workout-exercises">
+          <app-input-list-item
+            v-for="(exercise, i) in newWorkout.exercises"
+            :key="i"
+            :exercise="exercise"
+            v-model="exercise.name"
+            @remove-exercise="removeExerciseFromWorkout(i)"
+          />
+        </div>
+        <app-fab icon="add" text="Add Exercise" @click="addExerciseToNewWorkout" />
+      </div>
+    </app-fs-modal>
   </div>
 </template>
 
@@ -24,11 +38,17 @@ import Vue from "vue";
 import AppWorkout from "../components/AppWorkout.vue";
 import AppFAB from "../components/AppFAB.vue";
 import AppFullScreenModal from "../components/AppFullscreenModal.vue";
-import { Workout } from "../store/types";
+import AppInput from "../components/AppInput.vue";
+import AppInputListItem from "../components/AppInputListItem.vue";
+import { Exercise, Workout } from "../store/types";
 
 export default Vue.extend({
   data() {
     return {
+      newWorkout: {
+        name: "" as string,
+        exercises: [] as Array<Exercise>
+      },
       myWorkout: {
         name: "My Workout" as string,
         exercises: [
@@ -64,12 +84,30 @@ export default Vue.extend({
     handleSaveNewWorkout() {
       // TODO: handle saving local form data
       this.handleCloseModal();
+    },
+    addExerciseToNewWorkout() {
+      // TODO: handle creating a new exercise instance
+      this.newWorkout.exercises.push({
+        name: "",
+        muscleGroups: []
+      });
+    },
+    removeExerciseFromWorkout(index: number) {
+      const localExercises = [...this.newWorkout.exercises];
+      console.log(
+        localExercises,
+        localExercises.filter((e: Exercise, i: number) => i !== index)
+      );
+      this.newWorkout.exercises = localExercises.filter((e: Exercise, i: number) => i !== index);
+      // this.newWorkout.exercises = this.newWorkout.exercises.filter((e: Exercise, i: number) => i !== index);
     }
   },
   components: {
     appWorkout: AppWorkout,
     appFab: AppFAB,
-    appFsModal: AppFullScreenModal
+    appFsModal: AppFullScreenModal,
+    appInput: AppInput,
+    appInputListItem: AppInputListItem
   }
 });
 </script>
@@ -87,5 +125,18 @@ export default Vue.extend({
   position: fixed;
   overflow-y: hidden;
   height: 100vh;
+}
+
+.new-workout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-workout__workout-exercises {
+  width: 100%;
+  margin-top: 2rem;
 }
 </style>
