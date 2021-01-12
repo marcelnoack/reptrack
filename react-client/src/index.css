@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  background-color: #222629;
+}
+
+.material-icons {
+  background-color: inherit;
+}
+
+.material-icons.md-light {
+  color: white;
+}
+
+.route {
+  text-decoration: none;
+  height: 100%;
+  width: 100%;
+  color: white;
+}
+
+.route--active {
+  color: #86c232;
+}
+/* :root {
+ --primary-color: #86c232;
+  --bg-Primary: #222629;
+  --bg-Secondary: #6b6e70;
+} */
