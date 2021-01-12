@@ -26,6 +26,21 @@
 .route--active {
   color: #86c232;
 }
+
+.grid-col-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: none;
+  column-gap: 0.5rem;
+}
+
+.indent-h-sm {
+  padding: 0 1rem;
+}
+
+.pl-5 {
+  padding-left: 20px;
+}
 /* :root {
  --primary-color: #86c232;
   --bg-Primary: #222629;

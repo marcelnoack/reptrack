@@ -1,0 +1,39 @@
+.app-bar {
+  color: #fff;
+  width: 100%;
+  height: 50px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.app-bar__item {
+  width: 100%;
+  height: 100%;
+}
+
+.app-bar__logo {
+  grid-column: 1 / 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.app-bar__route {
+  grid-column: 2 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #86c232;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.app-bar__actions {
+  grid-column: 4 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

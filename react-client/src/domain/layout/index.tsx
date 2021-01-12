@@ -1,17 +1,20 @@
 import React, { FunctionComponent } from 'react';
 import BottomNav from '../../components/BottomNav';
+import AppContextProvider from '../../context/AppContext';
 import AppBar from './AppBar';
 
 const Layout: FunctionComponent = ({ children }) => {
   return (
     <>
-      <header>
-        <AppBar />
-      </header>
-      <main>{children}</main>
-      <footer>
-        <BottomNav />
-      </footer>
+      <AppContextProvider>
+        <header>
+          <AppBar />
+        </header>
+        <main className='grid-col-4 indent-h-sm'>{children}</main>
+        <footer>
+          <BottomNav />
+        </footer>
+      </AppContextProvider>
     </>
   );
 };
