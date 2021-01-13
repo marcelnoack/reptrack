@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useContext } from 'react';
+import MaterialButton from '../../components/MaterialButton';
 import { AppContext } from '../../context/AppContext';
 
 import './layout.css';
@@ -13,8 +14,10 @@ const AppBar: FunctionComponent = () => {
       </div>
       <span className='app-bar__item app-bar__route'>{appState.headerName}</span>
       <div className='app-bar__item app-bar__actions'>
-        <i className='material-icons pl-5'>notifications_none</i>
-        <i className='material-icons pl-5'>person</i>
+        <MaterialButton icon='notifications_none' />
+        {/* <i className='material-icons pl-5'>notifications_none</i> */}
+        <MaterialButton icon='person' />
+        {/* <i className='material-icons pl-5 ripple'>person</i> */}
       </div>
     </div>
   );
