@@ -15,7 +15,7 @@
 }
 
 .app-fab:focus {
-  border-color: #86c232;
+  border-color: var(--color-primary);
 }
 
 /* .app-fab:hover {

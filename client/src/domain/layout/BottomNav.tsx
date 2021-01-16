@@ -4,10 +4,11 @@ import { NavLink } from 'react-router-dom';
 import './layout.css';
 
 interface BottomNavProps {
+  mainActionIcon: string;
   handleMainAction?(): void;
 }
 
-const BottomNav: FunctionComponent<BottomNavProps> = ({ handleMainAction }) => {
+const BottomNav: FunctionComponent<BottomNavProps> = ({ mainActionIcon, handleMainAction }) => {
   return (
     <nav className='bottom-nav'>
       <ul className='nav-list'>
@@ -23,17 +24,17 @@ const BottomNav: FunctionComponent<BottomNavProps> = ({ handleMainAction }) => {
             Workouts
           </li>
         </NavLink>
-        <li className='nav-list__tab nav-list__tab--fab'>
+        <li className='nav-list__tab'>
           <button
-            className='fab__outer'
+            className='fab__outer  ripple'
             disabled={handleMainAction ? false : true}
             onClick={
               handleMainAction
-                ? () => handleMainAction()
+                ? handleMainAction
                 : () => console.log('BottomNav::props.handleMainAction()--not defined')
             }
           >
-            <div className='fab__inner ripple'>+</div>
+            <i className='material-icons fab__inner'>{mainActionIcon}</i>
           </button>
         </li>
         <NavLink to='/progress' activeClassName='route--active' className='route'>

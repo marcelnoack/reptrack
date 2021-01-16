@@ -4,6 +4,10 @@ import AppContextProvider from '../../context/AppContext';
 import AppBar from './AppBar';
 
 const Layout: FunctionComponent = ({ children }) => {
+  const dummyAction = () => {
+    console.log('Dummy Action');
+  };
+
   return (
     <>
       <AppContextProvider>
@@ -12,7 +16,7 @@ const Layout: FunctionComponent = ({ children }) => {
         </header>
         <main className='grid-col-4 indent-h-sm'>{children}</main>
         <footer>
-          <BottomNav />
+          <BottomNav mainActionIcon={'add'} handleMainAction={dummyAction} />
         </footer>
       </AppContextProvider>
     </>

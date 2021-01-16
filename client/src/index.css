@@ -5,19 +5,31 @@
   padding: 0;
   margin: 0;
   font-family: 'Nunito', sans-serif;
-  background-color: #222629;
+  background-color: var(--color-background);
 }
 
-.route {
-  text-decoration: none;
-  height: 100%;
-  width: 100%;
-  color: white;
+:root {
+  /* Default color theme: inspired by No.27: https://visme.co/blog/website-color-schemes/ */
+  --color-primary: #86c232;
+  --color-primary--variant: #61892f;
+  --color-secondary: #474b4f;
+  --color-secondary--variant: #6b6e70;
+  --color-background: #222629;
+  --color-surface: #222629;
+
+  --color-on-primary: #fff;
+  --color-on-secondary: #fff;
+  --color-on-bg: #fff;
+  --color-on-surface: #fff;
+
+  /* Status colors */
+  --color-success: #00c851;
+  --color-error: #ff4444;
+  --color-warning: #ffbb33;
+  --color-info: #1976d2;
 }
 
-.route--active {
-  color: #86c232;
-}
+/* utility classes */
 
 .grid-col-4 {
   display: grid;
@@ -55,8 +67,3 @@
   background-size: 100%;
   transition: background 0s;
 }
-/* :root {
- --primary-color: #86c232;
-  --bg-Primary: #222629;
-  --bg-Secondary: #6b6e70;
-} */

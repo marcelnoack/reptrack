@@ -1,5 +1,6 @@
+/* ------------------------------------App Bar------------------------------------ */
 .app-bar {
-  color: #fff;
+  color: var(--color-on-bg);
   width: 100%;
   height: 50px;
   padding-top: 1rem;
@@ -26,7 +27,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #86c232;
+  color: var(--color-primary);
   font-weight: bold;
   font-size: 1.25rem;
 }
@@ -36,6 +37,24 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+
+/* ------------------------------------Bottom Nav------------------------------------ */
+.route {
+  text-decoration: none;
+  height: 100%;
+  width: 100%;
+  color: white;
+  outline: none;
+}
+
+.route:focus .nav-list__tab {
+  border-color: var(--color-primary);
+  background-color: var(--color-secondary--variant);
+}
+
+.route--active {
+  color: var(--color-primary);
 }
 
 .bottom-nav {
@@ -66,23 +85,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #474b4f;
+  background-color: var(--color-secondary);
   font-size: 0.8rem;
+  border-top: 2px solid transparent;
 }
-
-.nav-list__tab--fab {
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* .nav-list__tab--left {
-  border-top-right-radius: 30px;
-}
-.nav-list__tab--right {
-  border-top-left-radius: 30px;
-} */
 
 .fab__outer {
   margin-bottom: 50px;
@@ -92,18 +98,25 @@
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 22px;
+  /* font-size: 22px; */
   border-radius: 50%;
-  border: 6px solid transparent;
+  /* border: 6px solid transparent; */
+  border: 1px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
+  outline: none;
+}
+
+.fab__outer:focus {
+  border-color: var(--color-primary);
 }
 
 .fab__inner {
   width: 100%;
   height: 100%;
-  background-color: #86c232;
+  /* background-color: var(--color-primary);; */
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
