@@ -15,6 +15,6 @@ export default {
 
   // API configuration
   api: {
-    prefix: '/api'
+    prefix: ''
   }
 };
