@@ -9,15 +9,13 @@ const AppBar: FunctionComponent = () => {
 
   return (
     <div className='app-bar grid-col-4 indent-h-sm'>
-      <div className='app-bar__item app-bar__logo'>
-        <i className='material-icons'>polymer</i>
+      <div className='app-bar__item'>
+        <img src='/images/Logo.png' alt='reptrack-logo' className='app-bar__logo' />
       </div>
-      <span className='app-bar__item app-bar__route'>{appState.headerName}</span>
+      <h1 className='app-bar__item app-bar__route'>{appState.headerName}</h1>
       <div className='app-bar__item app-bar__actions'>
         <MaterialButton icon='notifications_none' />
-        {/* <i className='material-icons pl-5'>notifications_none</i> */}
         <MaterialButton icon='person' />
-        {/* <i className='material-icons pl-5 ripple'>person</i> */}
       </div>
     </div>
   );

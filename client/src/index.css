@@ -5,7 +5,6 @@
   padding: 0;
   margin: 0;
   font-family: 'Nunito', sans-serif;
-  background-color: var(--color-background);
 }
 
 :root {
@@ -27,6 +26,10 @@
   --color-error: #ff4444;
   --color-warning: #ffbb33;
   --color-info: #1976d2;
+
+  /* Misc. */
+  --header-height: 50px;
+  --footer-height: 50px;
 }
 
 /* utility classes */
@@ -34,8 +37,9 @@
 .grid-col-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: none;
+  grid-template-rows: auto;
   column-gap: 0.5rem;
+  row-gap: 0.75rem;
 }
 
 .indent-h-sm {
@@ -58,8 +62,14 @@
 }
 
 .ripple {
+  background-color: inherit;
   background-position: center;
-  transition: background 0.8s;
+  transition: background 0.5s;
+}
+
+.ripple:hover,
+.ripple:focus {
+  background-color: var(--color-secondary--variant);
 }
 
 .ripple:active {
