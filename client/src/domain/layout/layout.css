@@ -3,11 +3,9 @@
 /* ----------------------------------------------------------------------------------- */
 .app-layout {
   display: grid;
-  grid-template-rows: var(--header-height) calc(100vh - var(--header-height) - var(--footer-height)) var(
-      --footer-height
-    );
+  grid-template-rows: var(--header-height) calc(100vh - var(--header-height) - var(--footer-height));
   grid-template-columns: auto;
-  grid-template-areas: 'header' 'main' 'footer';
+  grid-template-areas: 'header' 'main';
 }
 
 .app-main {
@@ -75,10 +73,11 @@
 /* ------------------------------------Bottom Nav------------------------------------- */
 /* ----------------------------------------------------------------------------------- */
 .app-footer {
-  grid-area: footer;
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: var(--footer-height);
 }
 
 .bottom-nav {
