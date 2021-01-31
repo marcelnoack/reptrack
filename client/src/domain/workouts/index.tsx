@@ -26,7 +26,10 @@ const Workouts = () => {
   }, [dispatch]);
 
   const navigationHandler = (id: string): void => {
-    history.push(`/workouts/${id}`);
+    // Fake delay to show button click before actual navigation for better UX
+    setTimeout(() => {
+      history.push(`/workouts/${id}`);
+    }, 100);
   };
 
   return (
