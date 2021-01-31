@@ -1,14 +1,16 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AppContext } from '../../context/AppContext';
 
 import './layout.css';
 
-interface BottomNavProps {
-  mainActionIcon: string;
-  handleMainAction?(): void;
-}
+const BottomNav: FunctionComponent = () => {
+  const { appState, dispatch } = useContext(AppContext);
 
-const BottomNav: FunctionComponent<BottomNavProps> = ({ mainActionIcon, handleMainAction }) => {
+  const handleMainAction = () => {
+    dispatch({ type: 'SET_MAIN_ACTION_STATUS', payload: true });
+  };
+
   return (
     <nav className='bottom-nav'>
       <ul className='nav-list'>
@@ -27,14 +29,10 @@ const BottomNav: FunctionComponent<BottomNavProps> = ({ mainActionIcon, handleMa
         <li className='nav-list__tab'>
           <button
             className='fab__outer  ripple'
-            disabled={handleMainAction ? false : true}
-            onClick={
-              handleMainAction
-                ? handleMainAction
-                : () => console.log('BottomNav::props.handleMainAction()--not defined')
-            }
+            disabled={!appState.mainAction.page}
+            onClick={() => handleMainAction()}
           >
-            <i className='material-icons fab__inner'>{mainActionIcon}</i>
+            <i className='material-icons fab__inner'>{appState.mainAction.icon}</i>
           </button>
         </li>
         <NavLink to='/progress' activeClassName='route--active' className='route'>
