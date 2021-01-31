@@ -4,9 +4,10 @@ import './index.css';
 
 export interface WorkoutCardProps {
   workout: Workout;
+  navigate: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const WorkoutCard: FunctionComponent<WorkoutCardProps> = ({ workout }) => {
+const WorkoutCard: FunctionComponent<WorkoutCardProps> = ({ workout, navigate }) => {
   const { name, active, trainedAt, trainingInterval } = workout;
 
   const getLatestDate = (dates: Array<Date>): Date => dates.sort((a, b) => b.getTime() - a.getTime())[0];
@@ -38,7 +39,7 @@ const WorkoutCard: FunctionComponent<WorkoutCardProps> = ({ workout }) => {
           </div>
         </dl>
       </article>
-      <button className='workout__wo-nav ripple' onClick={() => console.log('TEST')}>
+      <button className='workout__wo-nav ripple' onClick={navigate}>
         <i className={`material-icons ${!active && 'error'}`}>navigate_next</i>
       </button>
       {!active && (

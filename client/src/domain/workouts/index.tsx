@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import WorkoutCard from '../../components/WorkoutCard';
 import { AppContext } from '../../context/AppContext';
 import { Workout } from '../../context/types';
@@ -18,17 +19,34 @@ const WORKOUT: Workout = {
 
 const Workouts = () => {
   const { dispatch } = useContext(AppContext);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch({ type: 'SET_HEADER_NAME', payload: 'Workouts' });
   }, [dispatch]);
 
+  const navigationHandler = (id: string): void => {
+    history.push(`/workouts/${id}`);
+  };
+
   return (
     <>
-      <WorkoutCard key={WORKOUT.workoutId} workout={WORKOUT} />
-      <WorkoutCard key={WORKOUT.workoutId + 1} workout={{ ...WORKOUT, name: 'Full-Body A', active: false }} />
-      <WorkoutCard key={WORKOUT.workoutId + 1} workout={{ ...WORKOUT, name: 'Chest-Day A', active: false }} />
-      <WorkoutCard key={WORKOUT.workoutId} workout={{ ...WORKOUT, name: 'Legs A' }} />
+      <WorkoutCard key={WORKOUT.workoutId} workout={WORKOUT} navigate={() => navigationHandler(WORKOUT.workoutId)} />
+      <WorkoutCard
+        key={WORKOUT.workoutId + 1}
+        workout={{ ...WORKOUT, name: 'Full-Body A', active: false }}
+        navigate={() => navigationHandler(WORKOUT.workoutId)}
+      />
+      <WorkoutCard
+        key={WORKOUT.workoutId + 1}
+        workout={{ ...WORKOUT, name: 'Chest-Day A', active: false }}
+        navigate={() => navigationHandler(WORKOUT.workoutId)}
+      />
+      <WorkoutCard
+        key={WORKOUT.workoutId}
+        workout={{ ...WORKOUT, name: 'Legs A' }}
+        navigate={() => navigationHandler(WORKOUT.workoutId)}
+      />
     </>
   );
 };

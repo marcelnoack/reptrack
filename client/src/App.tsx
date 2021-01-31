@@ -11,6 +11,7 @@ import Home from './domain/home';
 import Layout from './domain/layout';
 import Progress from './domain/progress';
 import Workouts from './domain/workouts';
+import WorkoutDetails from './domain/workouts/workoutDetails';
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
               <Route path='/signin' component={SignIn} />
               <Route path='/signup' component={SignUp} />
               <Route exact path='/' component={Home} />
-              <Route path='/workouts' component={Workouts} />
+              <Route exact path='/workouts' component={Workouts} />
+              <Route path='/workouts/:id' component={WorkoutDetails} />
               <Route path='/progress' component={Progress} />
               <Route path='/calendar' component={Calendar} />
               <PrivateRoute path='/protected'>
