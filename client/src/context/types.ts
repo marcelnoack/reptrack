@@ -5,7 +5,7 @@ export interface Workout {
   trainedAt: Array<Date>;
   trainingInterval: number;
   active: boolean;
-  exercises?: Array<Exercise>;
+  exercises: Array<Exercise>;
   // 'Managed' attributes
   createdBy: string;
   createdAt: Date;

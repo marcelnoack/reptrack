@@ -1,26 +1,21 @@
 import React, { FunctionComponent, createContext, useReducer } from 'react';
 import authReducer, { AuthState, AuthAction } from './authReducer';
 
+const initialAuthState: AuthState = { isAuthenticated: false, isLoading: false };
+
 export const AuthContext = createContext<{ authState: AuthState; dispatch: React.Dispatch<AuthAction> }>({
-  authState: { isAuthenticated: false, isLoading: false },
+  authState: initialAuthState,
   dispatch: () => null
 });
 
 const AuthContextProvider: FunctionComponent = ({ children }) => {
-  const [authState, dispatch] = useReducer(
-    authReducer,
-    {
-      isAuthenticated: false,
-      isLoading: false
-    },
-    (state: AuthState) => {
-      if (localStorage.getItem('auth')) {
-        return { isAuthenticated: true, isLoading: false };
-      } else {
-        return state;
-      }
+  const [authState, dispatch] = useReducer(authReducer, initialAuthState, (state: AuthState) => {
+    if (localStorage.getItem('auth')) {
+      return { isAuthenticated: true, isLoading: false };
+    } else {
+      return state;
     }
-  );
+  });
 
   return <AuthContext.Provider value={{ authState, dispatch }}>{children}</AuthContext.Provider>;
 };

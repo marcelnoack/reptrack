@@ -1,0 +1,10 @@
+.exercise-card {
+  width: 100%;
+  height: auto;
+  background-color: var(--color-bg);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+  border-bottom: 2px solid var(--color-primary);
+  border-radius: 2.5px;
+  z-index: 0;
+  padding: 0.5rem;
+}

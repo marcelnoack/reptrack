@@ -4,6 +4,7 @@ import AppContextProvider from '../../context/AppContext';
 import AppBar from './AppBar';
 
 import './layout.css';
+import WorkoutContextProvider from '../../context/WorkoutContext';
 
 const Layout: FunctionComponent = ({ children }) => {
   return (
@@ -12,7 +13,9 @@ const Layout: FunctionComponent = ({ children }) => {
         <header className='app-header'>
           <AppBar />
         </header>
-        <main className='app-main grid-col-4 indent-h-sm'>{children}</main>
+        <WorkoutContextProvider>
+          <main className='app-main grid-col-4 indent-h-sm'>{children}</main>
+        </WorkoutContextProvider>
         <footer className='app-footer'>
           <BottomNav />
         </footer>

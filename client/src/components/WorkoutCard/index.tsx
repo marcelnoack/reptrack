@@ -4,7 +4,7 @@ import './index.css';
 
 export interface WorkoutCardProps {
   workout: Workout;
-  navigate: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  navigate?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const WorkoutCard: FunctionComponent<WorkoutCardProps> = ({ workout, navigate }) => {
@@ -15,8 +15,8 @@ const WorkoutCard: FunctionComponent<WorkoutCardProps> = ({ workout, navigate })
   const getNextDate = (date: Date, interval: number): Date => new Date(date.setDate(date.getDate() + interval));
 
   return (
-    <article className={`workout ${!active && 'error'}`}>
-      <article className='workout__wo-content'>
+    <article className={`workout-card col-1-span-4 ${!active && 'error'}`}>
+      <section className='workout-card__wo-content'>
         <div className='wo-content__header'>
           <h3 className='pr-5'>{name}</h3>
           <i className={`material-icons md-18 ${active ? 'success' : 'error'}`}>{active ? 'play_arrow' : 'pause'}</i>
@@ -38,10 +38,12 @@ const WorkoutCard: FunctionComponent<WorkoutCardProps> = ({ workout, navigate })
             <dd>+10%</dd>
           </div>
         </dl>
-      </article>
-      <button className='workout__wo-nav ripple' onClick={navigate}>
-        <i className={`material-icons ${!active && 'error'}`}>navigate_next</i>
-      </button>
+      </section>
+      {navigate && (
+        <button className='workout-card__wo-nav ripple' onClick={navigate}>
+          <i className={`material-icons ${!active && 'error'}`}>navigate_next</i>
+        </button>
+      )}
       {!active && (
         <div className='overlay overlay--disabled'>
           <span>Inactive</span>
