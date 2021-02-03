@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CustomTimeline from '../../../components/CustomTimeline';
 import TimelineItem from '../../../components/CustomTimeline/TimelineItem';
-import ExerciseCard from '../../../components/ExerciseCard';
 import WorkoutCard from '../../../components/WorkoutCard';
 import { AppContext } from '../../../context/AppContext';
 import { MainActionContext } from '../../../context/appReducer';
