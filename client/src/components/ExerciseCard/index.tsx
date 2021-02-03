@@ -10,7 +10,6 @@ export interface ExerciseCardProps {
 const ExerciseCard: FunctionComponent<ExerciseCardProps> = ({ exercise }) => {
   return (
     <article className='exercise-card'>
-      {/* <div className='icon-placeholder'></div> */}
       <h4>{exercise.name}</h4>
       <div>
         <dt>Range:</dt>

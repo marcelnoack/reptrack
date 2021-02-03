@@ -17,6 +17,70 @@ const initialWorkoutState = {
           setCount: 3,
           targetRepsPerSet: { min: 8, max: 10 },
           setPauseLength: 60
+        },
+        {
+          exerciseId: 'randomExerciseId1',
+          name: 'Leg Press',
+          muscleGroups: ['Quadriceps'],
+          setCount: 5,
+          targetRepsPerSet: { min: 10, max: 15 },
+          setPauseLength: 90
+        },
+        {
+          exerciseId: 'randomExerciseId2',
+          name: 'Leg Press',
+          muscleGroups: ['Quadriceps'],
+          setCount: 5,
+          targetRepsPerSet: { min: 10, max: 15 },
+          setPauseLength: 90
+        },
+        {
+          exerciseId: 'randomExerciseId3',
+          name: 'Leg Press',
+          muscleGroups: ['Quadriceps'],
+          setCount: 5,
+          targetRepsPerSet: { min: 10, max: 15 },
+          setPauseLength: 90
+        },
+        {
+          exerciseId: 'randomExerciseId4',
+          name: 'Leg Press',
+          muscleGroups: ['Quadriceps'],
+          setCount: 5,
+          targetRepsPerSet: { min: 10, max: 15 },
+          setPauseLength: 90
+        },
+        {
+          exerciseId: 'randomExerciseId5',
+          name: 'Leg Press',
+          muscleGroups: ['Quadriceps'],
+          setCount: 5,
+          targetRepsPerSet: { min: 10, max: 15 },
+          setPauseLength: 90
+        },
+        {
+          exerciseId: 'randomExerciseId6',
+          name: 'Leg Press',
+          muscleGroups: ['Quadriceps'],
+          setCount: 5,
+          targetRepsPerSet: { min: 10, max: 15 },
+          setPauseLength: 90
+        },
+        {
+          exerciseId: 'randomExerciseId7',
+          name: 'Leg Press',
+          muscleGroups: ['Quadriceps'],
+          setCount: 5,
+          targetRepsPerSet: { min: 10, max: 15 },
+          setPauseLength: 90
+        },
+        {
+          exerciseId: 'randomExerciseId8',
+          name: 'Leg Press',
+          muscleGroups: ['Quadriceps'],
+          setCount: 5,
+          targetRepsPerSet: { min: 10, max: 15 },
+          setPauseLength: 90
         }
       ],
       createdBy: 'MLNK',
