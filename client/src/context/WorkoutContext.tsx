@@ -119,6 +119,61 @@ const initialWorkoutState = {
       createdBy: 'MLNK',
       createdAt: new Date(),
       changedAt: new Date()
+    },
+    {
+      workoutId: 'randomString4',
+      name: 'Legs A',
+      active: true,
+      trainedAt: [new Date(), new Date()],
+      trainingInterval: 2,
+      exercises: [],
+      createdBy: 'MLNK',
+      createdAt: new Date(),
+      changedAt: new Date()
+    },
+    {
+      workoutId: 'randomString5',
+      name: 'Legs A',
+      active: true,
+      trainedAt: [new Date(), new Date()],
+      trainingInterval: 2,
+      exercises: [],
+      createdBy: 'MLNK',
+      createdAt: new Date(),
+      changedAt: new Date()
+    },
+    {
+      workoutId: 'randomString6',
+      name: 'Legs A',
+      active: true,
+      trainedAt: [new Date(), new Date()],
+      trainingInterval: 2,
+      exercises: [],
+      createdBy: 'MLNK',
+      createdAt: new Date(),
+      changedAt: new Date()
+    },
+    {
+      workoutId: 'randomString7',
+      name: 'Legs A',
+      active: true,
+      trainedAt: [new Date(), new Date()],
+      trainingInterval: 2,
+      exercises: [],
+      createdBy: 'MLNK',
+      createdAt: new Date(),
+      changedAt: new Date()
+    },
+    {
+      workoutId: 'randomString8',
+      name: 'Legs A',
+      active: true,
+      trainedAt: [new Date(), new Date()],
+      trainingInterval: 2,
+      exercises: [],
+      createdBy: 'MLNK',
+      createdAt: new Date(),
+      changedAt: new Date()
     }
   ]
 };

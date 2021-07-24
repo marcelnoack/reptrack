@@ -110,6 +110,10 @@
   border-top: 2px solid transparent;
 }
 
+.nav-list__tab--hide {
+  display: none;
+}
+
 .fab__outer {
   --fab-size: 60px;
   margin-bottom: 50px;

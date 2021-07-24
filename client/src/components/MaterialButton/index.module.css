@@ -18,7 +18,7 @@
   border-color: var(--color-primary);
 }
 
-/* .app-fab:hover {
+.app-fab:hover {
   cursor: pointer;
 }
 
@@ -32,4 +32,4 @@
   height: 48px;
   padding-left: 12px;
   padding-right: 20px;
-} */
+}

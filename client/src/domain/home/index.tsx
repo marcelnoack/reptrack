@@ -6,6 +6,7 @@ const Home: FunctionComponent = () => {
 
   useEffect(() => {
     dispatch({ type: 'SET_HEADER_NAME', payload: 'Home' });
+    dispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: null });
   }, [dispatch]);
 
   return <h1>Home</h1>;

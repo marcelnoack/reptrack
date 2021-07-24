@@ -19,7 +19,7 @@ const WorkoutDetails = () => {
   useEffect(() => {
     appDispatch({ type: 'SET_HEADER_NAME', payload: 'Workout' });
     appDispatch({ type: 'SET_MAIN_ACTION_ICON', payload: 'play_arrow' });
-    appDispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: MainActionContext.WorkoutDetails });
+    appDispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: 'WorkoutDetails' });
 
     const loadWorkoutDetails = () => {
       // TODO: Fetch necessary data from real backend
@@ -30,7 +30,7 @@ const WorkoutDetails = () => {
 
   useEffect(() => {
     const dummyFunction = () => {
-      if (appState.mainAction.active && appState.mainAction.page === MainActionContext.WorkoutDetails) {
+      if (appState.mainAction.active && appState.mainAction.page === 'WorkoutDetails') {
         appDispatch({ type: 'SET_MAIN_ACTION_STATUS', payload: false });
       }
     };

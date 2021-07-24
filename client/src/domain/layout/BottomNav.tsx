@@ -26,7 +26,7 @@ const BottomNav: FunctionComponent = () => {
             Workouts
           </li>
         </NavLink>
-        <li className='nav-list__tab'>
+        <li className={`nav-list__tab ${!appState.mainAction.page && 'nav-list__tab--hide'}`} >
           <button
             className='fab__outer  ripple'
             disabled={!appState.mainAction.page}

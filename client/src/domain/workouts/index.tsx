@@ -15,10 +15,10 @@ const Workouts = () => {
   useEffect(() => {
     dispatch({ type: 'SET_HEADER_NAME', payload: 'Workouts' });
     dispatch({ type: 'SET_MAIN_ACTION_ICON', payload: 'add' });
-    dispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: MainActionContext.Workout });
+    dispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: 'Workout' });
   }, [dispatch]);
 
-  const navigationHandler = (id: string): void => {
+  const handleNavigation = (id: string): void => {
     // Fake delay to show button click before actual navigation for better UX
     setTimeout(() => {
       history.push(`/workouts/${id}`);
@@ -28,7 +28,7 @@ const Workouts = () => {
   return (
     <>
       {workoutState.workouts.map((w) => (
-        <WorkoutCard key={w.workoutId} workout={w} navigate={() => navigationHandler(w.workoutId)} />
+        <WorkoutCard key={w.workoutId} workout={w} navigate={() => handleNavigation(w.workoutId)} />
       ))}
     </>
   );

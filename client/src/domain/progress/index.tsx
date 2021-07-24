@@ -6,6 +6,7 @@ const Progress = () => {
 
   useEffect(() => {
     dispatch({ type: 'SET_HEADER_NAME', payload: 'Progress' });
+    dispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: null });
   }, [dispatch]);
 
   return <h1>Progress</h1>;

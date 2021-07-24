@@ -6,6 +6,7 @@ const Calendar = () => {
 
   useEffect(() => {
     dispatch({ type: 'SET_HEADER_NAME', payload: 'Calendar' });
+    dispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: null });
   }, [dispatch]);
 
   return <h1>Calendar</h1>;

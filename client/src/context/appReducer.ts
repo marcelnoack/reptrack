@@ -7,10 +7,7 @@ export interface AppState {
   };
 }
 
-export enum MainActionContext {
-  Workout,
-  WorkoutDetails
-}
+export type MainActionContext = null | 'Workout' | 'WorkoutDetails';
 
 export type AppAction =
   | { type: 'SET_HEADER_NAME'; payload: string }
