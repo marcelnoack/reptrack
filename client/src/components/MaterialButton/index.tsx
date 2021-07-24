@@ -15,7 +15,7 @@ const MaterialButton: FunctionComponent<MaterialButtonProps> = ({ icon, text, mi
         text && mini && styles['app-fab--mini']
       }`}
     >
-      <i className='material-icons'>{icon}</i>
+      <span className='material-icons'>{icon}</span>
       {text && <label>{text}</label>}
     </button>
   );

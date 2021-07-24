@@ -1,15 +1,61 @@
-import React, { FunctionComponent, useContext, useEffect } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
+import { Workout } from '../../context/types';
+import { WorkoutContext } from '../../context/WorkoutContext';
+
+import styles from './index.module.css';
 
 const Home: FunctionComponent = () => {
-  const { dispatch } = useContext(AppContext);
+  const { appState, dispatch: appDispatch } = useContext(AppContext);
+  const { workoutState } = useContext(WorkoutContext);
+  const [nextWorkout, setNextWorkout] = useState<Workout | undefined>();
 
   useEffect(() => {
-    dispatch({ type: 'SET_HEADER_NAME', payload: 'Home' });
-    dispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: null });
-  }, [dispatch]);
+    appDispatch({ type: 'SET_HEADER_NAME', payload: 'Home' });
+    appDispatch({ type: 'SET_MAIN_ACTION_ICON', payload: 'play_arrow' });
+    appDispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: 'Home' });
+  }, [appDispatch]);
 
-  return <h1>Home</h1>;
+  useEffect(() => {
+    const calculateNextTraining = () => {
+      let nextWorkoutId: string;
+      let lastWorkoutDate: Date = new Date(-8640000000000000);
+      workoutState.workouts.forEach((w: Workout) => {
+        if (w.active && w.trainedAt.length > 0) {
+          if (w.trainedAt.sort()[0] > lastWorkoutDate) {
+            lastWorkoutDate = w.trainedAt.sort()[0];
+            nextWorkoutId = w.workoutId;
+          }
+        }
+      });
+      setNextWorkout([...workoutState.workouts].find((w: Workout) => w.workoutId === nextWorkoutId));
+    };
+
+    calculateNextTraining();
+  }, [workoutState]);
+
+  useEffect(() => {
+    const toggleMainActionIcon = () => {
+      if (appState.mainAction.active) {
+        appDispatch({ type: 'SET_MAIN_ACTION_ICON', payload: 'stop' });
+      } else {
+        appDispatch({ type: 'SET_MAIN_ACTION_ICON', payload: 'play_arrow' });
+      }
+    };
+    toggleMainActionIcon();
+  }, [appState.mainAction.active, appDispatch]);
+
+  return (
+    <>
+      <div
+        className={`${styles['workout-card-wrapper']} ${appState.mainAction.active && styles['active']} col-1-span-4`}
+      >
+        <div className={`workout-card ${appState.mainAction.active && 'active'}`}>
+          <div className='content-spacing'>{nextWorkout && nextWorkout.name}</div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Home;

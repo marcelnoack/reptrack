@@ -1,7 +1,7 @@
 .exercise-card {
   width: 100%;
   height: auto;
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
   /* box-shadow: 0 2px 4px rgb(0 0 0 / 50%); */
   /* box-shadow: 0 0 5px 0 #000000 inset; */
   /* margin: 1rem 0; */

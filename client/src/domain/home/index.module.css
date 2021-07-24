@@ -1,0 +1,30 @@
+.workout-card-wrapper {
+  position: relative;
+  width: 100%;
+  height: auto;
+  border-radius: var(--card-border-radius);
+  z-index: 1;
+  display: flex;
+}
+
+.workout-card-wrapper.active {
+  /* animation: border-pulsate 0.5s infinite; */
+  box-shadow: 0 0 0 0 rgba(115, 250, 255, 1);
+  transform: scale(1);
+  animation: pulse-active 3s infinite;
+}
+
+@keyframes pulse-active {
+  0% {
+    transform: scale(0.99);
+    box-shadow: 0 0 0 0 rgba(115, 250, 255, 0.7);
+  }
+  70% {
+    tranform: scale(1);
+    box-shadow: 0 0 0 5px rgba(115, 250, 255, 0);
+  }
+  100% {
+    tranform: scale(0.99);
+    box-shadow: 0 0 0 0 rgba(115, 250, 255, 0);
+  }
+}

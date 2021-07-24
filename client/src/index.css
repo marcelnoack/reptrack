@@ -14,7 +14,7 @@
   --color-secondary: #474b4f;
   --color-secondary--variant: #6b6e70;
   --color-background: #222629;
-  --color-surface: #222629;
+  --color-surface: #292e31;
 
   --color-on-primary: #fff;
   --color-on-secondary: #fff;
@@ -26,10 +26,14 @@
   --color-error: #ff4444;
   --color-warning: #ffbb33;
   --color-info: #1976d2;
+  /* alt: rgba(115, 250, 255, 1) */
+  --color-active: #73faff;
 
   /* Misc. */
   --header-height: 50px;
   --footer-height: 50px;
+  --card-border-radius: 2.5px;
+  --scrollbar-width: 10px;
 }
 
 /* utility classes */
@@ -48,6 +52,10 @@
 
 .indent-h-sm {
   padding: 0 1rem;
+}
+
+.content-spacing {
+  padding: 0.5rem;
 }
 
 .pr-5 {

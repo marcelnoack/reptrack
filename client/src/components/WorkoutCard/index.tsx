@@ -15,7 +15,7 @@ const WorkoutCard: FunctionComponent<WorkoutCardProps> = ({ workout, navigate })
   const getNextDate = (date: Date, interval: number): Date => new Date(date.setDate(date.getDate() + interval));
 
   return (
-    <article className={`workout-card col-1-span-4 ${!active && 'error'}`}>
+    <article className={`workout-card grid col-1-span-4 ${!active && 'error'}`}>
       <section className='workout-card__wo-content'>
         <div className='wo-content__header'>
           <h3 className='pr-5'>{name}</h3>

@@ -13,6 +13,7 @@ const Workouts = () => {
   const history = useHistory();
 
   useEffect(() => {
+    console.log('Workouts::UseEffect');
     dispatch({ type: 'SET_HEADER_NAME', payload: 'Workouts' });
     dispatch({ type: 'SET_MAIN_ACTION_ICON', payload: 'add' });
     dispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: 'Workout' });
@@ -30,6 +31,7 @@ const Workouts = () => {
       {workoutState.workouts.map((w) => (
         <WorkoutCard key={w.workoutId} workout={w} navigate={() => handleNavigation(w.workoutId)} />
       ))}
+      <span className='spacer'></span>
     </>
   );
 };
