@@ -1,3 +1,5 @@
+export type MainActionContext = null | 'Home' | 'Workout' | 'WorkoutDetails';
+
 export interface AppState {
   headerName: string;
   mainAction: {
@@ -6,8 +8,6 @@ export interface AppState {
     active: boolean;
   };
 }
-
-export type MainActionContext = null | 'Home' | 'Workout' | 'WorkoutDetails';
 
 export type AppAction =
   | { type: 'SET_HEADER_NAME'; payload: string }

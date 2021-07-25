@@ -4,7 +4,6 @@ import CustomTimeline from '../../../components/CustomTimeline';
 import TimelineItem from '../../../components/CustomTimeline/TimelineItem';
 import WorkoutCard from '../../../components/WorkoutCard';
 import { AppContext } from '../../../context/AppContext';
-import { MainActionContext } from '../../../context/appReducer';
 import { Workout } from '../../../context/types';
 import { WorkoutContext } from '../../../context/WorkoutContext';
 

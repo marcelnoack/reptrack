@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import WorkoutCard from '../../components/WorkoutCard';
 import { AppContext } from '../../context/AppContext';
-import { MainActionContext } from '../../context/appReducer';
 import { WorkoutContext } from '../../context/WorkoutContext';
 
 import './index.css';
