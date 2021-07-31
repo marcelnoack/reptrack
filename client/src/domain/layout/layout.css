@@ -3,7 +3,7 @@
 /* ----------------------------------------------------------------------------------- */
 .app-layout {
   display: grid;
-  grid-template-rows: var(--header-height) calc(100vh - var(--header-height));
+  grid-template-rows: var(--header-height) calc(100vh - var(--header-height) - var(--footer-height));
   grid-template-columns: auto;
   grid-template-areas: 'header' 'main';
 }
@@ -105,10 +105,6 @@
   background-color: transparent;
 }
 
-.app-footer--scroll {
-  width: calc(100% - var(--scrollbar-width));
-}
-
 .bottom-nav {
   position: absolute;
   width: 100%;
@@ -130,6 +126,10 @@
   background-color: transparent;
 }
 
+.nav-list__action {
+  margin-bottom: 45px;
+}
+
 .nav-list__tab {
   height: 100%;
   width: 100%;
@@ -142,17 +142,9 @@
   border-top: 2px solid transparent;
 }
 
-.nav-list__tab--center {
+/* .nav-list__tab--center {
   background-color: transparent;
-}
-
-.nav-list__tab--curve-right {
-  border-top-right-radius: 25px;
-}
-
-.nav-list__tab--curve-left {
-  border-top-left-radius: 25px;
-}
+} */
 
 .nav-list__tab--hide {
   display: none;

@@ -35,7 +35,7 @@ const Layout: FunctionComponent = ({ children }) => {
             {children}
           </main>
         </WorkoutContextProvider>
-        <footer className={`app-footer ${hasMainScrollbar ? 'app-footer--scroll' : ''}`}>
+        <footer className='app-footer'>
           <BottomNav />
         </footer>
       </AppContextProvider>

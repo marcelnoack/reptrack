@@ -62,17 +62,6 @@
   padding-right: 5px;
 }
 
-.p .material-icons {
-  background-color: transparent;
-}
-
-.material-btn {
-  outline: none;
-  border: none;
-  color: inherit;
-  border-radius: 50%;
-}
-
 .material-icons.md-18 {
   font-size: 18px;
 }
@@ -92,6 +81,10 @@
 
 .material-icons.error {
   color: var(--color-error);
+}
+
+.material-icons.default {
+  color: var(--color-on-bg);
 }
 
 .ripple {

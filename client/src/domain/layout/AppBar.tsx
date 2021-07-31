@@ -14,8 +14,8 @@ const AppBar: FunctionComponent = () => {
       </div>
       <h1 className='app-bar__item app-bar__route'>{appState.headerName}</h1>
       <div className='app-bar__item app-bar__actions'>
-        <MaterialButton icon='notifications_none' />
-        <MaterialButton icon='person' />
+        <MaterialButton icon='notifications_none' onClick={() => console.log('Not yet implemented')} mini />
+        <MaterialButton icon='person' onClick={() => console.log('Not yet implemented')} mini />
       </div>
     </div>
   );
