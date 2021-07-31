@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import BottomNav from './BottomNav';
 import AppContextProvider from '../../context/AppContext';
 import AppBar from './AppBar';
