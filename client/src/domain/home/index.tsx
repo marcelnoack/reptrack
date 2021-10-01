@@ -36,13 +36,13 @@ const Home: FunctionComponent = () => {
 
   return (
     <>
-      {/* <div
+      <div
         className={`${styles['workout-card-wrapper']} ${appState.mainAction.active && styles['active']} col-1-span-4`}
       >
         <div className={`workout-card ${appState.mainAction.active && 'active'}`}>
           <div className='content-spacing'>{nextWorkout && nextWorkout.name}</div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 };
