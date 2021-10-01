@@ -1,4 +1,4 @@
-export type MainActionContext = null | 'Home' | 'Workout' | 'WorkoutDetails';
+export type MainActionContext = null | 'Workout' | 'WorkoutDetails' | 'WorkoutAssistant';
 
 export interface AppState {
   headerName: string;

@@ -9,7 +9,6 @@ interface MaterialButtonProps {
   mini?: boolean;
   disabled?: boolean;
   border?: boolean;
-  background?: string;
 }
 
 const MaterialButton: FunctionComponent<MaterialButtonProps> = ({ icon, onClick, text, mini, disabled, border }) => {

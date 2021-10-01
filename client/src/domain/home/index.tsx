@@ -13,7 +13,7 @@ const Home: FunctionComponent = () => {
   useEffect(() => {
     appDispatch({ type: 'SET_HEADER_NAME', payload: 'Home' });
     appDispatch({ type: 'SET_MAIN_ACTION_ICON', payload: 'play_arrow' });
-    appDispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: 'Home' });
+    appDispatch({ type: 'SET_MAIN_ACTION_CONTEXT', payload: null });
   }, [appDispatch]);
 
   useEffect(() => {
@@ -34,26 +34,15 @@ const Home: FunctionComponent = () => {
     calculateNextTraining();
   }, [workoutState]);
 
-  useEffect(() => {
-    const toggleMainActionIcon = () => {
-      if (appState.mainAction.active) {
-        appDispatch({ type: 'SET_MAIN_ACTION_ICON', payload: 'stop' });
-      } else {
-        appDispatch({ type: 'SET_MAIN_ACTION_ICON', payload: 'play_arrow' });
-      }
-    };
-    toggleMainActionIcon();
-  }, [appState.mainAction.active, appDispatch]);
-
   return (
     <>
-      <div
+      {/* <div
         className={`${styles['workout-card-wrapper']} ${appState.mainAction.active && styles['active']} col-1-span-4`}
       >
         <div className={`workout-card ${appState.mainAction.active && 'active'}`}>
           <div className='content-spacing'>{nextWorkout && nextWorkout.name}</div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

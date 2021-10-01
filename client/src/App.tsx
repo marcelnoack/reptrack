@@ -11,6 +11,7 @@ import Home from './domain/home';
 import Layout from './domain/layout';
 import Progress from './domain/progress';
 import Workouts from './domain/workouts';
+import WorkoutAssistant from './domain/workouts/workout-assistant';
 import WorkoutDetails from './domain/workouts/workoutDetails';
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
               <Route path='/signup' component={SignUp} />
               <Route exact path='/' component={Home} />
               <Route exact path='/workouts' component={Workouts} />
-              <Route path='/workouts/:id' component={WorkoutDetails} />
+              <Route exact path='/workouts/:id' component={WorkoutDetails} />
+              <Route exact path='/workouts/:id/go' component={WorkoutAssistant} />
               <Route path='/progress' component={Progress} />
               <Route path='/calendar' component={Calendar} />
               <PrivateRoute path='/protected'>

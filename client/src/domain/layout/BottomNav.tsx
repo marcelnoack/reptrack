@@ -9,7 +9,7 @@ const BottomNav: FunctionComponent = () => {
   const { appState, dispatch } = useContext(AppContext);
 
   const handleMainAction = () => {
-    if (appState.mainAction.page === 'Home') {
+    if (appState.mainAction.page === 'WorkoutAssistant') {
       dispatch({ type: 'SET_MAIN_ACTION_STATUS', payload: !appState.mainAction.active });
     }
   };
@@ -38,11 +38,6 @@ const BottomNav: FunctionComponent = () => {
               border
             />
           </div>
-          {/* <button className='fab__outer' disabled={!appState.mainAction.page} onClick={() => handleMainAction()}>
-            <div className='fab__inner'>
-              <span className='material-icons'>{appState.mainAction.icon}</span>
-            </div>
-          </button> */}
         </li>
         <NavLink to='/progress' activeClassName='route--active' className='route'>
           <li className='nav-list__tab'>
