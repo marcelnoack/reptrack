@@ -7,7 +7,6 @@ const startServer = async () => {
   const app = express();
 
   const loaders = await import('./loaders');
-
   loaders.default({ expressApp: app });
 
   app

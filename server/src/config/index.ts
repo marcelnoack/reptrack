@@ -8,11 +8,6 @@ if (envFound.error) throw new Error("Couldn't find .env file");
 export default {
   port: parseInt(process.env.PORT || '80', 10),
 
-  // Used by winston logger
-  logs: {
-    level: process.env.LOG_LEVEL || 'silly'
-  },
-
   // API configuration
   api: {
     prefix: 'v1'
