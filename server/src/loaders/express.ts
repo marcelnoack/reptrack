@@ -27,4 +27,5 @@ export default ({ app }: { app: express.Application }) => {
   //     }
   //   });
   // });
+  return app;
 };
