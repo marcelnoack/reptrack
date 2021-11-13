@@ -11,7 +11,7 @@ const startServer = async () => {
 
   app
     .listen(config.port, () => {
-      Logger.info(`Server listening on port: ${config.port}`);
+      Logger.info(`Express-Server listening on port: ${config.port}`);
     })
     .on('error', (err) => {
       Logger.error(err);
