@@ -1,15 +1,15 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import routes from '../api';
+
 import config from '../config';
+import routes from '../api';
 
 export default ({ app }: { app: express.Application }) => {
   app.use(cors());
-
+  app.use(bodyParser.urlencoded());
   app.use(bodyParser.json());
-
-  app.use(config.api.prefix, routes());
+  app.use(`/${config.api.prefix}`, routes());
 
   // catch 404 and forward to error handler
   // app.use((req, res, next) => {
@@ -27,4 +27,5 @@ export default ({ app }: { app: express.Application }) => {
   //     }
   //   });
   // });
+  return app;
 };

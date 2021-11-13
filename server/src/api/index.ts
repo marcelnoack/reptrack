@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import workout from './routes/workout';
+
+import workoutsRoute from './routes/workouts';
 
 export default () => {
   const app = Router();
-  workout(app);
+
+  workoutsRoute(app);
 
   return app;
 };
