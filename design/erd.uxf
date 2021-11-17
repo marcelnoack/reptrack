@@ -1,41 +1,41 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>700</x><y>530</y><w>210</w><h>40</h></coordinates><panel_attributes>Exercise
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>430</x><y>494</y><w>210</w><h>40</h></coordinates><panel_attributes>Exercise
 --
 -eid: PK
 --
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>780</x><y>340</y><w>210</w><h>100</h></coordinates><panel_attributes>ExerciseTranslation
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>510</x><y>304</y><w>220</w><h>100</h></coordinates><panel_attributes>ExerciseTranslation
 --
--language: string
--eid: FK
+-eid: FK ON DELETE CASCADE
+-language: FK ON DELETE RESTRICT
 -PK(eid, language)
 --
 -name: string
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>380</x><y>530</y><w>210</w><h>40</h></coordinates><panel_attributes>MuscleGroup
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>110</x><y>494</y><w>210</w><h>40</h></coordinates><panel_attributes>MuscleGroup
 --
 -mgid: PK
 --
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>380</x><y>230</y><w>210</w><h>100</h></coordinates><panel_attributes>MuscleGroupTranslation
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>110</x><y>194</y><w>230</w><h>100</h></coordinates><panel_attributes>MuscleGroupTranslation
 --
--language: string
--mgid: FK
+-mgid: FK ON DELETE CASCADE
+-language: FK ON DELETE RESTRICT
 -PK(mgid, language)
 --
 -name: string
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>540</x><y>380</y><w>210</w><h>100</h></coordinates><panel_attributes>MusleGroupInExercise
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>344</y><w>210</w><h>100</h></coordinates><panel_attributes>MusleGroupInExercise
 --
--eid: FK
--mgid: FK
+-eid: FK ON DELETE CASCADE
+-mgid: FK ON DELETE RESTRICT
 -(eid,mgid): PK
 --
 -isPrimary: boolean
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>690</x><y>790</y><w>210</w><h>140</h></coordinates><panel_attributes>Workout
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>420</x><y>754</y><w>210</w><h>140</h></coordinates><panel_attributes>Workout
 --
 -wid: PK
--uid: FK
+-uid: FK ON DELETE CASCADE
 --
 -name: string
 -description: string
@@ -43,34 +43,34 @@
 -createdAt: DateTime
 -lastChangedAt: DateTime
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>540</x><y>630</y><w>210</w><h>120</h></coordinates><panel_attributes>ExerciseInWorkout
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>594</y><w>210</w><h>120</h></coordinates><panel_attributes>ExerciseInWorkout
 --
--wid: FK
--eid: FK
+-wid: FK ON DELETE CASCADE
+-eid: FK ON DELETE RESTRICT
 -(wid,eid): PK
 --
 -targetSetCount: integer
 -targetRepCount: integer
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1020</x><y>830</y><w>210</w><h>100</h></coordinates><panel_attributes>Training
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>750</x><y>794</y><w>210</w><h>100</h></coordinates><panel_attributes>Training
 --
 -tid: PK
--wid: FK
+-wid: FK ON DELETE CASCADE
 --
 -start: DateTime
 -end: DateTime
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>870</x><y>620</y><w>210</w><h>130</h></coordinates><panel_attributes>ExerciseInTraining
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>600</x><y>584</y><w>210</w><h>130</h></coordinates><panel_attributes>ExerciseInTraining
 --
--eid: FK
--tid: FK
+-eid: FK ON DELETE RESTRICT
+-tid: FK ON DELETE CASCADE
 -(eid,tid): PK
 --
 -setCount: integer
 -repCount: integer
 -difficulty: string
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>810</y><w>210</w><h>100</h></coordinates><panel_attributes>User
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>774</y><w>210</w><h>100</h></coordinates><panel_attributes>User
 --
 -uid: PK
 --
@@ -78,21 +78,30 @@
 -createdAt: DateTime
 -lastChangedAt: DateTime
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>860</y><w>240</w><h>50</h></coordinates><panel_attributes>m1=1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>824</y><w>240</w><h>50</h></coordinates><panel_attributes>m1=1
 m2=0..n
-</panel_attributes><additional_attributes>10;20;220;20</additional_attributes></element><element><id>Relation</id><coordinates><x>790</x><y>560</y><w>40</w><h>250</h></coordinates><panel_attributes>m1=m
+</panel_attributes><additional_attributes>10;20;220;20</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>524</y><w>40</w><h>250</h></coordinates><panel_attributes>m1=m
 m2=n
-</panel_attributes><additional_attributes>10;10;10;230</additional_attributes></element><element><id>Relation</id><coordinates><x>740</x><y>670</y><w>80</w><h>50</h></coordinates><panel_attributes>
-</panel_attributes><additional_attributes>10;20;60;20</additional_attributes></element><element><id>Relation</id><coordinates><x>870</x><y>430</y><w>50</w><h>120</h></coordinates><panel_attributes>m1=1
+</panel_attributes><additional_attributes>10;10;10;230</additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>634</y><w>80</w><h>50</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes>10;20;60;20</additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>394</y><w>50</w><h>120</h></coordinates><panel_attributes>m1=1
 m2=1..n
-</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>580</x><y>520</y><w>140</w><h>50</h></coordinates><panel_attributes>m1=m
+</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>310</x><y>484</y><w>140</w><h>50</h></coordinates><panel_attributes>m1=m
 m2=n
-</panel_attributes><additional_attributes>120;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>320</y><w>50</w><h>230</h></coordinates><panel_attributes>m1=1..n
+</panel_attributes><additional_attributes>120;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>284</y><w>50</w><h>230</h></coordinates><panel_attributes>m1=1..n
 m2=1
-</panel_attributes><additional_attributes>10;10;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>470</y><w>30</w><h>90</h></coordinates><panel_attributes>
-</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>890</x><y>860</y><w>150</w><h>50</h></coordinates><panel_attributes>m1=1
+</panel_attributes><additional_attributes>10;10;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>434</y><w>30</w><h>90</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>824</y><w>150</w><h>50</h></coordinates><panel_attributes>m1=1
 m2=0..n
-</panel_attributes><additional_attributes>10;20;130;20</additional_attributes></element><element><id>Relation</id><coordinates><x>900</x><y>530</y><w>260</w><h>320</h></coordinates><panel_attributes>m1=m
+</panel_attributes><additional_attributes>10;20;130;20</additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>494</y><w>260</w><h>320</h></coordinates><panel_attributes>m1=m
 m2=n
-</panel_attributes><additional_attributes>10;20;230;20;230;300</additional_attributes></element><element><id>Relation</id><coordinates><x>1070</x><y>540</y><w>80</w><h>100</h></coordinates><panel_attributes>
-</panel_attributes><additional_attributes>10;80;60;10</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes>10;20;230;20;230;300</additional_attributes></element><element><id>Relation</id><coordinates><x>800</x><y>504</y><w>80</w><h>100</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes>10;80;60;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>104</y><w>210</w><h>80</h></coordinates><panel_attributes>Language
+--
+-language_code: PK
+--
+-name: string
+-native_name: string</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>114</y><w>270</w><h>100</h></coordinates><panel_attributes>m1=1
+m2=0..n
+</panel_attributes><additional_attributes>250;20;10;20;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>174</y><w>50</w><h>150</h></coordinates><panel_attributes>m1=1
+m2=0..n
+</panel_attributes><additional_attributes>10;10;10;130</additional_attributes></element></diagram>
