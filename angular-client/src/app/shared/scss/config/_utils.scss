@@ -1,0 +1,27 @@
+/**
+* Mixin to declare CSS Custom Properties with prefixes (scalability)
+* 
+* Result:
+* :root {
+*   --prefix-var-name: value;
+*   ...
+* }
+*
+*/
+@mixin cssvars($css_custom_properties, $prefix: rpt) {
+  :root {
+    @each $name, $value in $css_custom_properties {
+      --#{$prefix}-#{$name}: #{$value};
+    }
+  }
+}
+
+// Override CSS Custom Property locally
+@mixin cssvar($name, $value: '', $prefix: rpt) {
+  --#{$prefix}-#{$name}: #{$value};
+}
+
+// Get CSS Custom Property
+@function cssvar($name, $prefix: rpt) {
+  @return var(--#{$prefix}-#{$name});
+}
