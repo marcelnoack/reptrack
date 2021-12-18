@@ -1,7 +1,7 @@
-@use './utils';
+@use './helpers';
 
 // Default color theme: inspired by No.27: https://visme.co/blog/website-color-schemes/
-@include utils.cssvars(
+@include helpers.cssvars(
   (
     color-primary: #86c232,
     color-primary--variant: #61892f,
@@ -17,7 +17,7 @@
 );
 
 // Status colors
-@include utils.cssvars(
+@include helpers.cssvars(
   (
     color-success: #00c851,
     color-error: #ff4444,
@@ -27,7 +27,7 @@
 );
 
 // Media Breakpoints
-@include utils.cssvars(
+@include helpers.cssvars(
   (
     small: 576px,
     medium: 768px,
@@ -38,7 +38,7 @@
 );
 
 // Misc.
-@include utils.cssvars(
+@include helpers.cssvars(
   (
     header-height: 3rem,
     footer-height: 3rem,

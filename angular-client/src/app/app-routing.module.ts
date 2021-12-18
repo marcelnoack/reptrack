@@ -1,24 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { NotFoundComponent } from './core/not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./modules/home/home.module').then((m) => m.HomeModule),
+      import('./domains/home/home.module').then((m) => m.HomeModule)
   },
   {
     path: 'workouts',
     loadChildren: () =>
-      import('./modules/workouts/workouts.module').then(
+      import('./domains/workouts/workouts.module').then(
         (m) => m.WorkoutsModule
       ),
   },
   {
     path: 'calendar',
     loadChildren: () =>
-      import('./modules/calendar/calendar.module').then(
+      import('./domains/calendar/calendar.module').then(
         (m) => m.CalendarModule
       ),
   },

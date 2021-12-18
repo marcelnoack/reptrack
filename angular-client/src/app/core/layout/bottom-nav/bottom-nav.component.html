@@ -1,0 +1,30 @@
+<nav class="bottom-nav">
+  <ul class="nav-list">
+    <a
+      class="route"
+      routerLink="/"
+      routerLinkActive="route--active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <li class="nav-list__tab">
+        <span class="material-icons">home</span>Home
+      </li>
+    </a>
+    <a class="route" routerLink="/workouts" routerLinkActive="route--active">
+      <li class="nav-list__tab">
+        <span class="material-icons">fitness_center</span>Workouts
+      </li>
+    </a>
+    <li class="nav-list__tab"></li>
+    <a class="route" routerLink="/progress" routerLinkActive="route--active">
+      <li class="nav-list__tab">
+        <span class="material-icons">trending_up</span>Progress
+      </li>
+    </a>
+    <a class="route" routerLink="/calendar" routerLinkActive="route--active">
+      <li class="nav-list__tab">
+        <span class="material-icons">date_range</span>Calendar
+      </li>
+    </a>
+  </ul>
+</nav>

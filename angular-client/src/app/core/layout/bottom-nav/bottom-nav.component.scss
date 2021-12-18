@@ -1,0 +1,58 @@
+@use '../../../../styles/scss/config/helpers' as *;
+
+.bottom-nav {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.nav-list {
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: transparent;
+
+  &__tab {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: cssvar(color-secondary);
+    font-size: 0.8rem;
+    border-top: 2px solid transparent;
+  }
+
+  &__action {
+    margin-bottom: 45px;
+  }
+}
+
+.route {
+  text-decoration: none;
+  height: 100%;
+  width: 100%;
+  color: white;
+  outline: none;
+
+  &--active {
+    color: cssvar(color-primary);
+  }
+
+  &:focus .nav-list__tab {
+    border-color: cssvar(color-primary);
+    background-color: cssvar(color-secondary--variant);
+  }
+
+  &:hover .nav-list__tab {
+    background-color: cssvar(color-secondary--variant);
+  }
+}
