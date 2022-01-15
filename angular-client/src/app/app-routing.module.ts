@@ -6,13 +6,20 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./domains/home/home.module').then((m) => m.HomeModule)
+      import('./domains/home/home.module').then((m) => m.HomeModule),
   },
   {
     path: 'workouts',
     loadChildren: () =>
       import('./domains/workouts/workouts.module').then(
         (m) => m.WorkoutsModule
+      ),
+  },
+  {
+    path: 'progress',
+    loadChildren: () =>
+      import('./domains/progress/progress.module').then(
+        (m) => m.ProgressModule
       ),
   },
   {

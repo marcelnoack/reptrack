@@ -1,0 +1,55 @@
+@use "../../../styles/scss/config/helpers" as *;
+
+.app-fab {
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  background-color: cssvar(color-background);
+  border: 1px solid transparent;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+
+  &:focus {
+    border-color: cssvar(color-primary);
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &--mini {
+    height: 40px;
+    padding: 8px;
+  }
+
+  &--extended {
+    border-radius: 30px;
+    height: 48px;
+    padding-left: 12px;
+    padding-right: 20px;
+  }
+
+  &--border {
+    border-color: cssvar(color-primary);
+  }
+
+  &--ripple {
+    background-position: center;
+    transition: background 0.5s;
+
+    &:hover,
+    &:focus {
+      background-color: cssvar(color-secondary--variant);
+    }
+
+    &:active {
+      background-color: #6eb97f;
+      background-size: 100%;
+      transition: background 0s;
+    }
+  }
+}

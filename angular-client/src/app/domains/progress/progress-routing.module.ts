@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CalendarComponent } from './pages/calendar/calendar.component';
+import { ProgressComponent } from './pages/progress/progress.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CalendarComponent
-  }
+    component: ProgressComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CalendarRoutingModule { }
+export class ProgressRoutingModule {}

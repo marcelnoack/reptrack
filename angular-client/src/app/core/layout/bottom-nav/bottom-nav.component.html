@@ -15,7 +15,11 @@
         <span class="material-icons">fitness_center</span>Workouts
       </li>
     </a>
-    <li class="nav-list__tab"></li>
+    <li class="nav-list__tab nav-list__tab--center">
+      <div class="nav-list__action">
+        <rpt-material-btn icon="add" [border]="true"></rpt-material-btn>
+      </div>
+    </li>
     <a class="route" routerLink="/progress" routerLinkActive="route--active">
       <li class="nav-list__tab">
         <span class="material-icons">trending_up</span>Progress
