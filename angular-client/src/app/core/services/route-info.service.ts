@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Data } from '@angular/router';
 import { Subject } from 'rxjs';
 
 export interface RouteInfo {

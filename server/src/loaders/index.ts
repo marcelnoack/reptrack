@@ -1,21 +1,15 @@
 import express from 'express';
 
+import httpsRedirectLoader from './https-redirect';
 import expressLoader from './express';
 import morganLoader from './morgan';
 import Logger from './logger';
 
 export default async ({ expressApp }: { expressApp: express.Express }) => {
-  expressApp.use((req, res, next) => {
-    if (process.env.NODE_ENV === 'production') {
-      if (req.header('x-forwarded-proto') !== 'https') {
-        res.redirect(`https://${req.header('host')}${req.url}`);
-      } else {
-        next();
-      }
-    } else {
-      next();
-    }
-  });
+
+  // Redirect all traffic to https (needed for Heroku deployment)
+  await httpsRedirectLoader({ app: expressApp });
+  Logger.info('HTTPS-Redirect applied');
 
   // Connect to Postgres with postgres-loader
   Logger.info('DB loaded and connected!');
@@ -27,4 +21,5 @@ export default async ({ expressApp }: { expressApp: express.Express }) => {
   // Initialize express
   await expressLoader({ app: expressApp });
   Logger.info('Express loaded');
+
 };
