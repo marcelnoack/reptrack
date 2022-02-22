@@ -1,4 +1,4 @@
-@use './helpers';
+@use "./helpers";
 
 // Default color theme: inspired by No.27: https://visme.co/blog/website-color-schemes/
 @include helpers.cssvars(
@@ -29,11 +29,11 @@
 // Media Breakpoints
 @include helpers.cssvars(
   (
-    small: 576px,
-    medium: 768px,
-    large: 992px,
-    extra-large: 1200px,
-    extra-extra-large: 1400px,
+    small: 36em,
+    medium: 48em,
+    large: 62em,
+    extra-large: 75em,
+    extra-extra-large: 88em,
   )
 );
 
