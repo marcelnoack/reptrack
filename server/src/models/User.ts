@@ -1,8 +1,8 @@
-import { query } from '../db';
+// import { query } from '../db';
 import { UserDTO, UserInput } from '../interfaces/User';
 
 const create = async (newUser: UserInput): Promise<UserDTO> => {
-  const test = query('INSERT INTO users');
+  // const test = query('INSERT INTO users');
 
   return Promise.resolve({
     userId: 0,
