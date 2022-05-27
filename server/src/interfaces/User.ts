@@ -1,15 +1,14 @@
 import { ManagedDTO } from "./Managed";
 
 
-export interface UserDTO extends ManagedDTO {
-  userId: number;
+export interface UserDTO /*extends ManagedDTO*/ {
   username: string;
   firstName: string;
   lastName: string;
   email: string;
 }
 
-export interface UserInput extends ManagedDTO {
+export interface UserInputDTO /*extends ManagedDTO*/ {
   username: string;
   firstName: string;
   lastName: string;

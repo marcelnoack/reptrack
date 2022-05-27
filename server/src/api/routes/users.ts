@@ -1,4 +1,8 @@
 import { Router } from 'express';
+import { hash } from 'bcryptjs';
+
+import { UserInputDTO } from '../../interfaces/User';
+import * as User from '../../models/User';
 
 const route = Router();
 
