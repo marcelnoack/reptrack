@@ -8,4 +8,8 @@ export default (app: Router) => {
   route.get('/', (req, res) => {
     return res.status(200).send('Hi from Workouts');
   });
+
+  route.get("/:id", (req,res) => {
+    return res.status(200).send("Hi from a Workout");
+  });
 };

@@ -13,5 +13,6 @@ export interface UserInput extends ManagedDTO {
   username: string;
   firstName: string;
   lastName: string;
+  email: string;
   password: string;
 }
