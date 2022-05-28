@@ -10,7 +10,7 @@ export default (app: Router) => {
     return res.status(200).send('Hi from Workouts');
   });
 
-  route.get("/:id", (req,res) => {
-    return res.status(200).send("Hi from a Workout");
+  route.get('/:id', (req, res) => {
+    return res.status(200).send('Hi from a Workout');
   });
 };

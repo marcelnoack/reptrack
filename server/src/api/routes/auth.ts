@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { compare, hash } from 'bcryptjs';
 
-import { UserInputDTO } from '../../interfaces/User';
+import { UserDTO, UserInputDTO } from '../../interfaces/User';
 import * as User from '../../models/User';
-import AuthService from '../../services/auth';
+import AuthService, { TokenObject } from '../../services/auth';
 
 const route = Router();
 const authService = new AuthService();
@@ -19,15 +19,16 @@ export default (app: Router) => {
     }
 
     const hashedPassword = await User.getPassword(req.body.user.username);
-    const isValidPassword = await compare(req.body.user.password, hashedPassword);
+    const isValidPassword = await compare(
+      req.body.user.password,
+      hashedPassword
+    );
     if (!isValidPassword) {
       return res.status(401).send('User credentials are not correct');
     }
-    
-    const accessToken = await authService.signIn(user);
-    // const refreshToken = generateRefreshToken({user: req.body.username});
 
-    return res.json({accessToken});
+    const tokenObject: TokenObject = authService.signIn(user);
+    return res.json(tokenObject);
   });
 
   route.post('/signup', async (req, res) => {
@@ -41,8 +42,24 @@ export default (app: Router) => {
       email: ''
     };
 
-    const result = await User.create(newUser);
+    await User.create(newUser);
 
     return res.status(200).send('Created');
+  });
+
+  route.post('/renew', async (req, res) => {
+    const currentRefreshTokens: string[] = authService.getRefreshTokens();
+
+    if (!currentRefreshTokens.includes(req.body.refreshToken)) {
+      return res.status(400).send('Refresh Token Invalid');
+    }
+
+    const user: UserDTO = authService.getUserInfoFromToken(
+      req.body.refreshToken
+    );
+
+    authService.removeRefreshToken(req.body.refreshToken);
+
+    return res.json(authService.signIn(user));
   });
 };

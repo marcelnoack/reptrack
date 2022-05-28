@@ -1,13 +1,11 @@
 import { Router } from 'express';
-import { hash } from 'bcryptjs';
 
-import { UserInputDTO } from '../../interfaces/User';
-import * as User from '../../models/User';
+import { isAuth } from '../middlewares';
 
 const route = Router();
 
 export default (app: Router) => {
-  app.use('/users', route);
+  app.use('/users', isAuth, route);
 
   route.get('/', (req, res) => {
     return res.status(200).send('Hi from Users');

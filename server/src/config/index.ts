@@ -11,7 +11,8 @@ export default {
   port: parseInt(process.env.PORT || '80', 10),
   accessTokenSecret: process.env.ACCESS_TOKEN_SECRET || '',
   refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET || '',
-  jwtExpiresIn: process.env.JWT_EXPIRES_IN || '',
+  accessTokenExpiration: process.env.ACCESS_TOKEN_EXPIRATION || '',
+  refreshTokenExpiration: process.env.REFRESH_TOKEN_EXPIRATION || '',
 
   // API configuration
   api: {
