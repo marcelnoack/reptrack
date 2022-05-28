@@ -7,10 +7,8 @@ import Logger from '../loaders/logger';
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
-let _pool: Pool;
-if (process.env.NODE_ENV === 'development') {
-  _pool = new Pool();
-} else {
+let _pool: Pool = new Pool();
+if (process.env.NODE_ENV !== 'development') {
   _pool = new Pool({
     connectionString: config.dbConnectionString,
     ssl: {
@@ -22,7 +20,6 @@ _pool.on('connect', () => {
   Logger.info('Database connection established successfully.');
 });
 
-
 /* ---------------------------------------------------------------------------------------------- */
 const query = (
   text: string | QueryConfig<any>,
@@ -31,10 +28,17 @@ const query = (
   return _pool.query(text, params);
 };
 
-
 /* ---------------------------------------------------------------------------------------------- */
 const checkDbConnection = async (): Promise<void> => {
-  const client = new Client();
+  let client = new Client();
+  if (process.env.NODE_ENV !== 'development') {
+    client = new Client({
+      connectionString: config.dbConnectionString,
+      ssl: {
+        rejectUnauthorized: false
+      }
+    });
+  }
   await client.connect();
   return client.query('SELECT NOW() as now', (err) => {
     if (err) {
@@ -46,7 +50,6 @@ const checkDbConnection = async (): Promise<void> => {
     client.end();
   });
 };
-
 
 /* ---------------------------------------------------------------------------------------------- */
 export { query, checkDbConnection };
