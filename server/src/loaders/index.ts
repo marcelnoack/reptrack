@@ -13,7 +13,7 @@ export default async ({ expressApp }: { expressApp: express.Express }) => {
 
   // TODO: Connect to Postgres with postgres-loader
   const _pool = new Pool({
-    connectionString: process.env.DATABASE_URL + "?sslmode=require",
+    connectionString: process.env.DATABASE_URL,
     ssl: {
       rejectUnauthorized: false
     }
