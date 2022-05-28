@@ -12,9 +12,9 @@ export default async ({ expressApp }: { expressApp: express.Express }) => {
   Logger.info('HTTPS-Redirect applied');
 
   // TODO: Connect to Postgres with postgres-loader
-
-
-  const _pool = new Pool();
+  const _pool = new Pool({
+    connectionString: process.env.DATANBASE_URL
+  });
   _pool.connect().then(() => {
     Logger.info('Database connection established successfully.');
   });
