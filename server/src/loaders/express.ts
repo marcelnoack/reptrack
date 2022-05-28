@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
 
 import config from '../config';
 import routes from '../api';
@@ -8,6 +9,8 @@ export default ({ app }: { app: express.Application }) => {
   app.use(cors());
   app.use(express.urlencoded());
   app.use(express.json());
+  app.use(helmet());
+
   app.use(`/${config.api.prefix}`, routes());
 
   // catch 404 and forward to error handler
