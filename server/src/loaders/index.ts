@@ -13,7 +13,7 @@ export default async ({ expressApp }: { expressApp: express.Express }) => {
 
   // TODO: Connect to Postgres with postgres-loader
   const _pool = new Pool({
-    connectionString: process.env.DATANBASE_URL
+    connectionString: process.env.DATABASE_URL
   });
   _pool.connect().then(() => {
     Logger.info('Database connection established successfully.');
