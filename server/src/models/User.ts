@@ -1,6 +1,10 @@
 import { query } from '../db';
 import { UserDTO, UserInputDTO } from '../interfaces/User';
 
+/* ---------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------- */
+
 const create = async (newUser: UserInputDTO): Promise<UserDTO> => {
   const creationResult = await query(
     'INSERT INTO users (username, password) VALUES ($1, $2)',

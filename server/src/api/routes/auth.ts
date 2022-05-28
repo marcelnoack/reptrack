@@ -5,6 +5,10 @@ import { UserDTO, UserInputDTO } from '../../interfaces/User';
 import * as User from '../../models/User';
 import AuthService, { TokenObject } from '../../services/auth';
 
+/* ---------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------- */
+
 const route = Router();
 const authService = new AuthService();
 
