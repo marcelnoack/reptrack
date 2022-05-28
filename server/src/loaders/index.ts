@@ -11,17 +11,6 @@ export default async ({ expressApp }: { expressApp: express.Express }) => {
   await httpsRedirectLoader({ app: expressApp });
   Logger.info('HTTPS-Redirect applied');
 
-  // TODO: Connect to Postgres with postgres-loader
-  const _pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  });
-  _pool.connect().then(() => {
-    Logger.info('Database connection established successfully.');
-  });
-
   // Load middleware
   await morganLoader({ app: expressApp });
   Logger.info('Middleware loaded');
