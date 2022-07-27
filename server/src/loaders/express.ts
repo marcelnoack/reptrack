@@ -1,9 +1,10 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 
 import config from '../config';
 import routes from '../api';
+import { ErrorHandler } from '../common/ErrorHandler';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -17,21 +18,14 @@ export default ({ app }: { app: express.Application }) => {
 
   app.use(`/${config.api.prefix}`, routes());
 
-  // catch 404 and forward to error handler
-  // app.use((req, res, next) => {
-  //   const err: Error = new Error('Not Found');
-  //   err['status'] = 404;
-  //   next(err);
-  // });
+  // Centralized error handling
+  app.use(ErrorHandler.handleError);
 
-  // // error handlers
-  // app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  //   res.status(err.status || 500);
-  //   res.json({
-  //     errors: {
-  //       message: err.message
-  //     }
-  //   });
-  // });
+  process.on('unhandledRejection', (error) => {
+    throw error;
+  });
+
+  process.on('uncaughtException', ErrorHandler.handleError);
+
   return app;
 };

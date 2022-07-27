@@ -12,6 +12,7 @@ const create = async (newUser: UserInputDTO): Promise<UserDTO> => {
   );
 
   return Promise.resolve({
+    userId: 0,
     username: '',
     firstName: '',
     lastName: '',
@@ -21,35 +22,35 @@ const create = async (newUser: UserInputDTO): Promise<UserDTO> => {
 
 const get = async (username: string): Promise<UserDTO | null> => {
   const result = await query(
-    'SELECT username, email, firstname, lastname FROM users where username = $1',
+    'SELECT userid, username, email, firstname, lastname FROM users where username = $1',
     [username]
   );
 
-  if(!result || !result.rows || !result.rows.length) {
+  if (!result || !result.rows || !result.rows.length) {
     return null;
   }
-  
+
   const user: UserDTO = {
+    userId: result.rows[0].userid,
     email: result.rows[0].email,
     username: result.rows[0].username,
     firstName: result.rows[0].firstname,
     lastName: result.rows[0].lastname
-  }
+  };
 
   return user;
 };
 
-const getPassword = async(username: string): Promise<string> => {
-  const result = await query(
-    'SELECT password FROM users where username = $1',
-    [username]
-  );
+const getPassword = async (username: string): Promise<string> => {
+  const result = await query('SELECT password FROM users where username = $1', [
+    username
+  ]);
 
-  if(!result || !result.rows || !result.rows.length) {
+  if (!result || !result.rows || !result.rows.length) {
     return '';
   }
 
   return result.rows[0].password;
-}
+};
 
 export { create, get, getPassword };

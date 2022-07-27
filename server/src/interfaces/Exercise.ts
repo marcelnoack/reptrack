@@ -1,19 +1,18 @@
-import { Router } from 'express';
-
-import authRoute from './routes/auth';
-import workoutsRoute from './routes/workoutsRoute';
-import usersRoute from './routes/users';
+import { ManagedDTO } from '../common/commonAPI';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
-export default () => {
-  const app = Router();
+export interface ExerciseDTO extends ManagedDTO {
+  workoutId: string;
+  name: string;
+  description: string;
+  userId: number;
+}
 
-  authRoute(app);
-  workoutsRoute(app);
-  // usersRoute(app);
-
-  return app;
-};
+export interface ExerciseInputDTO /* extends ManagedDTO */ {
+  name: string;
+  description: string;
+  userId: number;
+}

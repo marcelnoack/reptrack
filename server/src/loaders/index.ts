@@ -15,7 +15,7 @@ export default async ({ expressApp }: { expressApp: express.Express }) => {
   await httpsRedirectLoader({ app: expressApp });
   Logger.info('HTTPS-Redirect applied');
 
-  // Load middleware
+  // Setup loggin middleware
   await morganLoader({ app: expressApp });
   Logger.info('Morgan middleware loaded');
 

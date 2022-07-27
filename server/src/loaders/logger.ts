@@ -35,7 +35,10 @@ const _format = winston.format.combine(
 );
 
 const _transports = [
-  new winston.transports.Console(),
+  new winston.transports.Console({
+    format: _format,
+    handleExceptions: true
+  }),
   new winston.transports.File({
     filename: 'logs/error.log',
     level: 'error'
@@ -47,7 +50,7 @@ winston.addColors(_colors);
 const Logger = winston.createLogger({
   level: _level(),
   levels: _levels,
-  format: _format,
+  // format: _format,
   transports: _transports
 });
 
