@@ -1,8 +1,8 @@
 import { QueryResult } from 'pg';
-import { Api500Error } from '../../common/Api500Error';
 
-import { query } from '../../db';
-import { ExerciseDTO } from '../../interfaces/Exercise';
+import { query } from '../../common/db';
+import { Api500Error } from '../../common/errors';
+import { ExerciseDTO } from '../exercises/exerciseAPI';
 import { WorkoutDTO, WorkoutInputDTO } from './workoutsAPI';
 
 /* ---------------------------------------------------------------------------------------------- */

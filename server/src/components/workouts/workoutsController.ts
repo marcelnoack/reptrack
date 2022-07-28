@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { UserDTO } from '../../interfaces/User';
-import Logger from '../../loaders/logger';
+import { UserDTO } from '../users/usersAPI';
 import { WorkoutDTO, WorkoutInputDTO } from './workoutsAPI';
 import WorkoutsService from './workoutsService';
 

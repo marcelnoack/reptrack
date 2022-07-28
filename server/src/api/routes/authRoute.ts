@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { isAuth } from '../middlewares';
+import AuthController from '../../components/auth/authController';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -9,13 +9,9 @@ import { isAuth } from '../middlewares';
 const route = Router();
 
 export default (app: Router) => {
-  app.use('/users', isAuth, route);
+  app.use('/auth', route);
 
-  route.get('/', (req, res) => {
-    return res.status(200).send('Hi from Users');
-  });
-
-  route.get('/:id', (req, res) => {
-    return res.status(200).send('Hi from a User');
-  });
+  route.post('/signin', AuthController.signIn);
+  route.post("/signup", AuthController.signUp);
+  route.post("/renew", AuthController.renew);
 };

@@ -1,10 +1,10 @@
 import express from 'express';
 
+import { checkDbConnection } from '../common/db';
+import { Logger } from '../common/Logger';
 import httpsRedirectLoader from './https-redirect';
 import expressLoader from './express';
 import morganLoader from './morgan';
-import Logger from './logger';
-import { checkDbConnection } from '../db';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */

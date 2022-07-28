@@ -1,4 +1,5 @@
-import { ExerciseInputDTO } from '../../interfaces/Exercise';
+
+import { ExerciseInputDTO } from '../exercises/exerciseAPI';
 import { WorkoutDTO, WorkoutInputDTO } from './workoutsAPI';
 import WorkoutsDao from './workoutsDao';
 

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { isAuth } from '../middlewares';
+import { isAuth } from '../../common/middleware';
 import WorkoutController from '../../components/workouts/workoutsController';
 
 /* ---------------------------------------------------------------------------------------------- */

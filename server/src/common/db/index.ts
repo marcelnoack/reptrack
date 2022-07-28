@@ -1,7 +1,8 @@
 import { Client, Pool, QueryConfig, QueryResult } from 'pg';
 
-import config from '../config';
-import Logger from '../loaders/logger';
+import config from '../../config';
+import { Api500Error } from '../errors';
+import { Logger } from '..';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -42,8 +43,7 @@ const checkDbConnection = async (): Promise<void> => {
   await client.connect();
   return client.query('SELECT NOW() as now', (err) => {
     if (err) {
-      Logger.error('Could not establish a database connection');
-      Logger.error('Reason:', err.stack);
+      throw new Api500Error('Could not establish a database connection');
     } else {
       Logger.info('Database connection established successfully');
     }

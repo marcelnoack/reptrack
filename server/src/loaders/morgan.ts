@@ -1,6 +1,6 @@
 import express from 'express';
 import morgan, { StreamOptions } from 'morgan';
-import Logger from './logger';
+import { Logger } from '../common/Logger';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */

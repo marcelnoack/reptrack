@@ -1,19 +1,21 @@
 import { Router } from 'express';
 
-import authRoute from './routes/authRoute';
-import workoutsRoute from './routes/workoutsRoute';
-import usersRoute from './routes/usersRoute';
+import { isAuth } from '../../common/middleware';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
-export default () => {
-  const app = Router();
+const route = Router();
 
-  authRoute(app);
-  workoutsRoute(app);
-  usersRoute(app);
+export default (app: Router) => {
+  app.use('/users', isAuth, route);
 
-  return app;
+  route.get('/', (req, res) => {
+    return res.status(200).send('Hi from Users');
+  });
+
+  route.get('/:id', (req, res) => {
+    return res.status(200).send('Hi from a User');
+  });
 };

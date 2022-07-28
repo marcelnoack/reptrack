@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Logger from '../loaders/logger';
-import { AppError } from './AppError';
+import { Logger } from '.';
+import { AppError } from './errors/AppError';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */

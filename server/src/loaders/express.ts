@@ -1,10 +1,10 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 
 import config from '../config';
 import routes from '../api';
-import { ErrorHandler } from '../common/ErrorHandler';
+import { ErrorHandler } from '../common';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */

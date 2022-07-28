@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { Api401Error } from '../../common/Api401Error';
-import { Api403Error } from '../../common/Api403Error';
+import { Api401Error } from '../../common/errors/Api401Error';
+import { Api403Error } from '../../common/errors/Api403Error';
 
 import config from '../../config';
 
@@ -8,7 +8,7 @@ import config from '../../config';
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
-const isAuth = (req: any, res: any, next: any) => {
+export const isAuth = (req: any, res: any, next: any) => {
   const authHeader = req.headers['authorization'] || '';
   const token = authHeader.split(' ')[1];
 
@@ -25,5 +25,3 @@ const isAuth = (req: any, res: any, next: any) => {
     }
   });
 };
-
-export default isAuth;

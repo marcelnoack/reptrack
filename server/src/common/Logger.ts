@@ -47,11 +47,10 @@ const _transports = [
 ];
 
 winston.addColors(_colors);
-const Logger = winston.createLogger({
+
+export const Logger = winston.createLogger({
   level: _level(),
   levels: _levels,
   // format: _format,
   transports: _transports
 });
-
-export default Logger;

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
-import config from '../config';
-import { UserDTO } from '../interfaces/User';
+import config from '../../config';
+import { UserDTO } from '../users/usersAPI';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -13,9 +13,8 @@ export interface TokenObject {
 }
 
 export default class AuthService {
+  // TODO: Should be cached in Redis Cache
   private _refreshTokens: string[] = [];
-
-  // constructor() {}
 
   // public async signUp() {}
 
