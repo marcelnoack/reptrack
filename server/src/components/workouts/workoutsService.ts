@@ -1,4 +1,3 @@
-
 import { ExerciseInputDTO } from '../exercises/exerciseAPI';
 import { WorkoutDTO, WorkoutInputDTO } from './workoutsAPI';
 import WorkoutsDao from './workoutsDao';
@@ -8,15 +7,24 @@ import WorkoutsDao from './workoutsDao';
 /* ---------------------------------------------------------------------------------------------- */
 
 export default class WorkoutsService {
+  private _workoutsDao: WorkoutsDao;
+
   /* ---------------------------------------------------------------------------------------------- */
-  public static async getAllWorkoutsByUser(
-    userId: number
-  ): Promise<WorkoutDTO[]> {
-    return await WorkoutsDao.getAllWorkoutsByUser(userId);
+  constructor(workoutsDao?: WorkoutsDao) {
+    if (!workoutsDao) {
+      this._workoutsDao = new WorkoutsDao();
+    } else {
+      this._workoutsDao = workoutsDao;
+    }
   }
 
   /* ---------------------------------------------------------------------------------------------- */
-  public static async createNewWorkout(
+  public async getAllWorkoutsByUser(userId: string): Promise<WorkoutDTO[]> {
+    return await this._workoutsDao.getAll(userId);
+  }
+
+  /* ---------------------------------------------------------------------------------------------- */
+  public async createNewWorkout(
     userId: number,
     workout: WorkoutInputDTO,
     exercises: ExerciseInputDTO[]

@@ -1,18 +1,18 @@
-import { ManagedDTO } from "../../common";
+import { ManagedDTO } from '../../common';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
-export interface UserDTO extends ManagedDTO {
-  userId: number;
+export interface UserDTO extends Partial<ManagedDTO> {
+  userId: string;
   username: string;
   firstName: string;
   lastName: string;
   email: string;
 }
 
-export interface UserInputDTO extends ManagedDTO {
+export interface UserInputDTO extends Partial<ManagedDTO> {
   username: string;
   firstName: string;
   lastName: string;

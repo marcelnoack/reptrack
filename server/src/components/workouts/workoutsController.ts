@@ -9,19 +9,26 @@ import WorkoutsService from './workoutsService';
 /* ---------------------------------------------------------------------------------------------- */
 
 export default class WorkoutsController {
+  private _workoutsService: WorkoutsService;
+
   /* ---------------------------------------------------------------------------------------------- */
-  public static async getAllWorkouts(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
+  constructor(workoutsService?: WorkoutsService) {
+    if (!workoutsService) {
+      this._workoutsService = new WorkoutsService();
+    } else {
+      this._workoutsService = workoutsService;
+    }
+  }
+
+  /* ---------------------------------------------------------------------------------------------- */
+  public async getAllWorkouts(req: Request, res: Response, next: NextFunction) {
     // TODO: Correct user type
     const user: UserDTO = (req as any).token;
 
     try {
-      const workouts: WorkoutDTO[] = await WorkoutsService.getAllWorkoutsByUser(
-        user.userId
-      );
+      const workouts: WorkoutDTO[] =
+        await this._workoutsService.getAllWorkoutsByUser(user.userId);
+
       return res.status(200).send(workouts);
     } catch (err) {
       next(err);
@@ -32,7 +39,7 @@ export default class WorkoutsController {
   // public static getWorkoutById(req: Request, res: Response) {}
 
   /* ---------------------------------------------------------------------------------------------- */
-  public static async createNewWorkout(
+  public async createNewWorkout(
     req: Request,
     res: Response,
     next: NextFunction
@@ -41,11 +48,12 @@ export default class WorkoutsController {
     const newWorkout: WorkoutInputDTO = req.body.workout;
 
     try {
-      const workout: WorkoutDTO[] = await WorkoutsService.createNewWorkout(
-        user.userId,
-        newWorkout,
-        []
-      );
+      const workout: WorkoutDTO[] =
+        await this._workoutsService.createNewWorkout(
+          +user.userId,
+          newWorkout,
+          []
+        );
     } catch (err) {
       next(err);
     }

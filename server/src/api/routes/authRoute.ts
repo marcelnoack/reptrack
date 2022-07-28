@@ -11,7 +11,8 @@ const route = Router();
 export default (app: Router) => {
   app.use('/auth', route);
 
-  route.post('/signin', AuthController.signIn);
-  route.post("/signup", AuthController.signUp);
-  route.post("/renew", AuthController.renew);
+  const authController: AuthController = new AuthController();
+  route.post('/signin', authController.signIn);
+  route.post('/signup', authController.signUp);
+  route.post('/renew', authController.renew);
 };

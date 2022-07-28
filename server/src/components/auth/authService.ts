@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 
 import config from '../../config';
-import { UserDTO } from '../users/usersAPI';
+import { UserDTO, UserInputDTO } from '../users/usersAPI';
+import UsersDao from '../users/usersDao';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -15,8 +16,22 @@ export interface TokenObject {
 export default class AuthService {
   // TODO: Should be cached in Redis Cache
   private _refreshTokens: string[] = [];
+  private _usersDao: UsersDao;
 
-  // public async signUp() {}
+  /* ---------------------------------------------------------------------------------------------- */
+  constructor(usersDao?: UsersDao) {
+    if (!usersDao) {
+      this._usersDao = new UsersDao();
+    } else {
+      this._usersDao = usersDao;
+    }
+  }
+
+  public async signUp(user: UserInputDTO) {
+    // generate hashed password for user
+    // call dao to create user
+    // Optional: SignIn the user
+  }
 
   /* ---------------------------------------------------------------------------------------------- */
   public signIn(user: UserDTO): TokenObject {

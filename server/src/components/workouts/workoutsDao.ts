@@ -1,24 +1,27 @@
 import { QueryResult } from 'pg';
 
+import { BaseDAO } from '../../common';
 import { query } from '../../common/db';
 import { Api500Error } from '../../common/errors';
-import { ExerciseDTO } from '../exercises/exerciseAPI';
 import { WorkoutDTO, WorkoutInputDTO } from './workoutsAPI';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
-export default class WorkoutsDao {
+export default class WorkoutsDao
+  implements BaseDAO<WorkoutDTO, WorkoutInputDTO>
+{
   /* ---------------------------------------------------------------------------------------------- */
-  public static async getAllWorkoutsByUser(
-    userId: number
-  ): Promise<WorkoutDTO[]> {
+  public async getAll(userId?: string): Promise<WorkoutDTO[]> {
     try {
-      const result: QueryResult<any> = await query(
-        'SELECT * FROM workouts where userid=$1',
-        [userId]
-      );
+      let queryTemplate = 'SELECT * FROM workouts where userid=$1';
+
+      if (userId) {
+        queryTemplate = 'SELECT * FROM workouts';
+      }
+
+      const result: QueryResult<any> = await query(queryTemplate, [userId]);
 
       if (!result || !result.rows || !result.rows.length) {
         return Promise.resolve([]);
@@ -43,10 +46,17 @@ export default class WorkoutsDao {
   }
 
   /* ---------------------------------------------------------------------------------------------- */
-  public static async createWorkout(
-    userId: number,
-    workout: WorkoutInputDTO
-  ): Promise<any> {
+  public async getById(id: string): Promise<WorkoutDTO> {
+    return Promise.resolve({
+      userId: 0,
+      workoutId: '',
+      description: '',
+      name: ''
+    });
+  }
+
+  /* ---------------------------------------------------------------------------------------------- */
+  public async create(newResource: WorkoutInputDTO): Promise<void> {
     try {
       // Create Workout DB-Entry
     } catch (err) {
@@ -55,14 +65,32 @@ export default class WorkoutsDao {
   }
 
   /* ---------------------------------------------------------------------------------------------- */
-  public static async createExerciseInWorkout(
-    workoutId: number,
-    exercise: ExerciseDTO
-  ): Promise<any> {
-    try {
-      // Create Exercise DB-Entry
-    } catch (err) {
-      throw new Api500Error('WorkoutsDao::createExerciseInWorkout');
-    }
+  public async delete(id: string): Promise<void> {
+    return;
   }
+
+  /* ---------------------------------------------------------------------------------------------- */
+  public async update(
+    id: string,
+    updatedResource: WorkoutInputDTO
+  ): Promise<WorkoutDTO> {
+    return Promise.resolve({
+      userId: 0,
+      workoutId: '',
+      description: '',
+      name: ''
+    });
+  }
+
+  // /* ---------------------------------------------------------------------------------------------- */
+  // public static async createExerciseInWorkout(
+  //   workoutId: number,
+  //   exercise: ExerciseDTO
+  // ): Promise<any> {
+  //   try {
+  //     // Create Exercise DB-Entry
+  //   } catch (err) {
+  //     throw new Api500Error('WorkoutsDao::createExerciseInWorkout');
+  //   }
+  // }
 }

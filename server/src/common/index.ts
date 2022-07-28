@@ -13,6 +13,15 @@ interface ManagedDTO {
 }
 
 /* ---------------------------------------------------------------------------------------------- */
+interface BaseDAO<T, InputT> {
+  getAll: (userId?: string) => Promise<T[]>;
+  getById: (id: string) => Promise<T>;
+  create: (newResource: InputT) => Promise<void>;
+  update: (id: string, updatedResource: InputT) => Promise<T>;
+  delete: (id: string) => Promise<void>;
+}
+
+/* ---------------------------------------------------------------------------------------------- */
 enum SupportedHttpStatusCodes {
   OK = 200,
   CREATED = 201,
@@ -23,4 +32,4 @@ enum SupportedHttpStatusCodes {
   INTERNAL_SERVER = 500
 }
 
-export { ManagedDTO, SupportedHttpStatusCodes, ErrorHandler, Logger };
+export { ManagedDTO, BaseDAO, SupportedHttpStatusCodes, ErrorHandler, Logger };

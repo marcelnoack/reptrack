@@ -1,12 +1,24 @@
 import { NextFunction, Request, Response } from 'express';
+import AuthService from './authService';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
 export default class AuthController {
+  private _authService: AuthService;
+
   /* ---------------------------------------------------------------------------------------------- */
-  public static async signIn(req: Request, res: Response, next: NextFunction) {
+  constructor(authService?: AuthService) {
+    if (!authService) {
+      this._authService = new AuthService();
+    } else {
+      this._authService = authService;
+    }
+  }
+
+  /* ---------------------------------------------------------------------------------------------- */
+  public async signIn(req: Request, res: Response, next: NextFunction) {
     //   const user = await User.get(req.body.user.username);
     //   if (!user) {
     //     return res.status(404).send('User does not exist');
@@ -24,7 +36,7 @@ export default class AuthController {
   }
 
   /* ---------------------------------------------------------------------------------------------- */
-  public static async signUp(req: Request, res: Response, next: NextFunction) {
+  public async signUp(req: Request, res: Response, next: NextFunction) {
     //   // TODO: Validation for user object
     //   const hashedPassword = await hash(req.body.user.password, 10);
     //   const newUser: UserInputDTO = {
@@ -39,7 +51,7 @@ export default class AuthController {
   }
 
   /* ---------------------------------------------------------------------------------------------- */
-  public static async renew(req: Request, res: Response, next: NextFunction) {
+  public async renew(req: Request, res: Response, next: NextFunction) {
     //   const currentRefreshTokens: string[] = authService.getRefreshTokens();
     //   if (!currentRefreshTokens.includes(req.body.refreshToken)) {
     //     return res.status(400).send('Refresh Token Invalid');
