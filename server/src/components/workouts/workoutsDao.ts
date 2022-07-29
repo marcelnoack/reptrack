@@ -56,9 +56,10 @@ export default class WorkoutsDao
   }
 
   /* ---------------------------------------------------------------------------------------------- */
-  public async create(newResource: WorkoutInputDTO): Promise<void> {
+  public async create(newResource: WorkoutInputDTO): Promise<string> {
     try {
       // Create Workout DB-Entry
+      return '';
     } catch (err) {
       throw new Api500Error('WorkoutsDao::createWorkout');
     }

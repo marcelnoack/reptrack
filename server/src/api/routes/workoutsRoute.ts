@@ -15,5 +15,5 @@ export default (app: Router) => {
   const workoutsController: WorkoutsController = new WorkoutsController();
   route.get('/', workoutsController.getAllWorkouts);
   // route.get("/:id", WorkoutController.getWorkoutById);
-  // route.post("/:id", WorkoutController.createNewWorkout);
+  // route.post("/:id", WorkoutController.createNewWorkout); // TODO: body muss vollständiges workoutobjekt enthalten + exercises
 };

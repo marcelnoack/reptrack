@@ -21,7 +21,11 @@ export default class WorkoutsController {
   }
 
   /* ---------------------------------------------------------------------------------------------- */
-  public async getAllWorkouts(req: Request, res: Response, next: NextFunction) {
+  public getAllWorkouts = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     // TODO: Correct user type
     const user: UserDTO = (req as any).token;
 
@@ -33,17 +37,17 @@ export default class WorkoutsController {
     } catch (err) {
       next(err);
     }
-  }
+  };
 
   /* ---------------------------------------------------------------------------------------------- */
   // public static getWorkoutById(req: Request, res: Response) {}
 
   /* ---------------------------------------------------------------------------------------------- */
-  public async createNewWorkout(
+  public createNewWorkout = async (
     req: Request,
     res: Response,
     next: NextFunction
-  ) {
+  ) => {
     const user: UserDTO = (req as any).token;
     const newWorkout: WorkoutInputDTO = req.body.workout;
 
@@ -57,5 +61,5 @@ export default class WorkoutsController {
     } catch (err) {
       next(err);
     }
-  }
+  };
 }
