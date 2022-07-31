@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
+import { SupportedHttpStatusCodes } from '../../common';
 import { Api400Error } from '../../common/errors/Api400Error';
-import { UserDTO, UserInputDTO } from '../users/usersAPI';
+import { UserInputDTO } from '../users/usersAPI';
 import AuthService, { TokenObject } from './authService';
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -28,7 +29,6 @@ export default class AuthController {
         email,
         password
       );
-      // TODO: HTTP-Post Processing
       return res.json(tokenObject);
     } catch (err) {
       next(err);
@@ -48,21 +48,12 @@ export default class AuthController {
       };
 
       const newUserId: string = await this._authService.signUp(user);
-      res.setHeader('Location', `/v1/users/${newUserId}`).sendStatus(201);
+      res
+        .setHeader('Location', `/v1/users/${newUserId}`)
+        .sendStatus(SupportedHttpStatusCodes.CREATED);
     } catch (err) {
       next(err);
     }
-
-    //   const hashedPassword = await hash(req.body.user.password, 10);
-    //   const newUser: UserInputDTO = {
-    //     username: req.body.user.username,
-    //     password: hashedPassword,
-    //     firstName: '',
-    //     lastName: '',
-    //     email: ''
-    //   };
-    //   await User.create(newUser);
-    //   return res.status(200).send('Created');
   };
 
   /* ---------------------------------------------------------------------------------------------- */

@@ -49,29 +49,30 @@ export default class AuthService {
     email: string,
     password: string
   ): Promise<TokenObject> => {
-    const dbUser: UserDTO = await this._usersDao.getByUniqueProperty(
+    const dbUser: UserDTO[] = await this._usersDao.getByUniqueProperty(
       'email',
-      email
+      email,
+      'en'
     );
 
     if (!dbUser) {
       throw new Api401Error('User Credentials are not correct');
     }
 
-    if (!password || !dbUser.password) {
+    if (!password || !dbUser[0].password) {
       throw new Api500Error('Something went wrong while trying to sign you in');
     }
 
-    const isValidPassword = await compare(password, dbUser.password);
+    const isValidPassword = await compare(password, dbUser[0].password);
 
     if (!isValidPassword) {
       throw new Api401Error('User credentials are not correct');
     }
 
     //! Delete sensitive information like the password inside the auth tokens
-    delete dbUser['password'];
-    const accessToken: string = this._generateAccessToken(dbUser);
-    const refreshToken: string = this._generateRefreshToken(dbUser);
+    delete dbUser[0]['password'];
+    const accessToken: string = this._generateAccessToken(dbUser[0]);
+    const refreshToken: string = this._generateRefreshToken(dbUser[0]);
 
     return { accessToken, refreshToken };
   };

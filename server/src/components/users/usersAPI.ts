@@ -20,3 +20,5 @@ export interface UserInputDTO extends Partial<ManagedDTO> {
   email: string;
   password: string;
 }
+
+export type UserRelatedEntities = '';

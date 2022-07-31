@@ -13,16 +13,22 @@ interface ManagedDTO {
 }
 
 /* ---------------------------------------------------------------------------------------------- */
-interface BaseDAO<T, InputT> {
-  getAll: (userId?: string) => Promise<T[]>;
-  getById: (id: string) => Promise<T>;
+interface BaseDAO<T, InputT, RelatedT> {
+  getAll: (userId: string, language: string) => Promise<T[]>;
+  getById: (id: string) => Promise<T | undefined>;
   create: (newResource: InputT) => Promise<string>;
   update: (id: string, updatedResource: InputT) => Promise<T>;
   delete: (id: string) => Promise<void>;
   getByUniqueProperty?: (
     uniquePropName: string,
-    uniquePropValue: string
-  ) => Promise<T>;
+    uniquePropValue: string,
+    language: string
+  ) => Promise<T[]>;
+  getRelated?: (
+    relatedEntity: RelatedT,
+    id: string,
+    language: string
+  ) => Promise<any>;
 }
 
 /* ---------------------------------------------------------------------------------------------- */

@@ -1,7 +1,8 @@
 import { Router } from 'express';
 
-import { isAuth } from '../../common/middleware';
+import { isAuth, validateWorkoutId } from '../middleware';
 import WorkoutsController from '../../components/workouts/workoutsController';
+import { validateNewWorkout } from '../middleware/workouts';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -14,6 +15,8 @@ export default (app: Router) => {
 
   const workoutsController: WorkoutsController = new WorkoutsController();
   route.get('/', workoutsController.getAllWorkouts);
-  // route.get("/:id", WorkoutController.getWorkoutById);
-  // route.post("/:id", WorkoutController.createNewWorkout); // TODO: body muss vollständiges workoutobjekt enthalten + exercises
+  route.post('/', validateNewWorkout, workoutsController.createNewWorkout);
+  route.get('/:id', validateWorkoutId, workoutsController.getWorkoutById);
+  // TODO: returns a workouts exercises array(eid, name in language default english, targetRepCount, targetSetCount)
+  // route.get("/:id/exercises", workoutsController.getWorkoutExercises);
 };

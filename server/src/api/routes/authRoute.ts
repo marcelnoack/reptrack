@@ -1,5 +1,10 @@
 import { Router } from 'express';
 
+import {
+  validateRenewToken,
+  validateSignInCredentials,
+  validateSignUp
+} from '../middleware';
 import AuthController from '../../components/auth/authController';
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -12,7 +17,7 @@ export default (app: Router) => {
   app.use('/auth', route);
 
   const authController: AuthController = new AuthController();
-  route.post('/signin', authController.signIn); // TODO: body muss user mit username + password enthalten
-  route.post('/signup', authController.signUp); // TODO: body muss vollständiges nutzerobjekt enthalten (+password richtlinie)
-  route.post('/renew', authController.renew); // TODO: body muss refreshToken als string enthalten
+  route.post('/signin', validateSignInCredentials, authController.signIn);
+  route.post('/signup', validateSignUp, authController.signUp);
+  route.post('/renew', validateRenewToken, authController.renew);
 };

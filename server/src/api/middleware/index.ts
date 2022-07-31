@@ -1,7 +1,19 @@
-import { isAuth } from './auth';
+import {
+  validateSignInCredentials,
+  validateSignUp,
+  validateRenewToken,
+  isAuth
+} from './auth';
+import { validateWorkoutId } from './workouts';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
-export { isAuth };
+export {
+  isAuth,
+  validateSignInCredentials,
+  validateSignUp,
+  validateRenewToken,
+  validateWorkoutId
+};

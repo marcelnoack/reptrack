@@ -2,13 +2,15 @@ import { QueryResult } from 'pg';
 import { BaseDAO } from '../../common';
 import { query } from '../../common/db';
 import { Api500Error } from '../../common/errors';
-import { UserDTO, UserInputDTO } from './usersAPI';
+import { UserDTO, UserInputDTO, UserRelatedEntities } from './usersAPI';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
-export default class UsersDao implements BaseDAO<UserDTO, UserInputDTO> {
+export default class UsersDao
+  implements BaseDAO<UserDTO, UserInputDTO, UserRelatedEntities>
+{
   /* ---------------------------------------------------------------------------------------------- */
   public async getAll(id?: string): Promise<UserDTO[]> {
     return [];
@@ -83,8 +85,9 @@ export default class UsersDao implements BaseDAO<UserDTO, UserInputDTO> {
   /* ---------------------------------------------------------------------------------------------- */
   public async getByUniqueProperty(
     uniquePropName: string,
-    uniquePropValue: string
-  ): Promise<UserDTO> {
+    uniquePropValue: string,
+    language = 'en'
+  ): Promise<UserDTO[]> {
     if (uniquePropName !== 'username' && uniquePropName !== 'email') {
       throw new Error('No valid unique property provided for USER');
     }
@@ -111,6 +114,6 @@ export default class UsersDao implements BaseDAO<UserDTO, UserInputDTO> {
       lastChangedAt: result.rows[0].lastchangedat,
       lastChangedBy: result.rows[0].lastchangedby
     };
-    return user;
+    return [user];
   }
 }

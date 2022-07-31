@@ -3,28 +3,38 @@ import { QueryResult } from 'pg';
 import { BaseDAO } from '../../common';
 import { query } from '../../common/db';
 import { Api500Error } from '../../common/errors';
-import { WorkoutDTO, WorkoutInputDTO } from './workoutsAPI';
+import {
+  ExerciseInWorkoutDTO,
+  WorkoutDTO,
+  WorkoutInputDTO,
+  WorkoutRelatedEntities
+} from './workoutsAPI';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
 export default class WorkoutsDao
-  implements BaseDAO<WorkoutDTO, WorkoutInputDTO>
+  implements BaseDAO<WorkoutDTO, WorkoutInputDTO, WorkoutRelatedEntities>
 {
   /* ---------------------------------------------------------------------------------------------- */
-  public async getAll(userId?: string): Promise<WorkoutDTO[]> {
+  public getAll = async (
+    userId: string,
+    language = 'en'
+  ): Promise<WorkoutDTO[]> => {
     try {
-      let queryTemplate = 'SELECT * FROM workouts where userid=$1';
+      let result: QueryResult<any>;
 
-      if (userId) {
-        queryTemplate = 'SELECT * FROM workouts';
+      if (!userId) {
+        result = await query('SELECT * FROM workouts');
+      } else {
+        result = await query('SELECT * FROM workouts where userid=$1', [
+          userId
+        ]);
       }
 
-      const result: QueryResult<any> = await query(queryTemplate, [userId]);
-
       if (!result || !result.rows || !result.rows.length) {
-        return Promise.resolve([]);
+        return [];
       }
 
       const workouts: WorkoutDTO[] = result.rows.map((row) => ({
@@ -39,30 +49,83 @@ export default class WorkoutsDao
         exercises: []
       }));
 
-      return Promise.resolve(workouts);
+      let wExercises: ExerciseInWorkoutDTO[] = [];
+      for (const workout of workouts) {
+        wExercises = await this._getRelatedExercises(
+          workout.workoutId,
+          language
+        );
+        workout.exercises = [...wExercises];
+      }
+
+      return workouts;
     } catch (err) {
-      throw new Api500Error('WorkoutsDao::getAllWorkoutsByUser');
+      throw new Api500Error('Something went wrong while getting the workouts');
     }
-  }
+  };
 
   /* ---------------------------------------------------------------------------------------------- */
-  public async getById(id: string): Promise<WorkoutDTO> {
-    return Promise.resolve({
-      userId: 0,
-      workoutId: '',
-      description: '',
-      name: ''
-    });
+  public async getById(
+    id: string,
+    language = 'en'
+  ): Promise<WorkoutDTO | undefined> {
+    const result: QueryResult<any> = await query(
+      'SELECT * FROM workouts WHERE workoutid = $1',
+      [id]
+    );
+
+    if (!result || !result.rows || !result.rows.length) {
+      return Promise.resolve(undefined);
+    }
+
+    const relatedExercises: ExerciseInWorkoutDTO[] =
+      await this._getRelatedExercises(result.rows[0].workoutid, language);
+
+    const workouts: WorkoutDTO[] = result.rows.map((row) => ({
+      workoutId: row.workoutid,
+      name: row.name,
+      description: row.description,
+      userId: row.userid,
+      createdAt: row.createdat,
+      createdBy: row.createdby,
+      lastChangedAt: row.lastchangedat,
+      lastChangedBy: row.lastchangedby,
+      exercises: relatedExercises.map((e) => ({
+        exerciseId: e.exerciseId,
+        name: e.name,
+        targetSetCount: e.targetSetCount,
+        targetRepCount: e.targetRepCount
+      }))
+    }));
+
+    return Promise.resolve(workouts[0]);
   }
 
   /* ---------------------------------------------------------------------------------------------- */
   public async create(newResource: WorkoutInputDTO): Promise<string> {
-    try {
-      // Create Workout DB-Entry
-      return '';
-    } catch (err) {
-      throw new Api500Error('WorkoutsDao::createWorkout');
+    const { name, description, userId, createdBy, lastChangedBy, exercises } =
+      newResource;
+    const creationResult: QueryResult<any> = await query(
+      `INSERT INTO workouts (name, description, userid, createdby, lastchangedby, createdat, lastchangedat) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *`,
+      [name, description, userId, createdBy, lastChangedBy]
+    );
+
+    if (creationResult.rowCount !== 1) {
+      throw new Api500Error(
+        'Something went wrong while creating a new workout'
+      );
     }
+
+    await Promise.all(
+      exercises.map((exercise) =>
+        this._createExerciseInWorkout(
+          creationResult.rows[0].workoutid,
+          exercise
+        )
+      )
+    );
+
+    return creationResult.rows[0].workoutid;
   }
 
   /* ---------------------------------------------------------------------------------------------- */
@@ -76,22 +139,98 @@ export default class WorkoutsDao
     updatedResource: WorkoutInputDTO
   ): Promise<WorkoutDTO> {
     return Promise.resolve({
-      userId: 0,
+      userId: '',
       workoutId: '',
       description: '',
       name: ''
     });
   }
 
-  // /* ---------------------------------------------------------------------------------------------- */
-  // public static async createExerciseInWorkout(
-  //   workoutId: number,
-  //   exercise: ExerciseDTO
-  // ): Promise<any> {
-  //   try {
-  //     // Create Exercise DB-Entry
-  //   } catch (err) {
-  //     throw new Api500Error('WorkoutsDao::createExerciseInWorkout');
-  //   }
-  // }
+  /* ---------------------------------------------------------------------------------------------- */
+  public getRelated = async (
+    relatedEntity: WorkoutRelatedEntities,
+    id: string,
+    language = 'en'
+  ): Promise<any[]> => {
+    try {
+      if (relatedEntity === 'exercises') {
+        const workoutExercises: ExerciseInWorkoutDTO[] =
+          await this._getRelatedExercises(id, language);
+
+        return workoutExercises;
+      }
+
+      if (relatedEntity === 'trainings') {
+        throw new Api500Error('Trainings are not supported yet');
+      }
+
+      return [];
+    } catch (err) {
+      throw new Api500Error(
+        'An unexpected error occured while getting a workouts related entities'
+      );
+    }
+  };
+
+  /* ---------------------------------------------------------------------------------------------- */
+  private _getRelatedExercises = async (
+    workoutId: string,
+    language = 'en'
+  ): Promise<ExerciseInWorkoutDTO[]> => {
+    try {
+      const exerciseResults = await query(
+        `SELECT et.exerciseid, et.name, ew.workoutid, ew.targetsetcount, ew.targetrepcount
+        FROM exerciseinworkout as ew
+        JOIN exercisetranslation as et
+        ON ew.exerciseid = et.exerciseid
+        WHERE ew.workoutid = $1
+        AND et.language = $2`,
+        [workoutId, language]
+      );
+
+      const exercises: ExerciseInWorkoutDTO[] = exerciseResults.rows.map(
+        (eRow) => ({
+          workoutId: eRow.workoutid,
+          exerciseId: eRow.exerciseid,
+          name: eRow.name,
+          targetSetCount: eRow.targetsetcount,
+          targetRepCount: eRow.targetrepcount
+        })
+      );
+
+      return exercises;
+    } catch (err) {
+      throw new Api500Error(
+        'Something went wrong while get the related exercises'
+      );
+    }
+  };
+
+  /* ---------------------------------------------------------------------------------------------- */
+  private _createExerciseInWorkout = async (
+    workoutId: string,
+    exercise: ExerciseInWorkoutDTO
+  ): Promise<void> => {
+    const { exerciseId, targetSetCount, targetRepCount } = exercise;
+
+    try {
+      const creationResult = await query(
+        `
+          INSERT INTO exerciseinworkout (workoutid, exerciseid, targetsetcount, targetrepcount) VALUES ($1, $2, $3, $4)
+        `,
+        [workoutId, exerciseId, targetSetCount, targetRepCount]
+      );
+
+      if (creationResult.rowCount !== 1) {
+        throw new Api500Error(
+          'Something went wrong while attaching an exercise to a workout'
+        );
+      }
+      return;
+    } catch (err) {
+      throw new Api500Error(
+        'Something wen wrong while attaching an exercise to a workout'
+      );
+    }
+  };
 }
