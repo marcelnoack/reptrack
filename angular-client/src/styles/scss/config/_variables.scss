@@ -1,7 +1,23 @@
 @use "./helpers";
 
-// Default color theme: inspired by No.27: https://visme.co/blog/website-color-schemes/
+// Default color theme (dark-theme): inspired by No.27: https://visme.co/blog/website-color-schemes/
 @include helpers.cssvars(
+  (
+    color-primary: #86c232,
+    color-primary--variant: #61892f,
+    color-secondary: #474b4f,
+    color-secondary--variant: #6b6e70,
+    color-background: #222629,
+    color-surface: #292e31,
+    color-on-primary: #fff,
+    color-on-secondary: #fff,
+    color-on-bg: #fff,
+    color-on-surface: #fff,
+  )
+);
+
+// Light color theme
+@include helpers.cssvars-light(
   (
     color-primary: #86c232,
     color-primary--variant: #61892f,

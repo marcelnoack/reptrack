@@ -16,6 +16,14 @@
   }
 }
 
+@mixin cssvars-light($css_custom_properties, $prefix: rpt) {
+  :root.light-theme {
+    @each $name, $value in $css_custom_properties {
+      --#{$prefix}-#{$name}: #{$value};
+    }
+  }
+}
+
 // Override CSS Custom Property locally
 @mixin cssvar($name, $value: '', $prefix: rpt) {
   --#{$prefix}-#{$name}: #{$value};
