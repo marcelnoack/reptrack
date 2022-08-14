@@ -27,7 +27,6 @@
     justify-content: center;
     align-items: center;
     background-color: cssvar(color-secondary);
-    color: cssvar(color-on-secondary);
     font-size: 0.8rem;
     border-top: 2px solid transparent;
   }
@@ -41,7 +40,7 @@
   text-decoration: none;
   height: 100%;
   width: 100%;
-  color: white;
+  color: cssvar(color-on-secondary);
   outline: none;
 
   &--active {
