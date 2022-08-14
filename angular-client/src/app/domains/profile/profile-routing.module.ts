@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProgressComponent } from './pages/progress/progress.component';
+
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProgressComponent,
-  },
+    component: ProfileComponent
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class ProgressRoutingModule {}
+export class ProfileRoutingModule { }

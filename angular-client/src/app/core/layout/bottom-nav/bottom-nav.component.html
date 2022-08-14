@@ -2,7 +2,7 @@
   <ul class="nav-list">
     <a
       class="route"
-      routerLink="/"
+      routerLink=""
       routerLinkActive="route--active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
@@ -15,19 +15,19 @@
         <span class="material-icons">fitness_center</span>Workouts
       </li>
     </a>
-    <li class="nav-list__tab nav-list__tab--center">
+    <!-- <li *ngIf="routeHasMainAction" class="nav-list__tab nav-list__tab--center">
       <div class="nav-list__action">
         <rpt-material-btn icon="add" [border]="true"></rpt-material-btn>
       </div>
-    </li>
-    <a class="route" routerLink="/progress" routerLinkActive="route--active">
-      <li class="nav-list__tab">
-        <span class="material-icons">trending_up</span>Progress
-      </li>
-    </a>
+    </li> -->
     <a class="route" routerLink="/calendar" routerLinkActive="route--active">
       <li class="nav-list__tab">
         <span class="material-icons">date_range</span>Calendar
+      </li>
+    </a>
+    <a class="route" routerLink="/profile" routerLinkActive="route--active">
+      <li class="nav-list__tab">
+        <span class="material-icons">person</span>Me
       </li>
     </a>
   </ul>

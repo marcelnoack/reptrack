@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
 import { RouteInfoService } from 'src/app/core/services/route-info.service';
 
 @Component({
@@ -11,6 +11,6 @@ export class WorkoutsComponent implements OnInit {
   constructor(private routeInfoService: RouteInfoService) {}
 
   ngOnInit(): void {
-    this.routeInfoService.publishRouteInfos({ routeName: 'Workouts' });
+    this.routeInfoService.publishRouteInfos({ routeName: 'Workouts', mainActionContext: 'Workout' });
   }
 }
