@@ -1,4 +1,5 @@
-<div class="signin" style="width: 80%; position: absolute; left: 50%; transform: translateX(-50%); padding: 3rem">
+<div class="signin">
+  <!-- <div style="background: white; width: 400px; height: 100px"></div> -->
   <form [formGroup]="signInForm" (submit)="signIn()">
     <section style="display: flex; flex-flow: column nowrap; row-gap: 3rem;">
       <p class="form-group">
@@ -12,8 +13,6 @@
         </rpt-input>
       </p>
       <p class="form-group">
-        <!-- <label for="password">Password:</label>
-        <input id="password" type="password" formControlName="password" required /> -->
         <rpt-input 
           [fG]="signInForm"
           fCName="password"

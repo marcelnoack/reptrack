@@ -11,8 +11,8 @@
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: cssvar(color-secondary);
-    background-color: #fff;
+    color: cssvar(color-on-bg);
+    background-color: cssvar(color-background);
     padding: 0 0.75em 0 0;
     transition: 0.1s ease-out;
     pointer-events: none;
@@ -33,70 +33,60 @@
     border: 1px solid cssvar(color-secondary);
     border-radius: 5px;
     padding: 1em 0.75em 1em 1em;
-    color: #000;
-    // background-color: cssvar()
+    color: cssvar(color-on-bg);
+    background-color: cssvar(color-background);
     resize: none;
     transition: 0.1s ease-out;
   }
 
-    &__input:disabled {
-      color: cssvar(color-secondary);
-      cursor: not-allowed;
-    }
-  
-    &__input--border-none {
-      border: 1px solid transparent;
-    }
-  
-    &__input--dense {
-      padding: 0.5em 0.375em 0.5em 0.5em;
-    }
-  
-    &__input:focus {
-      border: 2px solid cssvar(color-secondary);
-      /* fix moving due to border-width increase by adjusting the padding accordingly */
-      /* padding: 15px 11px 15px 15px; */
-    }
-  
-    /* on textfield focus, move label */
-    &__input:focus+&__label {
-      color: #6200ee;
-      top: 0;
-      left: 0.75em;
-      padding: 0 0.25em;
-      font-size: 12px;
-    }
-  
-    /* on textfield holds text, let label stay in moved place */
-    /* &__input:valid + &__label {
+  &__input:disabled {
+    color: cssvar(color-secondary);
+    cursor: not-allowed;
+  }
+
+  &__input--border-none {
+    border: 1px solid transparent;
+  }
+
+  &__input--dense {
+    padding: 0.5em 0.375em 0.5em 0.5em;
+  }
+
+  &__input:focus {
+    border: 1px solid cssvar(color-primary);
+  }
+
+  /* on textfield focus, move label */
+  &__input:focus+&__label {
+    color: cssvar(color-primary);
     top: 0;
-    left: 12px;
-    padding: 0 4px;
+    left: 0.75em;
+    padding: 0 0.25em;
     font-size: 12px;
-  } */
-  
-    &__input--error {
-      border-color: cssvar(color-error);
-    }
-  
-    &__input--error:focus {
-      border-color: cssvar(color-error);
-    }
-  
-    &__input--error:focus+&__label {
-      color: cssvar(color-error);
-    }
-  
-    &__helpertext {
-      font-size: 12px;
-      position: absolute;
-      left: 1em;
-      bottom: -1em;
-      color: cssvar(color-secondary);
-    }
-  
-    &__helpertext--error {
-      color: cssvar(color-error);
-      font-weight: bold;
-    }
+  }
+
+  &__input--error {
+    border-color: cssvar(color-error);
+  }
+
+  &__input--error:focus {
+    border-color: cssvar(color-error);
+  }
+
+  &__input--error:focus+&__label {
+    color: cssvar(color-error);
+  }
+
+  &__helpertext {
+    font-size: 12px;
+    position: absolute;
+    left: 1em;
+    bottom: -1.5em;
+    color: cssvar(color-secondary);
+  }
+
+  &__helpertext--error {
+    color: cssvar(color-error);
+    font-weight: bold;
+  }
 }
