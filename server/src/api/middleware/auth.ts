@@ -72,7 +72,7 @@ export const validateSignUp = (
       password: Joi.string()
         .pattern(
           new RegExp(
-            '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|]).{8,}$'
+            '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
           )
         )
         .required()

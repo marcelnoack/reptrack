@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthService } from 'src/app/core/services/auth.service';
 import { RouteInfoService } from 'src/app/core/services/route-info.service';
 
 @Component({
@@ -9,10 +10,14 @@ import { RouteInfoService } from 'src/app/core/services/route-info.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private routeInfoService: RouteInfoService) { }
+  constructor(private _routeInfoService: RouteInfoService, private _authService: AuthService) { }
 
   ngOnInit(): void {
-    this.routeInfoService.publishRouteInfos({ routeName: 'Profile' });
+    this._routeInfoService.publishRouteInfos({ routeName: 'Profile' });
+  }
+
+  test() {
+    this._authService.signOut();
   }
 
 }

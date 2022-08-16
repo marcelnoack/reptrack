@@ -1,1 +1,30 @@
-<p>signin works!</p>
+<div class="signin" style="width: 80%; position: absolute; left: 50%; transform: translateX(-50%); padding: 3rem">
+  <form [formGroup]="signInForm" (submit)="signIn()">
+    <section style="display: flex; flex-flow: column nowrap; row-gap: 3rem;">
+      <p class="form-group">
+        <rpt-input 
+          [fG]="signInForm"
+          fCName="email"
+          label="Email"
+          placeholder="Please enter an email"
+          [error]="getErrorMessage('email')"
+          [required]="true">
+        </rpt-input>
+      </p>
+      <p class="form-group">
+        <!-- <label for="password">Password:</label>
+        <input id="password" type="password" formControlName="password" required /> -->
+        <rpt-input 
+          [fG]="signInForm"
+          fCName="password"
+          label="Password"
+          placeholder="Please enter your password"
+          [error]="getErrorMessage('password')"
+          [isPassword]="true"
+          [required]="true">
+        </rpt-input>
+      </p>
+    </section>
+    <button type="submit" [disabled]="!signInForm.valid">SignIn</button>
+  </form>
+</div>

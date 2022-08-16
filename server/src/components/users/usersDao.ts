@@ -2,6 +2,7 @@ import { QueryResult } from 'pg';
 import { BaseDAO } from '../../common';
 import { query } from '../../common/db';
 import { Api500Error } from '../../common/errors';
+import { Api409Error } from '../../common/errors/Api409Error';
 import { UserDTO, UserInputDTO, UserRelatedEntities } from './usersAPI';
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -50,13 +51,33 @@ export default class UsersDao
       createdBy,
       lastChangedBy
     } = newResource;
-    const creationResult: QueryResult<any> = await query(
-      'INSERT INTO users (username, firstName, lastName, email, password, createdBy, lastChangedBy, createdAt, lastChangedAt)' +
-        'VALUES ($1, $2, $3, $4, $5, $6, $7, NOW(), NOW()) RETURNING *',
-      [username, firstName, lastName, email, password, createdBy, lastChangedBy]
-    );
+    let creationResult: QueryResult<any>;
+    try {
+      creationResult = await query(
+        'INSERT INTO users (username, firstName, lastName, email, password, createdBy, lastChangedBy, createdAt, lastChangedAt)' +
+          'VALUES ($1, $2, $3, $4, $5, $6, $7, NOW(), NOW()) RETURNING *',
+        [
+          username,
+          firstName,
+          lastName,
+          email,
+          password,
+          createdBy,
+          lastChangedBy
+        ]
+      );
 
-    if (creationResult.rowCount !== 1) {
+      if (creationResult.rowCount !== 1) {
+        throw new Api500Error('Something went wrong while creating a new user');
+      }
+    } catch (err) {
+      if (
+        err instanceof Error &&
+        err.message?.indexOf('Unique-Constraint') !== -1
+      ) {
+        throw new Api409Error('The user already exists.');
+      }
+
       throw new Api500Error('Something went wrong while creating a new user');
     }
 

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { SignInComponent } from 'src/app/domains/auth/pages/signin/signin.component';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -18,20 +17,24 @@ export class AuthGuard implements CanActivate {
 
     const isAuth: boolean = this._authService.isAuthenticated();
 
-    if (route.component === SignInComponent && isAuth) {
+    if (this._isAuthRoute(state.url) && isAuth) {
       this._router.navigate(['/']);
       return false;
     }
 
-    if (route.component !== SignInComponent && isAuth) {
+    if (!this._isAuthRoute(state.url) && isAuth) {
       return true;
     }
 
-    if (route.component !== SignInComponent && !isAuth) {
-      this._router.navigate(["/signin"]);
+    if (!this._isAuthRoute(state.url) && !isAuth) {
+      this._router.navigate(["auth/signin"]);
       return false;
     }
 
     return true;
+  }
+
+  private _isAuthRoute(url: string): boolean {
+    return url.indexOf('/auth') !== -1;
   }
 }
