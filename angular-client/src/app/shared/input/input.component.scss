@@ -78,11 +78,10 @@
   }
 
   &__helpertext {
+    display: block;
     font-size: 12px;
-    position: absolute;
-    left: 1em;
-    bottom: -1.5em;
     color: cssvar(color-secondary);
+    padding: 0 0 0 1em;
   }
 
   &__helpertext--error {

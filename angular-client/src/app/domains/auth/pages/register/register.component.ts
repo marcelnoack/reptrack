@@ -50,6 +50,60 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  public getErrorMessage(accessor: string): string {
+    const dirty: boolean = this.userForm.get(accessor)?.dirty === true;
+    const touched: boolean = this.userForm.get(accessor)?.touched === true;
+    if (!dirty && !touched) return '';
+
+    const formControl: AbstractControl | null = this.userForm.get(accessor);
+    if (accessor === 'firstName' && formControl?.errors?.['required']) {
+      return 'First name is required.'
+    }
+
+    if (accessor === 'lastName' && formControl?.errors?.['required']) {
+      return 'Last name is required.'
+    }
+
+    if (accessor === 'username') {
+      if (formControl?.errors?.['required']) {
+        return 'Username is required.'
+      }
+      if (formControl?.errors?.['pattern']) {
+        return "Username has to contain between 8 and 20 characters."
+      }
+    }
+
+    if (accessor === 'emailGroup.email') {
+      if (formControl?.errors?.['required']) {
+        return 'Email is required. Please enter a valid email.'
+      }
+
+      if (formControl?.errors?.['email']) {
+        return 'Invalid email. Please enter a valid email.';
+      }
+    }
+
+    if (accessor === 'emailGroup' && formControl?.errors) {
+      return 'Emails do not match.';
+    }
+
+    if (accessor === 'passwordGroup.password') {
+      if (formControl?.errors) {
+        return  `Must contain at least eight characters, one uppercase and lowercase letter, a number, and a special character`;
+      }
+
+      if (formControl?.errors?.['required']) {
+        return 'Invalid email. Please enter a valid email.';
+      }
+    }
+
+    if (accessor === 'passwordGroup' && formControl?.errors) {
+      return 'Passwords do not match.';
+    }
+
+    return '';
+  }
+
   private _checkEmailMatches(group: AbstractControl): ValidationErrors | null {
     return group.get("email")?.value === group.get("emailConfirm")?.value ? null : { notSame: true };
   }

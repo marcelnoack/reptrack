@@ -1,41 +1,86 @@
-<div class="textfield" [formGroup]="fG">
-  <ng-container *ngIf="!multiline">
-    <input
-      autocomplete="off"
-      required
-      class="textfield__input"
-      [ngClass]="{
-        'textfield__input--error': error,
-        'textfield__input--dense': dense
-      }"
-      [formControlName]="fCName"
-      [type]="isPassword ? 'password' : 'text'"
-      [placeholder]="placeholder"
-    />
-  </ng-container>
+<div [formGroup]="fG">
+  <ng-container *ngIf="fGName">
+    <div class="textfield" [formGroupName]="fGName">
+      <ng-container *ngIf="!multiline">
+        <input
+          autocomplete="off"
+          required
+          class="textfield__input"
+          [ngClass]="{
+            'textfield__input--error': error,
+            'textfield__input--dense': dense
+          }"
+          [formControlName]="fCName"
+          [type]="isPassword ? 'password' : 'text'"
+          [placeholder]="placeholder"
+        />
+      </ng-container>
 
-  <ng-container *ngIf="multiline">
-    <textarea
-      required
-      class="textfield__input"
-      [placeholder]="placeholder"
-      [ngClass]="{
-        'textfield__input--error': error
-      }"
-      [formControlName]="fCName"
-    >
-    </textarea>
-  </ng-container>
+      <ng-container *ngIf="multiline">
+        <textarea
+          required
+          class="textfield__input"
+          [placeholder]="placeholder"
+          [ngClass]="{
+            'textfield__input--error': error
+          }"
+          [formControlName]="fCName"
+        >
+        </textarea>
+      </ng-container>
 
-  <label
-    *ngIf="label"
-    class="textfield__label"
-    [ngClass]="{
-      'textfield__label--hold': fCName.length
-    }"
-  >
-    {{ label }}{{ required ? "*" : "" }}
-  </label>
+      <label
+        *ngIf="label"
+        class="textfield__label"
+        [ngClass]="{
+          'textfield__label--hold': fCName.length
+        }"
+      >
+        {{ label }}{{ required ? "*" : "" }}
+      </label>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!fGName">
+    <div class="textfield">
+      <ng-container *ngIf="!multiline">
+        <input
+          autocomplete="off"
+          required
+          class="textfield__input"
+          [ngClass]="{
+            'textfield__input--error': error,
+            'textfield__input--dense': dense
+          }"
+          [formControlName]="fCName"
+          [type]="isPassword ? 'password' : 'text'"
+          [placeholder]="placeholder"
+        />
+      </ng-container>
+
+      <ng-container *ngIf="multiline">
+        <textarea
+          required
+          class="textfield__input"
+          [placeholder]="placeholder"
+          [ngClass]="{
+            'textfield__input--error': error
+          }"
+          [formControlName]="fCName"
+        >
+        </textarea>
+      </ng-container>
+
+      <label
+        *ngIf="label"
+        class="textfield__label"
+        [ngClass]="{
+          'textfield__label--hold': fCName.length
+        }"
+      >
+        {{ label }}{{ required ? "*" : "" }}
+      </label>
+    </div>
+  </ng-container>
 
   <span
     class="textfield__helpertext"

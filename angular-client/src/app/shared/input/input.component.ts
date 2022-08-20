@@ -9,6 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class InputComponent implements OnInit {
 
   @Input() fG: FormGroup = new FormGroup({});
+  @Input() fGName: string = '';
   @Input() fCName: string = '';
   @Input() error: string = '';
   @Input() label: string = '';

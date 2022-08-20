@@ -1,114 +1,101 @@
 <div class="register">
-  <form [formGroup]="userForm" (submit)="register()">
-    <section>
+  <form [formGroup]="userForm" (submit)="register()" style="display: flex; flex-flow: column nowrap; row-gap: 3em;">
+    <h1>Register</h1>
+    <section style="display: flex; flex-flow: column nowrap; row-gap: 2em;">
+      <h2>General</h2>
       <p class="form-group">
-        <label for="first-name">First Name:</label>
-        <input
-          id="first-name"
-          type="text"
-          formControlName="firstName"
-          required
-        />
-        <span
-          *ngIf="(userForm.get('firstName')?.dirty || userForm.get('firstName')?.touched) && userForm.get('firstName')?.errors?.['required']"
-          >First name is required.</span
+        <rpt-input
+          [fG]="userForm"
+          fCName="firstName"
+          label="First Name"
+          placeholder="Please enter your first name"
+          [error]="getErrorMessage('firstName')"
+          [required]="true"
         >
+        </rpt-input>
       </p>
       <p class="form-group">
-        <label for="last-name">Last Name:</label>
-        <input id="last-name" type="text" formControlName="lastName" required />
-        <span
-          *ngIf="(userForm.get('lastName')?.dirty || userForm.get('lastName')?.touched) && userForm.get('lastName')?.errors?.['required']"
-          >Last name is required.</span
+        <rpt-input
+          [fG]="userForm"
+          fCName="lastName"
+          label="Last Name"
+          placeholder="Please enter your last name"
+          [error]="getErrorMessage('lastName')"
+          [required]="true"
         >
+        </rpt-input>
       </p>
       <p class="form-group">
-        <label for="username">Username:</label>
-        <input id="username" type="text" formControlName="username" required />
-        <span
-          *ngIf="(userForm.get('username')?.dirty || userForm.get('username')?.touched) && userForm.get('username')?.errors?.['required']"
-          >Username is required.</span
+        <rpt-input
+          [fG]="userForm"
+          fCName="username"
+          label="Username"
+          placeholder="Please enter a username"
+          [error]="getErrorMessage('username')"
+          [required]="true"
         >
-      </p>
-      <p>
-        <span
-          *ngIf="(userForm.get('username')?.dirty || userForm.get('username')?.touched) && userForm.get('username')?.errors?.['pattern']"
-          >Username has to contain between 8 and 20 characters.</span
-        >
-      </p>
-    </section>
-    <section formGroupName="emailGroup">
-      <p class="form-group">
-        <label for="email">Email:</label>
-        <input id="email" type="text" formControlName="email" required />
-        <span
-          *ngIf="
-            (userForm.get('emailGroup.email')?.dirty ||
-              userForm.get('emailGroup.email')?.touched) &&
-            userForm.get('emailGroup.email')?.errors
-          "
-          >Please enter a valid email.</span
-        >
-      </p>
-      <p class="form-group">
-        <label for="email-confirm">Confirm email:</label>
-        <input
-          id="email-confirm"
-          type="text"
-          formControlName="emailConfirm"
-          required
-        />
-        <span
-          *ngIf="
-            (userForm.get('emailGroup.emailConfirm')?.dirty ||
-              userForm.get('emailGroup.emailConfirm')?.touched) &&
-            userForm.get('emailGroup')?.errors
-          "
-          >Emails do not match.</span
-        >
+        </rpt-input>
       </p>
     </section>
-    <section formGroupName="passwordGroup">
+    <section formGroupName="emailGroup" style="display: flex; flex-flow: column nowrap; row-gap: 2em;">
+      <h2>Email</h2>
       <p class="form-group">
-        <label for="password">Password:</label>
-        <input
-          id="password"
-          type="password"
-          formControlName="password"
-          required
-        />
-        <span
-          *ngIf="
-            (userForm.get('passwordGroup.password')?.dirty ||
-              userForm.get('passwordGroup.password')?.touched) &&
-            userForm.get('passwordGroup.password')?.errors
-          "
-          >The password must be at least eight characters long, containing at
-          least one uppercase and lowercase character, a number, and a special
-          character.</span
+        <rpt-input
+          [fG]="userForm"
+          fGName="emailGroup"
+          fCName="email"
+          label="Email"
+          placeholder="Please enter an email"
+          [error]="getErrorMessage('emailGroup.email')"
+          [required]="true"
         >
+        </rpt-input>
       </p>
       <p class="form-group">
-        <label for="password-confirm">Confirm password:</label>
-        <input
-          id="password-confirm"
-          type="password"
-          formControlName="passwordConfirm"
-          required
-        />
-        <span
-          *ngIf="
-            (userForm.get('passwordGroup.passwordConfirm')?.dirty ||
-              userForm.get('passwordGroup.passwordConfirm')?.touched) &&
-            userForm.get('passwordGroup')?.errors
-          "
-          >Passwords do not match.</span
+        <rpt-input
+          [fG]="userForm"
+          fGName="emailGroup"
+          fCName="emailConfirm"
+          label="Email"
+          placeholder="Confirm your email"
+          [error]="getErrorMessage('emailGroup')"
+          [required]="true"
         >
+        </rpt-input>
+      </p>
+    </section>
+    <section formGroupName="passwordGroup" style="display: flex; flex-flow: column nowrap; row-gap: 2em;">
+      <h2>Password</h2>
+      <p class="form-group">
+        <rpt-input
+          [fG]="userForm"
+          fGName="passwordGroup"
+          fCName="password"
+          label="Password"
+          placeholder="Enter a password"
+          [error]="getErrorMessage('passwordGroup.password')"
+          [isPassword]="true"
+          [required]="true"
+        >
+        </rpt-input>
+      </p>
+      <p class="form-group">
+        <rpt-input
+          [fG]="userForm"
+          fGName="passwordGroup"
+          fCName="passwordConfirm"
+          label="Password"
+          placeholder="Confirm your password"
+          [error]="getErrorMessage('passwordGroup')"
+          [isPassword]="true"
+          [required]="true"
+        >
+        </rpt-input>
       </p>
     </section>
     <button type="submit" [disabled]="!userForm.valid">Submit</button>
   </form>
 
   <span *ngIf="isLoading$ | async">Loading</span>
-  <span *ngIf="error$ | async">{{error$}}</span>
+  <span *ngIf="error$ | async">{{ error$ }}</span>
 </div>
