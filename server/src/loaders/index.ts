@@ -5,6 +5,7 @@ import { Logger } from '../common/Logger';
 import httpsRedirectLoader from './https-redirect';
 import expressLoader from './express';
 import morganLoader from './morgan';
+import DBHelper from '../common/db/helper';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -25,4 +26,6 @@ export default async ({ expressApp }: { expressApp: express.Express }) => {
 
   // Check database access
   await checkDbConnection();
+  const dbHelper: DBHelper = new DBHelper();
+  dbHelper.seedDB();
 };
