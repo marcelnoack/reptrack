@@ -1,0 +1,22 @@
+services:
+  rp_db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=${PGDATABASE}
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+    ports:
+      - 5432:5432
+  rp_server:
+    build: ./server
+    depends_on:
+      - rp_db
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - "./server:/usr/src/reptrack/server"
+      - "reptrack-nodemodules:/usr/src/reptrack/server/node_modules"
+
+volumes:
+  reptrack-nodemodules:
+  reptrack-db-data:
