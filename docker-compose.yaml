@@ -1,5 +1,5 @@
 services:
-  rp_db:
+  rt_db:
     image: postgres
     environment:
       - POSTGRES_DB=${PGDATABASE}
@@ -7,10 +7,12 @@ services:
       - POSTGRES_PASSWORD=${PGPASSWORD}
     ports:
       - 5432:5432
-  rp_server:
+    volumes:
+      - "reptrack-db-data:/var/lib/postgresql/data"
+  rt_server:
     build: ./server
     depends_on:
-      - rp_db
+      - rt_db
     ports:
       - ${PORT}:${PORT}
     volumes:
