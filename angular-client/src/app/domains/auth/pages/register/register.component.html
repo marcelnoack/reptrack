@@ -1,1 +1,101 @@
-<p>register works!</p>
+<div class="register">
+  <form [formGroup]="userForm" (submit)="register()" style="display: flex; flex-flow: column nowrap; row-gap: 3em;">
+    <h1>Register</h1>
+    <section style="display: flex; flex-flow: column nowrap; row-gap: 2em;">
+      <h2>General</h2>
+      <p class="form-group">
+        <rpt-input
+          [fG]="userForm"
+          fCName="firstName"
+          label="First Name"
+          placeholder="Please enter your first name"
+          [error]="getErrorMessage('firstName')"
+          [required]="true"
+        >
+        </rpt-input>
+      </p>
+      <p class="form-group">
+        <rpt-input
+          [fG]="userForm"
+          fCName="lastName"
+          label="Last Name"
+          placeholder="Please enter your last name"
+          [error]="getErrorMessage('lastName')"
+          [required]="true"
+        >
+        </rpt-input>
+      </p>
+      <p class="form-group">
+        <rpt-input
+          [fG]="userForm"
+          fCName="username"
+          label="Username"
+          placeholder="Please enter a username"
+          [error]="getErrorMessage('username')"
+          [required]="true"
+        >
+        </rpt-input>
+      </p>
+    </section>
+    <section formGroupName="emailGroup" style="display: flex; flex-flow: column nowrap; row-gap: 2em;">
+      <h2>Email</h2>
+      <p class="form-group">
+        <rpt-input
+          [fG]="userForm"
+          fGName="emailGroup"
+          fCName="email"
+          label="Email"
+          placeholder="Please enter an email"
+          [error]="getErrorMessage('emailGroup.email')"
+          [required]="true"
+        >
+        </rpt-input>
+      </p>
+      <p class="form-group">
+        <rpt-input
+          [fG]="userForm"
+          fGName="emailGroup"
+          fCName="emailConfirm"
+          label="Email"
+          placeholder="Confirm your email"
+          [error]="getErrorMessage('emailGroup')"
+          [required]="true"
+        >
+        </rpt-input>
+      </p>
+    </section>
+    <section formGroupName="passwordGroup" style="display: flex; flex-flow: column nowrap; row-gap: 2em;">
+      <h2>Password</h2>
+      <p class="form-group">
+        <rpt-input
+          [fG]="userForm"
+          fGName="passwordGroup"
+          fCName="password"
+          label="Password"
+          placeholder="Enter a password"
+          [error]="getErrorMessage('passwordGroup.password')"
+          [isPassword]="true"
+          [required]="true"
+        >
+        </rpt-input>
+      </p>
+      <p class="form-group">
+        <rpt-input
+          [fG]="userForm"
+          fGName="passwordGroup"
+          fCName="passwordConfirm"
+          label="Password"
+          placeholder="Confirm your password"
+          [error]="getErrorMessage('passwordGroup')"
+          [isPassword]="true"
+          [required]="true"
+        >
+        </rpt-input>
+      </p>
+    </section>
+    <button type="submit" [disabled]="!userForm.valid">Submit</button>
+  </form>
+
+  <span *ngIf="isLoading$ | async">Loading</span>
+  <span *ngIf="error$ | async">{{ error$ }}</span>
+</div>

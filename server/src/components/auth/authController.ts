@@ -50,7 +50,8 @@ export default class AuthController {
       const newUserId: string = await this._authService.signUp(user);
       res
         .setHeader('Location', `/v1/users/${newUserId}`)
-        .sendStatus(SupportedHttpStatusCodes.CREATED);
+        .status(SupportedHttpStatusCodes.CREATED)
+        .send();
     } catch (err) {
       next(err);
     }

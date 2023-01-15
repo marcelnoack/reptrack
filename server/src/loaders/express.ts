@@ -11,7 +11,28 @@ import { ErrorHandler } from '../common';
 /* ---------------------------------------------------------------------------------------------- */
 
 export default ({ app }: { app: express.Application }) => {
-  app.use(cors());
+  app.use(
+    cors({
+      origin: (origin, callback) => {
+        if (
+          process.env.NODE_ENV === 'production' &&
+          (origin === 'https://www.reptrack.fit' ||
+            origin === 'https://reptrack.fit')
+        ) {
+          return callback(null, true);
+        }
+
+        if (
+          process.env.NODE_ENV === 'development' &&
+          (!origin || origin === 'http://localhost:4200')
+        ) {
+          return callback(null, true);
+        }
+
+        return callback(new Error('Not allowed by CORS'));
+      }
+    })
+  );
   app.use(helmet());
   app.use(express.urlencoded());
   app.use(express.json());

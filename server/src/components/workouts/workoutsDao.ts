@@ -106,7 +106,7 @@ export default class WorkoutsDao
     const { name, description, userId, createdBy, lastChangedBy, exercises } =
       newResource;
     const creationResult: QueryResult<any> = await query(
-      `INSERT INTO workouts (name, description, userid, createdby, lastchangedby, createdat, lastchangedat) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *`,
+      `INSERT INTO workout (name, description, userid, createdby, lastchangedby, createdat, lastchangedat) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *`,
       [name, description, userId, createdBy, lastChangedBy]
     );
 

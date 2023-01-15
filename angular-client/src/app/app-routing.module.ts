@@ -1,17 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from './core/guards/auth.guard';
+import { AuthGuard } from './core/helpers/auth.guard';
 import { LayoutComponent } from './core/layout/layout.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
-import { SignInComponent } from './domains/auth/pages/signin/signin.component';
 
 const routes: Routes = [
-  {
-    path: "signin",
-    component: SignInComponent,
-    canActivate: [AuthGuard]
-  },
   {
     path: '',
     component: LayoutComponent,
@@ -44,6 +38,11 @@ const routes: Routes = [
           ),
       }
     ]
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./domains/auth/auth.module').then(m => m.AuthModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

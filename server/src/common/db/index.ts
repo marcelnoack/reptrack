@@ -17,9 +17,6 @@ if (process.env.NODE_ENV !== 'development') {
     }
   });
 }
-_pool.on('connect', () => {
-  Logger.info('Database connection established successfully.');
-});
 
 /* ---------------------------------------------------------------------------------------------- */
 const query = (
