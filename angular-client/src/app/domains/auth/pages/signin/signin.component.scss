@@ -7,4 +7,32 @@
   bottom: 0;
   left: 0;
   right: 0;
+
+  display: grid;
+  grid-template-areas: "form";
+  grid-template-rows: none;
+
+  @media screen and (min-width: 48em) {
+    grid-template-areas: "form brand";
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &__form-container {
+    grid-area: form;
+
+    @media screen and (min-width: 48em) {}
+  }
+
+  &__brand-container {
+    grid-area: brand;
+    display: none;
+
+    @media screen and (min-width: 48em) {
+      display: initial;
+    }
+  }
+
+  &__form-logo {
+    height: 5em;
+  }
 }

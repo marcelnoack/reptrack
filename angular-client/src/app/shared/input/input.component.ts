@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
+interface PasswortFieldConfig {
+  type: string; icon: string; active: boolean
+}
+
 @Component({
   selector: 'rpt-input',
   templateUrl: './input.component.html',
@@ -20,9 +24,23 @@ export class InputComponent implements OnInit {
   @Input() isPassword: boolean = false;
   @Input() required: boolean = false;
 
+  private _passwordTypes: PasswortFieldConfig[] = [
+    { type: 'password', icon: 'visibility', active: true },
+    { type: 'text', icon: 'visibility_off', active: false },
+  ];
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public getCurrentPasswordConfig(): PasswortFieldConfig {
+    const defaultConfig: PasswortFieldConfig = { type: 'password', icon: 'visibility', active: true };
+    return this._passwordTypes.find((pT) => pT.active) || defaultConfig;
+  }
+
+  public toggleCurrentPasswordConfig(): void {
+    this._passwordTypes = this._passwordTypes.map((pT) => ({...pT, active: !pT.active}));
   }
 
 }

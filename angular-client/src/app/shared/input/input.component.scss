@@ -88,4 +88,12 @@
     color: cssvar(color-error);
     font-weight: bold;
   }
+
+  &__btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0.25em;
+  }
 }

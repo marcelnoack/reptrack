@@ -35,17 +35,16 @@ export class SignInComponent implements OnInit {
     const touched: boolean = this.signInForm.get(accessor)?.touched === true;
     const hasError: boolean = this.signInForm.get(accessor)?.errors?.['required'];
 
-    console.log(accessor, this.signInForm.get(accessor)?.errors);
     return (dirty || touched) && hasError;
   }
 
   public getErrorMessage(accessor: 'email' | 'password'): string {
     const dirty: boolean = this.signInForm.get(accessor)?.dirty === true;
     const touched: boolean = this.signInForm.get(accessor)?.touched === true;
-    if(!dirty && !touched) return '';
-    
+    if (!dirty && !touched) return '';
+
     const formControl: AbstractControl | null = this.signInForm.get(accessor);
-    if(accessor === 'email') {
+    if (accessor === 'email') {
       if (formControl?.errors?.['required']) {
         return 'Email is required. Please enter a valid email.'
       }

@@ -11,7 +11,7 @@
             'textfield__input--dense': dense
           }"
           [formControlName]="fCName"
-          [type]="isPassword ? 'password' : 'text'"
+          [type]="isPassword ? getCurrentPasswordConfig().type : 'text'"
           [placeholder]="placeholder"
         />
       </ng-container>
@@ -38,6 +38,14 @@
       >
         {{ label }}{{ required ? "*" : "" }}
       </label>
+
+      <span *ngIf="isPassword" class="textfield__btn">
+        <rpt-material-btn
+          (action)="toggleCurrentPasswordConfig()"
+          [icon]="getCurrentPasswordConfig().icon"
+          [mini]="true"
+        ></rpt-material-btn>
+      </span>
     </div>
   </ng-container>
   <ng-container *ngIf="!fGName">
@@ -52,7 +60,7 @@
             'textfield__input--dense': dense
           }"
           [formControlName]="fCName"
-          [type]="isPassword ? 'password' : 'text'"
+          [type]="isPassword ? getCurrentPasswordConfig().type : 'text'"
           [placeholder]="placeholder"
         />
       </ng-container>
@@ -79,6 +87,14 @@
       >
         {{ label }}{{ required ? "*" : "" }}
       </label>
+
+      <span *ngIf="isPassword" class="textfield__btn">
+        <rpt-material-btn
+          (action)="toggleCurrentPasswordConfig()"
+          [icon]="getCurrentPasswordConfig().icon"
+          [mini]="true"
+        ></rpt-material-btn>
+      </span>
     </div>
   </ng-container>
 
