@@ -4,6 +4,7 @@ on: pull_request
 
 jobs:
   cypress-run:
+    name: Cypress e2e
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
