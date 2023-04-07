@@ -1,4 +1,4 @@
-name: Next-Client:E2E Tests
+name: Next-Client:Tests
 
 on: pull_request
 
