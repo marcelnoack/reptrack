@@ -1,6 +1,6 @@
 # reptrack
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/d6eefae2-0099-4e89-8f32-79bc47193737/deploy-status)](https://app.netlify.com/sites/dreamy-spence-57c035/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fe4b33ad-a5c8-4fab-8410-fcdaadeb1c78/deploy-status)](https://app.netlify.com/sites/reptrack/deploys)
 
 Gym assistant to track your exercise repitions, sets and be able to share them easily with your coach.
 
