@@ -1,8 +1,27 @@
-name: Next-Client:E2E Tests
+name: Next-Client:Tests
 
 on: pull_request
 
 jobs:
+  jest-run:
+    name: Jest unit tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./next-client
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          working-directory: ./next-client
+          node-version: 18.15.0
+      - uses: pnpm/action-setup@v2
+        with:
+          working-directory: ./next-client
+          version: 8.1.1
+      - run: pnpm install
+      - run: pnpm test:unit
+
   cypress-run:
     name: Cypress e2e
     runs-on: ubuntu-latest
