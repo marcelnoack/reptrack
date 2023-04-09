@@ -1,6 +1,5 @@
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { getLanguageFromPath } from '@/lib/i18n/i18n-helper';
 
 import { useHttp } from './useHttp';
 
@@ -19,8 +18,7 @@ const _queryFiltersToString = ( queryFilters?: QueryFilter[] ): string => {
 
 export const useApi = () => {
     const baseUrl: string = process.env['NEXT_PUBLIC_API_URL'] || '';
-    const path = usePathname();
-    const locale = getLanguageFromPath( path );
+    const { locale } = useRouter();
     const queryClient = useQueryClient();
 
     const http = useHttp( {

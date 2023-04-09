@@ -20,7 +20,6 @@ export const useHttp = ( options: RequestOptions ): {
         'Accept-Language': headers.acceptLanguage,
         accept: headers.accept,
         'Content-Type': headers.contentType,
-        'Content-Security-Policy': 'default-src \'self\'',
     };
 
     const get = <T, >( url: string ): Promise<T> => fetch( url, {
