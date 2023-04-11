@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "test:unit": "jest",
+    "watch:unit": "jest --watch",
     "test:e2e": "cypress run"
   },
   "dependencies": {
