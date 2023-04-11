@@ -24,7 +24,7 @@ export default ({ app }: { app: express.Application }) => {
 
         if (
           process.env.NODE_ENV === 'development' &&
-          (!origin || origin === 'http://localhost:4200')
+          (!origin || origin === 'http://localhost:4200' || origin === 'http://localhost:3000')
         ) {
           return callback(null, true);
         }
