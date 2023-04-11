@@ -33,27 +33,31 @@ export default function LocaleLayout( {
         <head>
             {/*TODO: Use current route name*/}
             <title>reptrack-app - current route</title>
-            <meta http-equiv="Content-Security-Policy" content="default-src 'self';"/>
+            {/*<meta http-equiv="Content-Security-Policy" content="default-src 'self';"/>*/}
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <meta name="keywords"
                   content="gym, exercise, workout, training, fitness, assistant, track, repetitions, sets, share, easily"/>
             <meta name="description"
                   content="Gym assistant to track your exercise repetitions, sets and be able to share easily them with others."/>
+            <link
+                href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                rel="stylesheet"
+            />
         </head>
         <body>
         <QueryClientProvider client={queryClient}>
             <NextIntlClientProvider locale={locale} messages={messages}>
                 <div className="h-screen flex flex-col">
-                    <header className="sticky top-0 z-50">
+                    <header className="sticky top-0 z-50 bg-zinc-800 shadow-md text-white">
                         <div className="py-4 mx-4 lg:mx-0">
                             <div className="flex items-center">
-                                <img src="/Logo3.png" alt="reptrack logo" className="h-12"/>
+                                <img src="/Logo3.png" alt="reptrack logo" className="h-8"/>
                                 <h1 className="mx-auto">Current Route</h1>
                                 <div>Actions</div>
                             </div>
                         </div>
                     </header>
-                    <main className="flex-1 overflow-y-auto">{children}</main>
+                    <main className="flex-1 overflow-y-auto bg-zinc-800 p-2">{children}</main>
                     <footer className="sticky bottom-0 z-50">FOOTER</footer>
                 </div>
             </NextIntlClientProvider>

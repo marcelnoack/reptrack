@@ -1,5 +1,8 @@
 {
-  "Index": {
-    "title": "Hello World Test"
+  "common": {
+    "prompts": {
+      "enterEmail": "Enter your email",
+      "enterPassword": "Enter your password"
+    }
   }
 }
