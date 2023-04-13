@@ -2,7 +2,7 @@
 
 import { useApi } from '@/lib/data-access/useApi';
 
-export default function Home() {
+export default function Home( { params }: {params: {lang: string}} ) {
     const { usePost } = useApi();
 
     const { mutate } = usePost<any>( '/auth/signup', JSON.stringify( {
@@ -20,111 +20,6 @@ export default function Home() {
     };
 
     return <div>
-        <button onClick={() => handleSignup()}>SignUp</button>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
+        {JSON.stringify( params )}
     </div>
 }

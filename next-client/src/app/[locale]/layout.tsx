@@ -1,32 +1,27 @@
-'use client';
-
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 import { NextIntlClientProvider } from 'next-intl/client';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { notFound } from 'next/navigation';
+import QueryProvider from '@/components/providers/QueryProvider';
 
 import '../globals.scss';
 
-const queryClient = new QueryClient();
 
 interface LocaleProps {
     children: ReactNode;
     params: { locale: string };
 }
 
-export default function LocaleLayout( {
+export default async function LocaleLayout( {
                                          children,
                                          params: { locale },
                                      }: LocaleProps ) {
 
-    const [ messages, setMessages ] = useState( undefined );
-
-    useEffect( () => {
-        const fetchMessages = async () => {
-            const localeMessages = ( await import( `../../locales/${locale}.json` ) ).default;
-            setMessages( localeMessages );
-        }
-        fetchMessages();
-    }, [ locale ] )
+    let messages;
+    try {
+        messages = ( await import( `../../locales/${locale}.json` ) ).default;
+    } catch( e ) {
+        notFound()
+    }
 
     return (
         <html lang={locale}>
@@ -39,19 +34,20 @@ export default function LocaleLayout( {
                   content="gym, exercise, workout, training, fitness, assistant, track, repetitions, sets, share, easily"/>
             <meta name="description"
                   content="Gym assistant to track your exercise repetitions, sets and be able to share easily them with others."/>
+            <link rel="shortcut icon" href="/favicon.ico" />
             <link
                 href="https://fonts.googleapis.com/icon?family=Material+Icons"
                 rel="stylesheet"
             />
         </head>
         <body>
-        <QueryClientProvider client={queryClient}>
+        <QueryProvider>
             <NextIntlClientProvider locale={locale} messages={messages}>
                 <div className="h-screen flex flex-col">
                     <header className="sticky top-0 z-50 bg-zinc-800 shadow-md text-white">
                         <div className="py-4 mx-4 lg:mx-0">
                             <div className="flex items-center">
-                                <img src="/Logo3.png" alt="reptrack logo" className="h-8"/>
+                                <img src="/Logo3-128_x_128.png" alt="reptrack logo" className="h-8"/>
                                 <h1 className="mx-auto">Current Route</h1>
                                 <div>Actions</div>
                             </div>
@@ -61,7 +57,7 @@ export default function LocaleLayout( {
                     <footer className="sticky bottom-0 z-50">FOOTER</footer>
                 </div>
             </NextIntlClientProvider>
-        </QueryClientProvider>
+        </QueryProvider>
         </body>
         </html>
     );
