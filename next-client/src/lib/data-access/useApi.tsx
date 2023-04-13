@@ -1,5 +1,6 @@
 import { usePathname } from 'next/navigation';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { getLanguageFromPath } from '@/lib/i18n/i18n-helper';
 
 import { useHttp } from './useHttp';
 
@@ -16,15 +17,10 @@ const _queryFiltersToString = ( queryFilters?: QueryFilter[] ): string => {
         .join( '&' );
 }
 
-const _getLanguageFromPath = ( url: string ): string | undefined => {
-    const match = url.match( /^\/([a-z]{2})\/(.*)$/ );
-    return match?.[1];
-}
-
 export const useApi = () => {
     const baseUrl: string = process.env['NEXT_PUBLIC_API_URL'] || '';
     const path = usePathname();
-    const locale = _getLanguageFromPath( path );
+    const locale = getLanguageFromPath( path );
     const queryClient = useQueryClient();
 
     const http = useHttp( {

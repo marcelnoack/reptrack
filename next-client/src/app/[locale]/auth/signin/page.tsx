@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
@@ -12,6 +13,7 @@ export default function SignIn() {
 
     return <>
         <RptInput
+            id={'signin_email_input'}
             label={'Email'}
             value={email}
             onChange={( value ) => setEmail( value )}
@@ -20,6 +22,7 @@ export default function SignIn() {
             required/>
         <div className="py-4"></div>
         <RptInput
+            id={'signin_password_input'}
             label={'Password'}
             value={password}
             onChange={( value ) => setPassword( value )}
