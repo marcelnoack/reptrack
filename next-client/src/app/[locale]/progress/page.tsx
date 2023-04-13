@@ -1,3 +1,9 @@
+'use client';
+
+import { useTranslations } from 'next-intl';
+
 export default function Progress() {
-    return <>Page</>
+    const tCommon = useTranslations( 'common.prompts' );
+
+    return <>Progress {tCommon( 'enterEmail' )}</>
 }
