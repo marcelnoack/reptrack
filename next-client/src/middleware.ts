@@ -1,11 +1,30 @@
-import { createIntlMiddleware } from 'next-intl/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { defaultLocale, locales } from '@/lib/i18n/i18n-helper';
 
-// This middleware intercepts requests to `/` and will redirect
-// to the best matching locale instead (e.g. `/en`). A cookie
-// is set in the background, so if the user switches to a new
-// language, this will take precedence from now on.
-export default createIntlMiddleware( {
-    // locales: [ 'en', 'de' ],
-    locales: [ 'en' ],
-    defaultLocale: 'en',
-} );
+export default function middleware( request: NextRequest ) {
+    const pathname = request.nextUrl.pathname;
+    const pathnameParts = pathname.toLowerCase().split( '/' );
+
+    const isImage = pathname.match( /\.(png|jpg|jpeg|gif|svg|ico)$/i );
+    if( isImage ) return NextResponse.next();
+
+    if ( pathnameParts[1] === defaultLocale && pathnameParts.length <= 2 ) {
+        return NextResponse.redirect( new URL(
+            pathname.replace( `/${defaultLocale}`, '/' ),
+            request.url
+        ) )
+    }
+
+    const pathnameIsMissingValidLocale = locales.every( ( locale ) => {
+        return !pathname.startsWith( `/${locale}` )
+    } );
+
+    if( pathnameIsMissingValidLocale ) {
+        return NextResponse.rewrite( new URL( `/${defaultLocale}${pathname}`, request.url ) );
+    }
+}
+
+export const config = {
+// do not localize next.js paths
+    matcher: [ '/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)', ],
+};

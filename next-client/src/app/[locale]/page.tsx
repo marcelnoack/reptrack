@@ -1,9 +1,5 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
-
-export default function Home() {
-  const t = useTranslations( 'Index' );
-
-  return <>{t( 'title' )}</>
+export default function Home( { params }: {params: {lang: string}} ) {
+    return <div>
+        {JSON.stringify( params )}
+    </div>
 }
