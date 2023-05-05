@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 
 import config from '../config';
 import routes from '../api';
@@ -11,6 +12,7 @@ import { ErrorHandler } from '../common';
 /* ---------------------------------------------------------------------------------------------- */
 
 export default ({ app }: { app: express.Application }) => {
+
   app.use(
     cors({
       origin: (origin, callback) => {
@@ -29,10 +31,13 @@ export default ({ app }: { app: express.Application }) => {
           return callback(null, true);
         }
 
-        return callback(new Error('Not allowed by CORS'));
-      }
+        return callback(new Error(`Origin ${origin} not allowed by CORS`));
+      },
+      credentials: true,
+      exposedHeaders: ['X-CSRF-Token'],
     })
   );
+  app.use(cookieParser());
   app.use(helmet());
   app.use(express.urlencoded());
   app.use(express.json());

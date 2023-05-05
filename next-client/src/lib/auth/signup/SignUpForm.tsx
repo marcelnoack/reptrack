@@ -1,27 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import { useApi } from '@/lib/data-access/useApi';
 import { RptInput } from '@/components/input/RptInput';
 import RptLocalizedLink from '@/lib/i18n/RptLocalizedLink';
+import { useLocalizedUrl } from '@/lib/i18n/useLocalizedUrl';
 
 export const SignUpForm = () => {
+
+    const router = useRouter();
 
     const tCommon = useTranslations( 'common' );
     const tSignUp = useTranslations( 'page.signUp' );
 
-    const { usePost } = useApi();
-    const { mutate } = usePost<any>( '/signup', JSON.stringify( {
-        user: {
-            username: 'FromNextClient',
-            firstName: 'Marcel',
-            lastName: 'Noack',
-            email: 'somemail@mail.com',
-            password: 'MyPassWd1234!'
-        }
-    } ) )
+    const { localizedUrl: localizedSignInHref } = useLocalizedUrl( '/signin' );
 
     const [ username, setUsername ] = useState( '' );
     const [ firstName, setFirstName ] = useState( '' );
@@ -29,7 +24,29 @@ export const SignUpForm = () => {
     const [ email, setEmail ] = useState( '' );
     const [ password, setPassword ] = useState( '' );
 
-    return <>
+    const { usePost } = useApi();
+    const { mutateAsync, isLoading } = usePost<any>( '/auth/signup', JSON.stringify( {
+        user: {
+            username,
+            firstName,
+            lastName,
+            email,
+            password
+        }
+    } ) )
+
+    const handleSignup = async ( e: FormEvent<HTMLFormElement> ) => {
+        e.preventDefault();
+        try {
+            await mutateAsync();
+            router.push( localizedSignInHref );
+        } catch ( error ) {
+            // TODO: Set error message prompt in form
+        }
+    }
+
+
+    return <form className={'flex flex-col gap-4 p-10 w-full'} onSubmit={( e ) => handleSignup( e )}>
         <h1 className={'lg:hidden flex items-center justify-center gap-2'}>
             <img src="/Logo3-128_x_128.png" alt="reptrack logo" className="h-12"/>
             <span className={'text-2xl font-medium text-green-500'}>Reptrack</span>
@@ -71,11 +88,14 @@ export const SignUpForm = () => {
             placeholder={tCommon( 'general.password' )}
             required
             isPassword/>
+        {/*TODO: create button component*/}
         <button
-            className={'bg-green-500 text-black rounded-md p-3 hover:bg-green-400 focus:bg-green-400 outline-none'}>{tSignUp( 'labelSignUp' )}</button>
+            type={'submit'}
+            disabled={isLoading}
+            className={'bg-green-500 text-black rounded-md p-3 hover:bg-green-400 focus:bg-green-400 disabled:bg-gray-600 disabled:cursor-not-allowed outline-none'}>{tSignUp( 'labelSignUp' )}</button>
         <div className={'flex flex-wrap items-center justify-center gap-2 text-white'}>
             <span>{tSignUp( 'labelAlreadyAccount' )}</span>
             <RptLocalizedLink href={'/signin'}>{tSignUp( 'labelSignIn' )}</RptLocalizedLink>
         </div>
-    </>
+    </form>
 }

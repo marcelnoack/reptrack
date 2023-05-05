@@ -12,23 +12,34 @@ import { Api400Error } from '../../common/errors/Api400Error';
 /* ---------------------------------------------------------------------------------------------- */
 
 export const isAuth = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers['authorization'] || '';
-  const token = authHeader.split(' ')[1];
+  const accessToken = req.cookies?.token;
+  const csrfHeader = req.headers['x-csrf-token'];
 
-  if (!token) {
+  if (!accessToken) {
     throw new Api401Error('Token not present');
   }
 
+  if (!csrfHeader) {
+    throw new Api401Error('CSRF token not present');
+  }
+
   jwt.verify(
-    token,
+    accessToken,
     config.accessTokenSecret,
-    (err: VerifyErrors | null, tokenUser: string | JwtPayload | undefined) => {
+    (err: VerifyErrors | null, tokenPayload: string | JwtPayload | undefined) => {
       if (err) {
         throw new Api403Error('Invalid token');
-      } else {
-        (req as any).user = tokenUser;
-        next();
       }
+
+      const { csrf, user } = tokenPayload as any;
+
+      if (csrf !== csrfHeader) {
+        throw new Api403Error('Invalid CSRF token');
+      }
+
+      (req as any).user = user;
+
+      next();
     }
   );
 };

@@ -17,7 +17,9 @@ export class ErrorHandler {
   ): Promise<void> {
     Logger.error(err.stack);
     if (err instanceof AppError && err.isOperational && res) {
-      res.status(err.httpCode || 500).send(err.message);
+      res.status(err.httpCode || 500).send({
+        message: err.message
+      });
       return;
     }
 

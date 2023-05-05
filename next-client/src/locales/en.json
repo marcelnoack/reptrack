@@ -16,7 +16,9 @@
     "signIn": {
       "labelSignIn": "Sign in",
       "labelNoAccount": "Don't have an account yet?",
-      "labelSignUp": "Sign up"
+      "labelSignUp": "Sign up",
+      "labelEmailRequired": "Email is required",
+      "labelPasswordRequired": "Password is required"
     },
     "signUp": {
       "labelSignUp": "Sign up",

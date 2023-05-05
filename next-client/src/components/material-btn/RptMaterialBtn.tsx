@@ -7,6 +7,7 @@ export interface RptMaterialBtnProps {
 }
 
 export const RptMaterialBtn = ( props: RptMaterialBtnProps ) => <button
+    type={'button'}
     data-testid={'rpt-material-btn'}
     className={'flex items-center justify-center border border-transparent rounded-full bg-zinc-800 text-inherit bg-center outline-0 cursor-pointer transition duration-250 ' +
         'focus:border-green-500 focus:bg-zinc-400 hover:bg-zinc-400 ' +

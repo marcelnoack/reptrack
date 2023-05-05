@@ -1,27 +1,32 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import jwtDecode from 'jwt-decode';
+import { usePathname, useRouter } from 'next/navigation';
 import { useStorage } from '@/lib/data-access/useStorage';
 import { useLocalizedUrl } from '@/lib/i18n/useLocalizedUrl';
 
 export const useAuth = () => {
     const router = useRouter()
+    const pathname = usePathname();
     const { get } = useStorage();
     const { localizedUrl: localizedSignInPath } = useLocalizedUrl( '/signin' );
+    const { localizedUrl: localizedHomePath } = useLocalizedUrl( '/' );
 
-    const jwt: any = get( 'jwt' );
+    const csrf: any = get( 'csrf' );
 
-    if ( !jwt ) {
+    if ( !csrf?.length ) {
         router.push( localizedSignInPath );
         return;
     }
 
-    const accessToken = jwt.accessToken;
-    // TODO: Domain-Object
-    const decodedAccessToken: any = jwtDecode( accessToken );
-    const expiryTime = decodedAccessToken.exp;
-    if ( expiryTime && Date.now() >= expiryTime * 1000 ) {
-        router.push( localizedSignInPath );
+    if( pathname.includes( 'signin' ) || pathname.includes( 'signup' ) ) {
+        router.push( localizedHomePath );
     }
+
+    // const accessToken = jwt.accessToken;
+    // // TODO: Domain-Object
+    // const decodedAccessToken: any = jwtDecode( accessToken );
+    // const expiryTime = decodedAccessToken.exp;
+    // if ( expiryTime && Date.now() >= expiryTime * 1000 ) {
+    //     router.push( localizedSignInPath );
+    // }
 }
