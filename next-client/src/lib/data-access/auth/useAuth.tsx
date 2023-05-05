@@ -18,7 +18,7 @@ export const useAuth = () => {
         return;
     }
 
-    if( csrf?.length && pathname.includes( 'signin' ) || pathname.includes( 'signup' ) ) {
+    if( csrf?.length && ( pathname.includes( 'signin' ) || pathname.includes( 'signup' ) ) ) {
         router.push( localizedHomePath );
     }
 
