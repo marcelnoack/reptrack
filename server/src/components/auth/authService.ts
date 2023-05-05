@@ -1,8 +1,9 @@
+import crypto from "crypto";
 import { compare, hash } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { Api401Error, Api404Error, Api500Error } from '../../common/errors';
-import { Api400Error } from '../../common/errors/Api400Error';
 
+import { Api401Error, Api500Error } from '../../common/errors';
+import { Api400Error } from '../../common/errors/Api400Error';
 import config from '../../config';
 import { UserDTO, UserInputDTO } from '../users/usersAPI';
 import UsersDao from '../users/usersDao';
@@ -14,6 +15,7 @@ import UsersDao from '../users/usersDao';
 export interface TokenObject {
   accessToken: string;
   refreshToken: string;
+  csrfToken: string;
 }
 
 export default class AuthService {
@@ -71,10 +73,12 @@ export default class AuthService {
 
     //! Delete sensitive information like the password inside the auth tokens
     delete dbUser[0]['password'];
-    const accessToken: string = this._generateAccessToken(dbUser[0]);
+
+    const csrfToken: string = crypto.randomUUID();
+    const accessToken: string = this._generateAccessToken(dbUser[0], csrfToken);
     const refreshToken: string = this._generateRefreshToken(dbUser[0]);
 
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken, csrfToken };
   };
 
   /* ---------------------------------------------------------------------------------------------- */
@@ -84,13 +88,16 @@ export default class AuthService {
     }
 
     const user: UserDTO = this._getUserInfoFromToken(refreshToken);
-    const newAccessToken: string = this._generateAccessToken(user);
+    // TODO
+    const newAccessToken: string = this._generateAccessToken(user, "");
     const newRefreshToken: string = this._generateRefreshToken(user);
     this._removeRefreshToken(refreshToken);
 
     return {
       accessToken: newAccessToken,
-      refreshToken: newRefreshToken
+      refreshToken: newRefreshToken,
+      // TODO
+      csrfToken: "",
     };
   };
 
@@ -121,9 +128,9 @@ export default class AuthService {
   };
 
   /* ---------------------------------------------------------------------------------------------- */
-  private _generateAccessToken = (user: UserDTO): string => {
-    return jwt.sign(user, config.accessTokenSecret, {
-      expiresIn: `${config.accessTokenExpiration}m`
+  private _generateAccessToken = (user: UserDTO, csrf: string): string => {
+    return jwt.sign({user, csrf}, config.accessTokenSecret, {
+      expiresIn: `${config.accessTokenExpiration}m`,
     });
   };
 

@@ -26,9 +26,9 @@ export default class WorkoutsDao
       let result: QueryResult<any>;
 
       if (!userId) {
-        result = await query('SELECT * FROM workouts');
+        result = await query('SELECT * FROM workout');
       } else {
-        result = await query('SELECT * FROM workouts where userid=$1', [
+        result = await query('SELECT * FROM workout where userid=$1', [
           userId
         ]);
       }
@@ -70,7 +70,7 @@ export default class WorkoutsDao
     language = 'en'
   ): Promise<WorkoutDTO | undefined> {
     const result: QueryResult<any> = await query(
-      'SELECT * FROM workouts WHERE workoutid = $1',
+      'SELECT * FROM workout WHERE workoutid = $1',
       [id]
     );
 

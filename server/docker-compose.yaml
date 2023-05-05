@@ -1,6 +1,11 @@
+networks:
+  reptrack-network:
+    driver: bridge
 services:
   rt_db:
     image: postgres
+    networks:
+      - reptrack-network
     environment:
       - POSTGRES_DB=${PGDATABASE}
       - POSTGRES_USER=${PGUSER}
@@ -10,13 +15,15 @@ services:
     volumes:
       - "reptrack-db-data:/var/lib/postgresql/data"
   rt_server:
-    build: ./server
+    build: .
     depends_on:
       - rt_db
+    networks:
+      - reptrack-network
     ports:
       - ${PORT}:${PORT}
     volumes:
-      - "./server:/usr/src/reptrack/server"
+      - "./:/usr/src/reptrack/server"
       - "reptrack-nodemodules:/usr/src/reptrack/server/node_modules"
 
 volumes:

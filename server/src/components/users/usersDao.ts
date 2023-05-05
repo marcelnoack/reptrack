@@ -73,7 +73,7 @@ export default class UsersDao
     } catch (err) {
       if (
         err instanceof Error &&
-        err.message?.indexOf('Unique-Constraint') !== -1
+        err.message?.indexOf('duplicate key') !== -1
       ) {
         throw new Api409Error('The user already exists.');
       }
