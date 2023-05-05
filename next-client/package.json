@@ -23,6 +23,7 @@
     "zustand": "^4.3.7"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "4.29.5-appdir.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/node": "18.15.11",
