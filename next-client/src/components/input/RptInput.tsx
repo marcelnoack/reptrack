@@ -19,6 +19,16 @@ export const RptInput = ( props: RptInputProps ) => {
 
     const [ isPasswordVisible, setIsPasswordVisible ] = useState( false );
 
+    const [ isError, setIsError ] = useState( false );
+
+    const checkError = () => {
+        if ( props.error ) {
+            setIsError( true );
+        } else {
+            setIsError( false );
+        }
+    }
+
     return (
         <div className={'w-full rounded-md'}>
             <div className={'relative'}>
@@ -29,6 +39,7 @@ export const RptInput = ( props: RptInputProps ) => {
                 value={props.value}
                 placeholder={props.placeholder}
                 onChange={( e ) => props.onChange( e.target.value )}
+                onBlur={() => checkError()}
                 className={`
                         w-full text-white bg-zinc-800 rounded border border-zinc-400 p-3 outline-0 resize-none transition ease-out duration-100
                         ${props.error?.length && 'border-red-500 text-red-500'} ${!props.error?.length && 'focus:border-green-500'}`
@@ -47,7 +58,7 @@ export const RptInput = ( props: RptInputProps ) => {
                               action={() => setIsPasswordVisible( !isPasswordVisible )}/>
             </span>}
             </div>
-            <span className={`text-xs text-red-500 ml-4 mt-1 mb-2 ${props.error ? '': 'invisible'}`}>{props.error || '\u200B'}</span>
+            <span className={`text-xs text-red-500 ml-4 mt-1 mb-2 ${isError ? '': 'invisible'}`}>{props.error || '\u200B'}</span>
         </div>
     )
 }

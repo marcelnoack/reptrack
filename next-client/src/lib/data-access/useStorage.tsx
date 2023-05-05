@@ -1,13 +1,22 @@
-type StorageKey = 'jwt';
+type StorageKey = 'csrf';
 export const useStorage = () => {
     const set = ( key: StorageKey, value: any ) => {
         const serializedValue = JSON.stringify( value );
-        localStorage.setItem( key, serializedValue );
+        localStorage.setItem( key, typeof value === 'string' ? value : serializedValue );
     }
 
     const get = ( key: StorageKey ): string| null => {
         const serializedValue = localStorage.getItem( key );
-        return serializedValue ? JSON.parse( serializedValue ) : null;
+
+        if( !serializedValue ) {
+            return null;
+        }
+
+        try {
+            return JSON.parse( serializedValue );
+        } catch ( error ) {
+            return serializedValue;
+        }
     }
 
     return { set, get };

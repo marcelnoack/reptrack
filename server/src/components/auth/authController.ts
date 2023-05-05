@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
+
 import { SupportedHttpStatusCodes } from '../../common';
 import { Api400Error } from '../../common/errors/Api400Error';
+import config from '../../config';
 import { UserInputDTO } from '../users/usersAPI';
 import AuthService, { TokenObject } from './authService';
 
@@ -29,7 +31,24 @@ export default class AuthController {
         email,
         password
       );
-      return res.json(tokenObject);
+      const cookie = JSON.stringify({
+        httponly: true,
+        samesite: 'None',
+        maxage: config.accessTokenExpiration,
+        jwt: tokenObject.accessToken
+      });
+
+      res.cookie('token', tokenObject.accessToken, {
+        sameSite: 'none',
+        secure: true,
+        httpOnly: true,
+        // maxAge: config.accessTokenExpiration?.toString() || "",
+        path: '/'
+      });
+      // res.set("set-cookie", "token=" + tokenObject.accessToken + ";Path=/;" + "HttpOnly; SameSite=None; Secure");
+      res.set('X-CSRF-Token', tokenObject.csrfToken);
+      return res.status(SupportedHttpStatusCodes.OK).send({});
+      // return res.json(tokenObject);
     } catch (err) {
       next(err);
     }
@@ -49,9 +68,9 @@ export default class AuthController {
 
       const newUserId: string = await this._authService.signUp(user);
       res
-        .setHeader('Location', `/v1/users/${newUserId}`)
+        .set('Location', `/v1/users/${newUserId}`)
         .status(SupportedHttpStatusCodes.CREATED)
-        .send();
+        .send({});
     } catch (err) {
       next(err);
     }

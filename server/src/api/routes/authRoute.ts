@@ -19,5 +19,5 @@ export default (app: Router) => {
   const authController: AuthController = new AuthController();
   route.post('/signin', validateSignInCredentials, authController.signIn);
   route.post('/signup', validateSignUp, authController.signUp);
-  route.post('/renew', validateRenewToken, authController.renew);
+  // route.post('/renew', validateRenewToken, authController.renew);
 };

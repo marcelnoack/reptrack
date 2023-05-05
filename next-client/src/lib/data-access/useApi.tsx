@@ -25,17 +25,16 @@ export const useApi = () => {
 
     const http = useHttp( {
         headers: {
-            authorization: 'Bearer token',
-            acceptLanguage: locale ?? 'en',
+            acceptLanguage: locale,
             accept: 'application/json',
-            contentType: 'application/json'
+            contentType: 'application/json',
         }
     } );
 
-    const useGet = <T, >( path: string, queryFilters?: QueryFilter[] ) => {
+    const useGet = <T, >( path: string, options?: { credentials: RequestCredentials }, queryFilters?: QueryFilter[] ) => {
         const convertedQueryFilters = _queryFiltersToString( queryFilters );
 
-        return useQuery( [ path, convertedQueryFilters ], async () => await http.get<T>( `${baseUrl}${path}${convertedQueryFilters}` ), {
+        return useQuery( [ path, convertedQueryFilters ], async () => await http.get<T>( `${baseUrl}${path}${convertedQueryFilters}`, options ), {
             refetchOnWindowFocus: false,
             refetchOnMount: false,
             keepPreviousData: true,
@@ -50,10 +49,13 @@ export const useApi = () => {
             }
         } );
 
-    const usePost = <T, >( path: string, body: BodyInit, collectionKeys?: string[] ) => useMutation(
-        async () => await http.post<T>( `${baseUrl}${path}`, body ), {
+    const usePost = <T, >( path: string, body: BodyInit, options?: { credentials: RequestCredentials }, collectionKeys?: string[] ) => useMutation(
+        async () => await http.post<T>( `${baseUrl}${path}`, body, options ), {
             onSuccess: () => {
                 queryClient.invalidateQueries( collectionKeys );
+            },
+            onError: ( error ) => {
+                console.error( error );
             }
         }
     );
