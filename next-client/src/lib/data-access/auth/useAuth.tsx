@@ -13,12 +13,12 @@ export const useAuth = () => {
 
     const csrf: any = get( 'csrf' );
 
-    if ( !csrf?.length ) {
+    if ( !csrf?.length && !pathname.includes( 'signin' ) && !pathname.includes( 'signup' ) ) {
         router.push( localizedSignInPath );
         return;
     }
 
-    if( pathname.includes( 'signin' ) || pathname.includes( 'signup' ) ) {
+    if( csrf?.length && pathname.includes( 'signin' ) || pathname.includes( 'signup' ) ) {
         router.push( localizedHomePath );
     }
 
