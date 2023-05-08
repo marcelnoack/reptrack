@@ -18,12 +18,21 @@
       "labelNoAccount": "Don't have an account yet?",
       "labelSignUp": "Sign up",
       "labelEmailRequired": "Email is required",
+      "labelEmailInvalid": "Email is invalid",
       "labelPasswordRequired": "Password is required"
     },
     "signUp": {
       "labelSignUp": "Sign up",
       "labelAlreadyAccount": "Already have an account?",
-      "labelSignIn": "Sign in"
+      "labelSignIn": "Sign in",
+      "labelUsernameRequired": "Username is required",
+      "labelUsernameInvalid": "Username is invalid",
+      "labelEmailRequired": "Email is required",
+      "labelEmailInvalid": "Email is invalid",
+      "labelPasswordRequired": "Password is required",
+      "labelPasswordInvalid": "Password is invalid",
+      "labelFirstNameRequired": "First name is required",
+      "labelLastNameRequired": "Last name is required"
     }
   }
 }

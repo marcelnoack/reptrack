@@ -25,7 +25,7 @@ export const SignUpForm = () => {
     const [ password, setPassword ] = useState( '' );
 
     const { usePost } = useApi();
-    const { mutateAsync, isLoading } = usePost<any>( '/auth/signup', JSON.stringify( {
+    const { mutateAsync, isLoading, isError, error } = usePost<any>( '/auth/signup', JSON.stringify( {
         user: {
             username,
             firstName,
@@ -45,6 +45,63 @@ export const SignUpForm = () => {
         }
     }
 
+    const usernameError = (): string => {
+
+        if ( username.trim().length === 0 ) {
+            return tSignUp( 'labelUsernameRequired' );
+        }
+
+        if ( !/^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/.test( username.trim() ) ) {
+            return tSignUp( 'labelUsernameInvalid' );
+        }
+
+        return '';
+    }
+
+    const emailError = (): string => {
+
+        if ( email.trim().length === 0 ) {
+            return tSignUp( 'labelEmailRequired' );
+        }
+
+        if ( !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test( email.trim() ) ) {
+            return tSignUp( 'labelEmailInvalid' );
+        }
+
+        return '';
+    }
+
+    const passwordError = (): string => {
+
+        if ( password.trim().length === 0 ) {
+            return tSignUp( 'labelPasswordRequired' );
+        }
+
+        if ( !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test( username.trim() ) ) {
+            return tSignUp( 'labelPasswordInvalid' );
+        }
+
+        return '';
+    }
+
+    const firstNameError = (): string => {
+
+        if ( firstName.trim().length === 0 ) {
+            return tSignUp( 'labelFirstNameRequired' );
+        }
+
+        return '';
+    }
+
+    const lastNameError = (): string => {
+
+        if ( lastName.trim().length === 0 ) {
+            return tSignUp( 'labelLastNameRequired' );
+        }
+
+        return '';
+    }
+
 
     return <form className={'flex flex-col gap-4 p-10 w-full'} onSubmit={( e ) => handleSignup( e )}>
         <h1 className={'lg:hidden flex items-center justify-center gap-2'}>
@@ -58,6 +115,7 @@ export const SignUpForm = () => {
             value={username}
             onChange={( value ) => setUsername( value )}
             placeholder={tCommon( 'general.username' )}
+            error={usernameError()}
             required/>
         <RptInput
             id={'signup_firstname_input'}
@@ -65,6 +123,7 @@ export const SignUpForm = () => {
             value={firstName}
             onChange={( value ) => setFirstName( value )}
             placeholder={tCommon( 'general.firstName' )}
+            error={firstNameError()}
             required/>
         <RptInput
             id={'signup_lastname_input'}
@@ -72,6 +131,7 @@ export const SignUpForm = () => {
             value={lastName}
             onChange={( value ) => setLastName( value )}
             placeholder={tCommon( 'general.lastName' )}
+            error={lastNameError()}
             required/>
         <RptInput
             id={'signup_email_input'}
@@ -79,6 +139,7 @@ export const SignUpForm = () => {
             value={email}
             onChange={( value ) => setEmail( value )}
             placeholder={tCommon( 'general.email' )}
+            error={emailError()}
             required/>
         <RptInput
             id={'signup_password_input'}
@@ -86,12 +147,20 @@ export const SignUpForm = () => {
             value={password}
             onChange={( value ) => setPassword( value )}
             placeholder={tCommon( 'general.password' )}
+            error={passwordError()}
             required
             isPassword/>
+        {isError && <div className={'text-red-500'}>{( error as any )?.message}</div>}
         {/*TODO: create button component*/}
         <button
             type={'submit'}
-            disabled={isLoading}
+            disabled={isLoading
+                || usernameError().length > 0
+                || passwordError().length > 0
+                || emailError().length > 0
+                || firstNameError().length > 0
+                || lastNameError().length > 0
+            }
             className={'bg-green-500 text-black rounded-md p-3 hover:bg-green-400 focus:bg-green-400 disabled:bg-gray-600 disabled:cursor-not-allowed outline-none'}>{tSignUp( 'labelSignUp' )}</button>
         <div className={'flex flex-wrap items-center justify-center gap-2 text-white'}>
             <span>{tSignUp( 'labelAlreadyAccount' )}</span>
