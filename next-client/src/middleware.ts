@@ -8,7 +8,7 @@ export default function middleware( request: NextRequest ) {
     const isImage = pathname.match( /\.(png|jpg|jpeg|gif|svg|ico)$/i );
     if( isImage ) return NextResponse.next();
 
-    if ( pathnameParts[1] === defaultLocale && pathnameParts.length <= 2 ) {
+    if ( pathnameParts[1] === defaultLocale && pathnameParts.length === 2 ) {
         return NextResponse.redirect( new URL(
             pathname.replace( `/${defaultLocale}`, '/' ),
             request.url

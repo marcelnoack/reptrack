@@ -4,5 +4,19 @@
       "enterEmail": "Geben sie ihre E-Mail Adresse ein",
       "enterPassword": "Geben Sie Ihr Passwort ein"
     }
+  },
+  "routes": {
+    "home": {
+      "routeName": "Home"
+    },
+    "workouts": {
+      "routeName": "Workouts"
+    },
+    "progress": {
+      "routeName": "Fortschritt"
+    },
+    "calendar": {
+      "routeName": "Kalender"
+    }
   }
 }

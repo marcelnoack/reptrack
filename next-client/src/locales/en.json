@@ -12,6 +12,20 @@
       "password": "Password"
     }
   },
+  "routes": {
+    "home": {
+      "routeName": "Home"
+    },
+    "workouts": {
+      "routeName": "Workouts"
+    },
+    "progress": {
+      "routeName": "Progress"
+    },
+    "calendar": {
+      "routeName": "Calendar"
+    }
+  },
   "page": {
     "signIn": {
       "labelSignIn": "Sign in",

@@ -34,6 +34,7 @@ export const RptInput = ( props: RptInputProps ) => {
             <div className={'relative'}>
             <input
                 id={props.id}
+                data-cy={props.id}
                 autoComplete='off'
                 type={props.isPassword && !isPasswordVisible ? 'password' : 'text'}
                 value={props.value}

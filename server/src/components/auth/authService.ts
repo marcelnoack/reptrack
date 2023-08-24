@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import crypto from 'crypto';
 import { compare, hash } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -51,11 +51,8 @@ export default class AuthService {
     email: string,
     password: string
   ): Promise<TokenObject> => {
-    const dbUser: UserDTO[] = await this._usersDao.getByUniqueProperty(
-      'email',
-      email,
-      'en'
-    );
+    const dbUser: UserDTO[] | undefined =
+      await this._usersDao.getByUniqueProperty('email', email, 'en');
 
     if (!dbUser) {
       throw new Api401Error('User Credentials are not correct');
@@ -89,7 +86,7 @@ export default class AuthService {
 
     const user: UserDTO = this._getUserInfoFromToken(refreshToken);
     // TODO
-    const newAccessToken: string = this._generateAccessToken(user, "");
+    const newAccessToken: string = this._generateAccessToken(user, '');
     const newRefreshToken: string = this._generateRefreshToken(user);
     this._removeRefreshToken(refreshToken);
 
@@ -97,7 +94,7 @@ export default class AuthService {
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
       // TODO
-      csrfToken: "",
+      csrfToken: ''
     };
   };
 
@@ -129,8 +126,8 @@ export default class AuthService {
 
   /* ---------------------------------------------------------------------------------------------- */
   private _generateAccessToken = (user: UserDTO, csrf: string): string => {
-    return jwt.sign({user, csrf}, config.accessTokenSecret, {
-      expiresIn: `${config.accessTokenExpiration}m`,
+    return jwt.sign({ user, csrf }, config.accessTokenSecret, {
+      expiresIn: `${config.accessTokenExpiration}m`
     });
   };
 
