@@ -77,7 +77,7 @@ export const SignUpForm = () => {
             return tSignUp( 'labelPasswordRequired' );
         }
 
-        if ( !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test( username.trim() ) ) {
+        if ( !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test( password.trim() ) ) {
             return tSignUp( 'labelPasswordInvalid' );
         }
 

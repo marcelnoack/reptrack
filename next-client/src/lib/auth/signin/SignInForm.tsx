@@ -19,14 +19,14 @@ export const SignInForm = () => {
     const [ password, setPassword ] = useState( '' );
 
     const { usePost } = useApi();
-    const { mutate, isLoading, isSuccess, isError, error } = usePost<any>( '/auth/signin', JSON.stringify( {
+    const { mutateAsync, isLoading, isSuccess, isError, error } = usePost<any>( '/auth/signin', JSON.stringify( {
         user: { email, password }
     } ), { credentials: 'include' } )
 
     const handleSignin = async ( e: FormEvent<HTMLFormElement> ) => {
         e.preventDefault();
         try {
-            await mutate();
+            await mutateAsync();
             router.push( localizedHomeHref );
         } catch ( error ) {
             // TODO: Set error message prompt in form
@@ -82,8 +82,9 @@ export const SignInForm = () => {
                 error={passwordError()}
                 required
                 isPassword/>
-            {isError && <div className={'text-red-500'}>{( error as any )?.message}</div>}
+            {isError && <div data-cy={'signin_error'} className={'text-red-500'}>{( error as any )?.message}</div>}
             <button
+                data-cy={'signin_submit_btn'}
                 type={'submit'}
                 disabled={isLoading || emailError().length > 0 || passwordError().length > 0}
                 className={'w-full bg-green-500 text-black rounded-md p-3 hover:bg-green-400 focus:bg-green-400 disabled:bg-gray-600 disabled:cursor-not-allowed outline-none'}>{tSignIn( 'labelSignIn' )}</button>

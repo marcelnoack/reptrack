@@ -23,7 +23,7 @@ interface BaseDAO<T, InputT, RelatedT> {
     uniquePropName: string,
     uniquePropValue: string,
     language: string
-  ) => Promise<T[]>;
+  ) => Promise<T[] | undefined>;
   getRelated?: (
     relatedEntity: RelatedT,
     id: string,

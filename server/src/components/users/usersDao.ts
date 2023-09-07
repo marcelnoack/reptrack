@@ -108,7 +108,7 @@ export default class UsersDao
     uniquePropName: string,
     uniquePropValue: string,
     language = 'en'
-  ): Promise<UserDTO[]> {
+  ): Promise<UserDTO[] | undefined> {
     if (uniquePropName !== 'username' && uniquePropName !== 'email') {
       throw new Error('No valid unique property provided for USER');
     }
@@ -119,9 +119,7 @@ export default class UsersDao
     );
 
     if (!result || !result.rows || !result.rows.length) {
-      throw new Api500Error(
-        'Something went wrong while trying to access user data'
-      );
+      return undefined;
     }
     const user: UserDTO = {
       userId: result.rows[0].userid,
