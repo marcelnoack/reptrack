@@ -10,7 +10,7 @@ describe( 'Sign In', () => {
         cy.get( '[data-cy=signin_submit_btn]' ).as( 'submit_button' );
         cy.get( '@submit_button' ).click();
 
-        cy.get( '@submit_button' ).should.be.disabled;
+        cy.get( '@submit_button' ).should( 'be.disabled' );
         cy.get( '[data-cy=signin_error]' ).should( 'be.visible' );
         cy.get( '[data-cy=signin_error]' ).should( 'contain.text' );
     } );
