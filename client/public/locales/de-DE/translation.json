@@ -1,1 +1,14 @@
-{}
+{
+  "home": {
+    "routeName": "Home"
+  },
+  "workouts": {
+    "routeName": "Workouts"
+  },
+  "progress": {
+    "routeName": "Fortschritt"
+  },
+  "calendar": {
+    "routeName": "Kalender"
+  }
+}

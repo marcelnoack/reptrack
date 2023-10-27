@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface RptRoute {
     name: string;
@@ -15,6 +16,7 @@ const mainRoutes: RptRoute[] = [
 ]
 
 const RptFooter = () => {
+    const { t } = useTranslation( 'translation' );
 
     return (
         <nav className="absolute w-full h-full flex items-center justify-center bg-transparent">
@@ -27,7 +29,7 @@ const RptFooter = () => {
                                                       }
                                                       }>
                     <span className="material-icons">{mainRoute.icon}</span>
-                    Translation
+                    {t( mainRoute.translationKey, { defaultValue: mainRoute.name } )}
                 </NavLink> )}
             </div>
         </nav>
