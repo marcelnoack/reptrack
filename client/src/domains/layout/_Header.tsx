@@ -1,5 +1,5 @@
 // import { useTranslation } from 'react-i18next';
-import rptLogo from '../../assets/Logo3-64_x_64.png'
+import rptLogo from '../../assets/Logo-64x64.png'
 
 const RptHeader = () => {
     // const { t } = useTranslation( 'common' );
