@@ -18,25 +18,25 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           working-directory: ./client
-          version: 8.1.1
+          version: 8.10.0
       - run: pnpm install
       - run: pnpm test:unit
 
-  # cypress-run:
-  #   name: Cypress e2e
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #     - uses: pnpm/action-setup@v2
-  #       with:
-  #         working-directory: ./next-client
-  #         version: 8.1.1
-  #     # Install NPM dependencies, cache them correctly
-  #     # and run all Cypress tests
-  #     - name: Cypress run
-  #       uses: cypress-io/github-action@v5
-  #       with:
-  #         working-directory: ./next-client
-  #         build: pnpm build
-  #         start: pnpm start
+  cypress-run:
+    name: Cypress e2e
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          working-directory: ./client
+          version: 8.10.0
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          working-directory: ./client
+          build: pnpm build
+          start: pnpm preview
