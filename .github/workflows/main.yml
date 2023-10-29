@@ -1,24 +1,24 @@
-name: Next-Client:Tests
+name: Client:Tests
 
 on: pull_request
 
 jobs:
   jest-run:
-    name: Jest unit tests
+    name: Unit Tests
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./next-client
+        working-directory: ./client
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          working-directory: ./next-client
+          working-directory: ./client
           node-version: 18.15.0
       - uses: pnpm/action-setup@v2
         with:
-          working-directory: ./next-client
-          version: 8.1.1
+          working-directory: ./client
+          version: 8.10.0
       - run: pnpm install
       - run: pnpm test:unit
 
@@ -30,13 +30,13 @@ jobs:
         uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
         with:
-          working-directory: ./next-client
-          version: 8.1.1
+          working-directory: ./client
+          version: 8.10.0
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          working-directory: ./next-client
+          working-directory: ./client
           build: pnpm build
-          start: pnpm start
+          start: pnpm preview

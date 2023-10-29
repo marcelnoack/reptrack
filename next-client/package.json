@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prepare": "cd .. && husky install next-client/.husky",
     "start:dev": "next dev",
     "build": "next build",
     "start": "next start",
