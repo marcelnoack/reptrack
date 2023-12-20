@@ -28,9 +28,7 @@ export default class WorkoutsDao
       if (!userId) {
         result = await query('SELECT * FROM workout');
       } else {
-        result = await query('SELECT * FROM workout where userid=$1', [
-          userId
-        ]);
+        result = await query('SELECT * FROM workout where userid=$1', [userId]);
       }
 
       if (!result || !result.rows || !result.rows.length) {
@@ -102,7 +100,7 @@ export default class WorkoutsDao
   }
 
   /* ---------------------------------------------------------------------------------------------- */
-  public async create(newResource: WorkoutInputDTO): Promise<string> {
+  public async create(newResource: WorkoutInputDTO): Promise<WorkoutDTO> {
     const { name, description, userId, createdBy, lastChangedBy, exercises } =
       newResource;
     const creationResult: QueryResult<any> = await query(
@@ -125,7 +123,7 @@ export default class WorkoutsDao
       )
     );
 
-    return creationResult.rows[0].workoutid;
+    return creationResult.rows[0];
   }
 
   /* ---------------------------------------------------------------------------------------------- */

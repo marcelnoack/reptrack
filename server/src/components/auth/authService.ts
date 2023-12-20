@@ -1,10 +1,7 @@
-import crypto from 'crypto';
 import { compare, hash } from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { Profile } from 'passport';
 
 import { Api401Error, Api500Error } from '../../common/errors';
-import { Api400Error } from '../../common/errors/Api400Error';
-import config from '../../config';
 import { UserDTO, UserInputDTO } from '../users/usersAPI';
 import UsersDao from '../users/usersDao';
 
@@ -12,15 +9,7 @@ import UsersDao from '../users/usersDao';
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
-export interface TokenObject {
-  accessToken: string;
-  refreshToken: string;
-  csrfToken: string;
-}
-
 export default class AuthService {
-  // TODO: Should be cached in Redis Cache
-  private _refreshTokens: string[] = [];
   private _usersDao: UsersDao;
 
   /* ---------------------------------------------------------------------------------------------- */
@@ -34,23 +23,23 @@ export default class AuthService {
 
   public signUp = async (user: UserInputDTO): Promise<string> => {
     // generate hashed password for user
-    const hashedPassword: string = await hash(user.password, 10);
+    const hashedPassword: string = await hash(user.password ?? '', 10);
     const newUser: UserInputDTO = {
       ...user,
       password: hashedPassword,
-      createdBy: user.username,
-      lastChangedBy: user.username
+      createdBy: user.email,
+      lastChangedBy: user.email
     };
     // call dao to create user
-    const userId: string = await this._usersDao.create(newUser);
-    return userId;
+    const createdUser: UserDTO = await this._usersDao.create(newUser);
+    return createdUser.userId;
   };
 
   /* ---------------------------------------------------------------------------------------------- */
-  public signIn = async (
+  public signInLocal = async (
     email: string,
     password: string
-  ): Promise<TokenObject> => {
+  ): Promise<UserDTO> => {
     const dbUser: UserDTO[] | undefined =
       await this._usersDao.getByUniqueProperty('email', email, 'en');
 
@@ -70,75 +59,41 @@ export default class AuthService {
 
     //! Delete sensitive information like the password inside the auth tokens
     delete dbUser[0]['password'];
-
-    const csrfToken: string = crypto.randomUUID();
-    const accessToken: string = this._generateAccessToken(dbUser[0], csrfToken);
-    const refreshToken: string = this._generateRefreshToken(dbUser[0]);
-
-    return { accessToken, refreshToken, csrfToken };
+    return dbUser[0];
   };
 
   /* ---------------------------------------------------------------------------------------------- */
-  public renewToken = async (refreshToken: string): Promise<TokenObject> => {
-    if (!this._isValidRefreshToken(refreshToken)) {
-      throw new Api400Error('Invalid refresh token');
+  public authenticateGoogle = async (
+    profile: Profile
+  ): Promise<UserDTO | undefined> => {
+    const { emails, name, photos, displayName, id } = profile;
+
+    if (!emails?.length || !photos?.length) {
+      throw new Api500Error(
+        'Something went wrong while authenticating your google profile'
+      );
     }
 
-    const user: UserDTO = this._getUserInfoFromToken(refreshToken);
-    // TODO
-    const newAccessToken: string = this._generateAccessToken(user, '');
-    const newRefreshToken: string = this._generateRefreshToken(user);
-    this._removeRefreshToken(refreshToken);
+    const dbUser: UserDTO[] | undefined =
+      await this._usersDao.getByUniqueProperty('email', emails[0].value, 'en');
 
-    return {
-      accessToken: newAccessToken,
-      refreshToken: newRefreshToken,
-      // TODO
-      csrfToken: ''
+    if (dbUser && dbUser[0] && dbUser[0].provider) {
+      return dbUser[0];
+    }
+
+    const userInputDTO: UserInputDTO = {
+      email: emails[0].value,
+      firstName: name?.givenName ?? '',
+      middleName: name?.middleName,
+      lastName: name?.familyName ?? '',
+      provider: {
+        providerName: 'google',
+        googleId: id,
+        picture: photos[0].value,
+        displayName: displayName
+      }
     };
-  };
 
-  /* ---------------------------------------------------------------------------------------------- */
-  private _isValidRefreshToken = (refreshToken: string): boolean => {
-    return this._refreshTokens.includes(refreshToken);
-  };
-
-  /* ---------------------------------------------------------------------------------------------- */
-  private _getUserInfoFromToken = (token: string): UserDTO => {
-    const payload: any = jwt.decode(token);
-    delete payload['password'];
-    delete payload['iat'];
-    delete payload['exp'];
-    return payload as UserDTO;
-  };
-
-  /* ---------------------------------------------------------------------------------------------- */
-  public getRefreshTokens = (): string[] => {
-    return this._refreshTokens;
-  };
-
-  /* ---------------------------------------------------------------------------------------------- */
-  private _removeRefreshToken = (refreshToken: string): void => {
-    this._refreshTokens = this._refreshTokens.filter(
-      (rT) => rT !== refreshToken
-    );
-  };
-
-  /* ---------------------------------------------------------------------------------------------- */
-  private _generateAccessToken = (user: UserDTO, csrf: string): string => {
-    return jwt.sign({ user, csrf }, config.accessTokenSecret, {
-      expiresIn: `${config.accessTokenExpiration}m`
-    });
-  };
-
-  /* ---------------------------------------------------------------------------------------------- */
-  private _generateRefreshToken = (user: UserDTO): string => {
-    const refreshToken = jwt.sign(user, config.refreshTokenSecret, {
-      expiresIn: `${config.refreshTokenExpiration}m`
-    });
-
-    // TODO: Should be cached in Redis Cache, currently only in-memory
-    this._refreshTokens.push(refreshToken);
-    return refreshToken;
+    return await this._usersDao.create(userInputDTO);
   };
 }

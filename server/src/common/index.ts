@@ -16,7 +16,7 @@ interface ManagedDTO {
 interface BaseDAO<T, InputT, RelatedT> {
   getAll: (userId: string, language: string) => Promise<T[]>;
   getById: (id: string) => Promise<T | undefined>;
-  create: (newResource: InputT) => Promise<string>;
+  create: (newResource: InputT) => Promise<T>;
   update: (id: string, updatedResource: InputT) => Promise<T>;
   delete: (id: string) => Promise<void>;
   getByUniqueProperty?: (
