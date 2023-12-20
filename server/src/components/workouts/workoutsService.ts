@@ -57,11 +57,13 @@ export default class WorkoutsService {
     workout: WorkoutInputDTO
   ): Promise<string> => {
     // TODO: Provide option to let the user add additional user-specific exercises if not provided by the application per default
-    return await this._workoutsDao.create({
-      ...workout,
-      userId: user.userId,
-      createdBy: user.email,
-      lastChangedBy: user.email
-    });
+    // return await this._workoutsDao.create({
+    //   ...workout,
+    //   userId: user.userId,
+    //   createdBy: user.email,
+    //   lastChangedBy: user.email
+    // });
+
+    return '';
   };
 }
