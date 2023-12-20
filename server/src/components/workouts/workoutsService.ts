@@ -24,12 +24,7 @@ export default class WorkoutsService {
     userId: string,
     language = 'en'
   ): Promise<WorkoutDTO[]> => {
-    const workouts: WorkoutDTO[] = await this._workoutsDao.getAll(
-      userId,
-      language
-    );
-
-    return workouts;
+    return await this._workoutsDao.getAll(userId, language);
   };
 
   /* ---------------------------------------------------------------------------------------------- */
@@ -62,13 +57,11 @@ export default class WorkoutsService {
     workout: WorkoutInputDTO
   ): Promise<string> => {
     // TODO: Provide option to let the user add additional user-specific exercises if not provided by the application per default
-    const newWorkoutId: string = await this._workoutsDao.create({
+    return await this._workoutsDao.create({
       ...workout,
       userId: user.userId,
-      createdBy: user.username,
-      lastChangedBy: user.username
+      createdBy: user.email,
+      lastChangedBy: user.email
     });
-
-    return newWorkoutId;
   };
 }
