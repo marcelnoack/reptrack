@@ -7,9 +7,9 @@ import { Logger } from './Logger';
 
 interface ManagedDTO {
   createdAt: Date;
-  createdBy: string;
+  createdBy?: string;
   lastChangedAt: Date;
-  lastChangedBy: string;
+  lastChangedBy?: string;
 }
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -35,6 +35,8 @@ interface BaseDAO<T, InputT, RelatedT> {
 enum SupportedHttpStatusCodes {
   OK = 200,
   CREATED = 201,
+
+  NO_CONTENT = 204,
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   FORBIDDEN = 403,
