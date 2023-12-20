@@ -1,4 +1,5 @@
 import { ManagedDTO } from '../../common';
+import { ProviderDTO } from '../auth/authAPI';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -6,19 +7,21 @@ import { ManagedDTO } from '../../common';
 
 export interface UserDTO extends Partial<ManagedDTO> {
   userId: string;
-  username: string;
   email: string;
   password?: string;
   firstName: string;
+  middleName: string;
   lastName: string;
+  provider?: ProviderDTO;
 }
 
 export interface UserInputDTO extends Partial<ManagedDTO> {
-  username: string;
-  firstName: string;
-  lastName: string;
   email: string;
-  password: string;
+  password?: string;
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  provider?: ProviderDTO;
 }
 
 export type UserRelatedEntities = '';

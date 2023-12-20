@@ -19,6 +19,11 @@ export default {
   refreshTokenExpiration: process.env.REFRESH_TOKEN_EXPIRATION || '',
   dbConnectionString: process.env.DATABASE_URL,
 
+  clientUrl: process.env.CLIENT_URL || 'http://localhost:3000',
+
+  googleClientId: process.env.GOOGLE_CLIENT_ID,
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
+
   // API configuration
   api: {
     prefix: 'v1'

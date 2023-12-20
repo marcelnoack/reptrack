@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import { SupportedHttpStatusCodes } from '../../common';
 import { isAuth } from '../middleware';
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -9,13 +10,9 @@ import { isAuth } from '../middleware';
 const route = Router();
 
 export default (app: Router) => {
-  app.use('/users', isAuth, route);
+  app.use('/profile', isAuth, route);
 
   route.get('/', (req, res) => {
-    return res.status(200).send('Hi from Users');
-  });
-
-  route.get('/:id', (req, res) => {
-    return res.status(200).send('Hi from a User');
+    return res.status(SupportedHttpStatusCodes.OK).send(req.user);
   });
 };

@@ -3,7 +3,7 @@ import { Router } from 'express';
 import authRoute from './routes/authRoute';
 import workoutsRoute from './routes/workoutsRoute';
 import healthCheckRoute from './routes/healthCheckRoute';
-// import usersRoute from './routes/usersRoute';
+import profileRoute from './routes/profileRoute';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -15,7 +15,7 @@ export default () => {
   authRoute(app);
   workoutsRoute(app);
   healthCheckRoute(app);
-  // usersRoute(app);
+  profileRoute(app);
 
   return app;
 };

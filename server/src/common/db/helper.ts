@@ -17,6 +17,7 @@ export enum TableTypes {
   MuscleGroupTranslation = 'musclegrouptranslation',
   MuscleGroupInExercise = 'musclegroupinexercise',
   User = 'users',
+  GoogleProfile = 'googleprofile',
   Workout = 'workout',
   Training = 'training',
   ExerciseInWorkout = 'exerciseinworkout',
@@ -66,15 +67,17 @@ export default class DBHelper {
 
   /* ---------------------------------------------------------------------------------------------- */
   private async createTables(): Promise<void> {
+    Logger.info(`DB_CREATE::${TableTypes.Managed}`);
     await query(
       `CREATE TABLE ${TableTypes.Managed} (` +
-        'createdby VARCHAR(100) NOT NULL,' +
+        'createdby VARCHAR(100),' +
         'lastchangedBy VARCHAR(100),' +
-        'createdat TIMESTAMP NOT NULL,' +
+        'createdat TIMESTAMP,' +
         'lastchangedat TIMESTAMP' +
         ');'
     );
 
+    Logger.info(`DB_CREATE::${TableTypes.Language}`);
     await query(
       `CREATE TABLE ${TableTypes.Language} (` +
         'languagecode VARCHAR(5) PRIMARY KEY,' +
@@ -83,6 +86,7 @@ export default class DBHelper {
         ');'
     );
 
+    Logger.info(`DB_CREATE::${TableTypes.Exercise}`);
     await query(
       `CREATE TABLE ${TableTypes.Exercise} (` +
         'exerciseid SERIAL PRIMARY KEY,' +
@@ -90,6 +94,7 @@ export default class DBHelper {
         ');'
     );
 
+    Logger.info(`DB_CREATE::${TableTypes.ExerciseTranslation}`);
     await query(
       `CREATE TABLE ${TableTypes.ExerciseTranslation} (` +
         `exerciseid INTEGER REFERENCES ${TableTypes.Exercise} (exerciseid) ON DELETE CASCADE,` +
@@ -99,6 +104,7 @@ export default class DBHelper {
         ');'
     );
 
+    Logger.info(`DB_CREATE::${TableTypes.MuscleGroup}`);
     await query(
       `CREATE TABLE ${TableTypes.MuscleGroup} (` +
         `mgid SERIAL PRIMARY KEY,` +
@@ -106,6 +112,7 @@ export default class DBHelper {
         ');'
     );
 
+    Logger.info(`DB_CREATE::${TableTypes.MuscleGroupTranslation}`);
     await query(
       `CREATE TABLE ${TableTypes.MuscleGroupTranslation} (` +
         `mgid INTEGER REFERENCES ${TableTypes.MuscleGroup} (mgid) ON DELETE CASCADE,` +
@@ -115,6 +122,7 @@ export default class DBHelper {
         ');'
     );
 
+    Logger.info(`DB_CREATE::${TableTypes.MuscleGroupInExercise}`);
     await query(
       `CREATE TABLE ${TableTypes.MuscleGroupInExercise} (` +
         `exerciseid INTEGER REFERENCES ${TableTypes.Exercise} (exerciseid) ON DELETE CASCADE,` +
@@ -124,17 +132,30 @@ export default class DBHelper {
         ');'
     );
 
+    Logger.info(`DB_CREATE::${TableTypes.User}`);
     await query(
       `CREATE TABLE ${TableTypes.User} (` +
         `userid SERIAL PRIMARY KEY,` +
         `firstName VARCHAR(100) NOT NULL,` +
         `lastName VARCHAR(100) NOT NULL,` +
-        `username VARCHAR(20) UNIQUE NOT NULL,` +
+        `middleName VARCHAR(100),` +
         `email TEXT UNIQUE NOT NULL,` +
-        `password TEXT NOT NULL` +
+        `password TEXT` +
         `) INHERITS (${TableTypes.Managed});`
     );
 
+    Logger.info(`DB_CREATE::${TableTypes.GoogleProfile}`);
+    await query(
+      `CREATE TABLE ${TableTypes.GoogleProfile} (` +
+        `id SERIAL PRIMARY KEY,` +
+        `userid INTEGER REFERENCES ${TableTypes.User} (userid) ON DELETE CASCADE,` +
+        `googleid VARCHAR(50) UNIQUE NOT NULL,` +
+        `displayname VARCHAR(50),` +
+        `pictureurl TEXT` +
+        `) INHERITS (${TableTypes.Managed});`
+    );
+
+    Logger.info(`DB_CREATE::${TableTypes.Workout}`);
     await query(
       `CREATE TABLE ${TableTypes.Workout} (` +
         `workoutid SERIAL PRIMARY KEY,` +
@@ -144,6 +165,7 @@ export default class DBHelper {
         `) INHERITS (${TableTypes.Managed});`
     );
 
+    Logger.info(`DB_CREATE::${TableTypes.Training}`);
     await query(
       `CREATE TABLE ${TableTypes.Training} (` +
         `trainingid SERIAL PRIMARY KEY,` +
@@ -153,6 +175,7 @@ export default class DBHelper {
         `);`
     );
 
+    Logger.info(`DB_CREATE::${TableTypes.ExerciseInWorkout}`);
     await query(
       `CREATE TABLE ${TableTypes.ExerciseInWorkout} (` +
         `workoutid INTEGER REFERENCES ${TableTypes.Workout} (workoutid) ON DELETE CASCADE,` +
@@ -163,6 +186,7 @@ export default class DBHelper {
         `);`
     );
 
+    Logger.info(`DB_CREATE::${TableTypes.ExerciseInTraining}`);
     await query(
       `CREATE TABLE ${TableTypes.ExerciseInTraining} (` +
         `exerciseid INTEGER REFERENCES ${TableTypes.Exercise} (exerciseid) ON DELETE RESTRICT,` +
