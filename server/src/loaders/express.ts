@@ -1,4 +1,5 @@
 import express from 'express';
+import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
@@ -14,6 +15,15 @@ import { ErrorHandler } from '../common';
 /* ---------------------------------------------------------------------------------------------- */
 
 export default ({ app }: { app: express.Application }) => {
+  app.use(
+    rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      limit: 100,
+      standardHeaders: 'draft-7',
+      legacyHeaders: false,
+      message: 'Cannot send any more requests'
+    })
+  );
   app.use(
     cors({
       origin: (origin, callback) => {
