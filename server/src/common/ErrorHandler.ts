@@ -16,11 +16,11 @@ export class ErrorHandler {
     next?: NextFunction
   ): Promise<void> {
     Logger.error(err.stack);
-    if (err instanceof AppError && err.isOperational && res) {
+    if (err instanceof AppError && err.isOperational && res && next) {
       res.status(err.httpCode || 500).send({
         message: err.message
       });
-      return;
+      return next();
     }
 
     process.exit(1);
