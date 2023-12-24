@@ -9,7 +9,7 @@ interface RptRoute {
 }
 
 const mainRoutes: RptRoute[] = [
-    { name: 'Home', path: '/home', translationKey: 'home.routeName', icon: 'home' },
+    { name: 'Home', path: '/', translationKey: 'home.routeName', icon: 'home' },
     { name: 'Workouts', path: '/workouts', translationKey: 'workouts.routeName', icon: 'fitness_center' },
     { name: 'Progress', path: '/progress', translationKey: 'progress.routeName', icon: 'trending_up' },
     { name: 'Calendar', path: '/calendar', translationKey: 'calendar.routeName', icon: 'date_range' },

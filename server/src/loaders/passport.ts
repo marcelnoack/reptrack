@@ -20,12 +20,15 @@ export default ({ app }: { app: express.Application }) => {
         usernameField: 'email'
       },
       async (email: string, password: string, done) => {
-        const user: UserDTO | undefined = await _authService.signInLocal(
-          email,
-          password
-        );
-
-        return done(null, user);
+        try {
+          const user: UserDTO | undefined = await _authService.signInLocal(
+            email,
+            password
+          );
+          return done(null, user);
+        } catch (err) {
+          done(err, {});
+        }
       }
     )
   );
