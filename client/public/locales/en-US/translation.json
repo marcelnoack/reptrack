@@ -10,5 +10,25 @@
   },
   "calendar": {
     "routeName": "Calendar"
+  },
+  "login": {
+    "labelLogin": "Login",
+    "labelRegister": "Register",
+    "labelNoAccount": "Don't have an account yet?",
+    "labelEmailRequired": "Email is required",
+    "labelEmailInvalid": "Email is invalid",
+    "labelPasswordRequired": "Password is required",
+    "labelPasswordInvalid": "Password is invalid"
+  },
+  "register": {
+    "labelRegister": "Register",
+    "labelAlreadyAccount": "Already have an account?",
+    "labelLogin": "Login",
+    "labelEmailRequired": "Email is required",
+    "labelEmailInvalid": "Email is invalid",
+    "labelPasswordRequired": "Password is required",
+    "labelPasswordInvalid": "Password is invalid",
+    "labelFirstNameRequired": "First name is required",
+    "labelLastNameRequired": "Last name is required"
   }
 }

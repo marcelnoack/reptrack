@@ -10,5 +10,25 @@
   },
   "calendar": {
     "routeName": "Kalender"
+  },
+  "login": {
+    "labelLogin": "Login",
+    "labelRegister": "Registrieren",
+    "labelNoAccount": "Sie haben noch kein Konto?",
+    "labelEmailRequired": "Email ist erforderlich",
+    "labelEmailInvalid": "Email ist ungültig",
+    "labelPasswordRequired": "Passwort ist erforderlich",
+    "labelPasswordInvalid": "Passwort ist ungültig"
+  },
+  "register": {
+    "labelRegister": "Registrieren",
+    "labelAlreadyAccount": "Sie haben bereits ein Konto?",
+    "labelLogin": "Login",
+    "labelEmailRequired": "Email ist erforderlich",
+    "labelEmailInvalid": "Email ist ungültig",
+    "labelPasswordRequired": "Passwort ist erforderlich",
+    "labelPasswordInvalid": "Passwort ist ungültig",
+    "labelFirstNameRequired": "Vorname ist erforderlich",
+    "labelLastNameRequired": "Nachname ist erforderlich"
   }
 }

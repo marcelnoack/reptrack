@@ -1,3 +1,13 @@
 {
-  "submit": "Submit"
+  "submit": "Submit",
+  "loading": "Loading {{objectToLoad}}...",
+  "continueWithGoogle": "Continue with Google",
+  "general": {
+    "orCapitalized": "Or",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "password": "Password",
+    "userdata": "Userdata"
+  }
 }

@@ -1,3 +1,13 @@
 {
-  "submit": "Bestätigen"
+  "submit": "Bestätigen",
+  "loading": "Lade {{objectToLoad}}...",
+  "continueWithGoogle": "Mit Google fortfahren",
+  "general": {
+    "orCapitalized": "Oder",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "Email",
+    "password": "Passwort",
+    "userdata": "Nutzerdaten"
+  }
 }
