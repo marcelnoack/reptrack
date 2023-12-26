@@ -7,6 +7,7 @@ import httpsRedirectLoader from './https-redirect';
 import expressLoader from './express';
 import morganLoader from './morgan';
 import passportLoader from './passport';
+import i18nextLoader from './i18n';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -24,6 +25,10 @@ export default async ({ expressApp }: { expressApp: express.Express }) => {
   // Initialize passport
   await passportLoader({ app: expressApp });
   Logger.info('Passport loaded');
+
+  // Initialize i18next
+  await i18nextLoader({ app: expressApp });
+  Logger.info('i18next loaded');
 
   // Initialize express
   await expressLoader({ app: expressApp });

@@ -2,6 +2,11 @@ import { compare, hash } from 'bcryptjs';
 import { Profile } from 'passport';
 
 import { Api401Error, Api500Error } from '../../common/errors';
+import {
+  GENERAL_GOOGLE_SIGN_IN_ERROR,
+  GENERAL_SIGN_IN_ERROR,
+  INCORRECT_USER_CREDENTIALS
+} from '../../common/i18n/errors';
 import { UserDTO, UserInputDTO } from '../users/usersAPI';
 import UsersDao from '../users/usersDao';
 
@@ -44,17 +49,17 @@ export default class AuthService {
       await this._usersDao.getByUniqueProperty('email', email, 'en');
 
     if (!dbUser) {
-      throw new Api401Error('User Credentials are not correct');
+      throw new Api401Error(INCORRECT_USER_CREDENTIALS);
     }
 
     if (!password || !dbUser[0].password) {
-      throw new Api500Error('Something went wrong while trying to sign you in');
+      throw new Api500Error(GENERAL_SIGN_IN_ERROR);
     }
 
     const isValidPassword = await compare(password, dbUser[0].password);
 
     if (!isValidPassword) {
-      throw new Api401Error('User credentials are not correct');
+      throw new Api401Error(INCORRECT_USER_CREDENTIALS);
     }
 
     //! Delete sensitive information like the password inside the auth tokens
@@ -69,9 +74,7 @@ export default class AuthService {
     const { emails, name, photos, displayName, id } = profile;
 
     if (!emails?.length || !photos?.length) {
-      throw new Api500Error(
-        'Something went wrong while authenticating your google profile'
-      );
+      throw new Api500Error(GENERAL_GOOGLE_SIGN_IN_ERROR);
     }
 
     const dbUser: UserDTO[] | undefined =

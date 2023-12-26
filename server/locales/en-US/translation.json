@@ -1,0 +1,12 @@
+{
+  "errors": {
+    "user_exists": "User already exists",
+    "no_session": "No session",
+    "incorrect_user_credentials": "User credentials are not correct",
+    "general_sign_in_error": "Something went wrong while trying to sign you in",
+    "general_google_sign_in_error": "Something went wrong while trying to sign you in",
+    "general_permission_error": "No permission to access the requested resource",
+    "general_resource_not_found_error": "Resource not found",
+    "general_resource_creation_error": "Something went wrong while creating a new resource"
+  }
+}

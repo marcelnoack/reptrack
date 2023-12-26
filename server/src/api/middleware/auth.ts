@@ -3,6 +3,7 @@ import Joi, { ValidationResult } from 'joi';
 
 import { Api401Error } from '../../common/errors/Api401Error';
 import { Api400Error } from '../../common/errors/Api400Error';
+import { NO_SESSION } from '../../common/i18n/errors';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -13,7 +14,7 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
     return next();
   }
 
-  throw new Api401Error('No session');
+  throw new Api401Error(NO_SESSION);
 };
 
 export const validateSignInCredentials = (
@@ -54,24 +55,6 @@ export const validateSignUp = (
         )
         .required()
     }).required()
-  });
-
-  const validation: ValidationResult<any> = schema.validate(req.body);
-
-  if (validation.error) {
-    throw new Api400Error(validation.error.message);
-  }
-
-  next();
-};
-
-export const validateRenewToken = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const schema = Joi.object({
-    refreshToken: Joi.string().required()
   });
 
   const validation: ValidationResult<any> = schema.validate(req.body);

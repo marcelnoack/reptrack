@@ -18,7 +18,7 @@ export class ErrorHandler {
     Logger.error(err.stack);
     if (err instanceof AppError && err.isOperational && res && next) {
       res.status(err.httpCode || 500).send({
-        message: err.message
+        message: req?.t(err.message) || ''
       });
       return next();
     }
