@@ -7,6 +7,21 @@
     "general_google_sign_in_error": "Something went wrong while trying to sign you in",
     "general_permission_error": "No permission to access the requested resource",
     "general_resource_not_found_error": "Resource not found",
-    "general_resource_creation_error": "Something went wrong while creating a new resource"
+    "general_resource_creation_error": "Something went wrong while creating a new resource",
+    "invalid_json": "Invalid JSON",
+    "email_required": "Email required",
+    "email_invalid_type": "Email must be a valid email format",
+    "email_invalid": "Email invalid",
+    "password_required": "Password required",
+    "password_invalid_type": "Password must be of type string",
+    "password_invalid": "Password is invalid",
+    "first_name_required": "First Name required",
+    "first_name_invalid_type": "First Name must be of type string",
+    "first_name_max_length": "First Name can only have 100 characters",
+    "middle_name_invalid_type": "Middle Name must be of type string",
+    "middle_name_max_length": "Middle Name can only have 100 characters",
+    "last_name_required": "Last Name required",
+    "last_name_invalid_type": "Last Name must be of type string",
+    "last_name_max_length": "Last Name can only have 100 characters"
   }
 }

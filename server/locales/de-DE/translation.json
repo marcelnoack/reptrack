@@ -7,6 +7,21 @@
     "general_google_sign_in_error": "Etwas ist schief gelaufen bei dem Versuch sie über Google anzumelden",
     "general_permission_error": "Sie haben keine Berechtigung auf die angefragte Resource zuzugreifen",
     "general_resource_not_found_error": "Angefragte Resource konnte nicht gefunden werden",
-    "general_resource_creation_error": "Bei der Erstellung der Resource ist etwas schie gelaufen"
+    "general_resource_creation_error": "Bei der Erstellung der Resource ist etwas schie gelaufen",
+    "invalid_json": "Ungültiges JSON",
+    "email_required": "Email ist erforderlich",
+    "email_invalid_type": "Ungültiges Email-Format",
+    "email_invalid": "Ungültige Email",
+    "password_required": "Passwort ist erforderlich",
+    "password_invalid_type": "Passwort muss ein String sein",
+    "password_invalid": "Passwort ist ungültig",
+    "first_name_required": "Vorname ist erforderlich",
+    "first_name_invalid_type": "Ungültiges Format für den Vornamen",
+    "first_name_max_length": "Der Vorname sollte maximal 100 Zeichen lang sein",
+    "middle_name_invalid_type": "Ungültiges Format für den zweiten Namen",
+    "middle_name_max_length": "Der zweite Name sollte maximal 100 Zeichen lang sein",
+    "last_name_required": "Nachname ist erforderlich",
+    "last_name_invalid_type": "Ungültiges Format für den Nachnamen",
+    "last_name_max_length": "Der Nachname sollte maximal 100 Zeichen lang sein"
   }
 }
