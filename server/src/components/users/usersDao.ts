@@ -2,10 +2,14 @@ import { QueryResult } from 'pg';
 
 import { BaseDAO } from '../../common';
 import { query } from '../../common/db';
+import { ProviderDTO } from '../auth/authAPI';
 import { Api500Error } from '../../common/errors';
 import { Api409Error } from '../../common/errors/Api409Error';
+import {
+  GENERAL_RESOURCE_CREATION_ERROR,
+  USER_EXISTS
+} from '../../common/i18n/errors';
 import { UserDTO, UserInputDTO, UserRelatedEntities } from './usersAPI';
-import { ProviderDTO } from '../auth/authAPI';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -27,9 +31,9 @@ export default class UsersDao
     );
 
     if (!result || !result.rows || !result.rows.length) {
-      throw new Api500Error(
-        'Something went wrong while trying to access user data'
-      );
+      // throw new Api500Error(
+      //   'Something went wrong while trying to access user data'
+      // );
     }
     const user: UserDTO = {
       userId: result.rows[0].userid,
@@ -56,7 +60,7 @@ export default class UsersDao
       );
 
       if (creationResult.rowCount !== 1) {
-        throw new Api500Error('Something went wrong while creating a new user');
+        // throw new Api500Error('Something went wrong while creating a new user');
       }
 
       if (provider && provider.providerName === 'google') {
@@ -72,9 +76,9 @@ export default class UsersDao
         );
 
         if (googleCreationResult.rowCount !== 1) {
-          throw new Api500Error(
-            'Something went wrong while creating a new google profile'
-          );
+          // throw new Api500Error(
+          //   'Something went wrong while creating a new google profile'
+          // );
         }
 
         return {
@@ -98,10 +102,10 @@ export default class UsersDao
         err instanceof Error &&
         err.message?.indexOf('duplicate key') !== -1
       ) {
-        throw new Api409Error('The user already exists.');
+        throw new Api409Error(USER_EXISTS);
       }
 
-      throw new Api500Error('Something went wrong while creating a new user');
+      throw new Api500Error(GENERAL_RESOURCE_CREATION_ERROR);
     }
 
     return {

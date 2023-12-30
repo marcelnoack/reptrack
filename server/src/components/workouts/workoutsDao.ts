@@ -2,7 +2,7 @@ import { QueryResult } from 'pg';
 
 import { BaseDAO } from '../../common';
 import { query } from '../../common/db';
-import { Api500Error } from '../../common/errors';
+// import { Api500Error } from '../../common/errors';
 import {
   ExerciseInWorkoutDTO,
   WorkoutDTO,
@@ -58,7 +58,8 @@ export default class WorkoutsDao
 
       return workouts;
     } catch (err) {
-      throw new Api500Error('Something went wrong while getting the workouts');
+      return [];
+      // throw new Api500Error('Something went wrong while getting the workouts');
     }
   };
 
@@ -109,9 +110,9 @@ export default class WorkoutsDao
     );
 
     if (creationResult.rowCount !== 1) {
-      throw new Api500Error(
-        'Something went wrong while creating a new workout'
-      );
+      // throw new Api500Error(
+      //   'Something went wrong while creating a new workout'
+      // );
     }
 
     await Promise.all(
@@ -158,15 +159,16 @@ export default class WorkoutsDao
         return workoutExercises;
       }
 
-      if (relatedEntity === 'trainings') {
-        throw new Api500Error('Trainings are not supported yet');
-      }
+      // if (relatedEntity === 'trainings') {
+      //   throw new Api500Error('Trainings are not supported yet');
+      // }
 
       return [];
     } catch (err) {
-      throw new Api500Error(
-        'An unexpected error occured while getting a workouts related entities'
-      );
+      return [];
+      // throw new Api500Error(
+      //   'An unexpected error occured while getting a workouts related entities'
+      // );
     }
   };
 
@@ -198,9 +200,10 @@ export default class WorkoutsDao
 
       return exercises;
     } catch (err) {
-      throw new Api500Error(
-        'Something went wrong while get the related exercises'
-      );
+      return [];
+      // throw new Api500Error(
+      //   'Something went wrong while get the related exercises'
+      // );
     }
   };
 
@@ -220,15 +223,15 @@ export default class WorkoutsDao
       );
 
       if (creationResult.rowCount !== 1) {
-        throw new Api500Error(
-          'Something went wrong while attaching an exercise to a workout'
-        );
+        // throw new Api500Error(
+        //   'Something went wrong while attaching an exercise to a workout'
+        // );
       }
       return;
     } catch (err) {
-      throw new Api500Error(
-        'Something wen wrong while attaching an exercise to a workout'
-      );
+      // throw new Api500Error(
+      //   'Something wen wrong while attaching an exercise to a workout'
+      // );
     }
   };
 }

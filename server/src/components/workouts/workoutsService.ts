@@ -1,4 +1,8 @@
 import { Api403Error, Api404Error } from '../../common/errors';
+import {
+  GENERAL_PERMISSION_ERROR,
+  GENERAL_RESOURCE_NOT_FOUND_ERROR
+} from '../../common/i18n/errors';
 import { UserDTO } from '../users/usersAPI';
 import { WorkoutDTO, WorkoutInputDTO } from './workoutsAPI';
 import WorkoutsDao from './workoutsDao';
@@ -39,13 +43,11 @@ export default class WorkoutsService {
     );
 
     if (!workout) {
-      throw new Api404Error('The requested workout was not found');
+      throw new Api404Error(GENERAL_RESOURCE_NOT_FOUND_ERROR);
     }
 
     if (workout.userId !== userId) {
-      throw new Api403Error(
-        'The requesting user does not have the permission to view the requested workout'
-      );
+      throw new Api403Error(GENERAL_PERMISSION_ERROR);
     }
 
     return workout;
