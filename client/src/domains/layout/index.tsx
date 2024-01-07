@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '../../lib/auth/useAuth';
 import { useApi } from '../../lib/data-access/useApi';
@@ -9,14 +8,13 @@ import RptHeader from './_Header';
 import RptFooter from './_Footer';
 
 const Layout = () => {
-    const { t: tCommon } = useTranslation( 'common' );
-    const { isLoading, isFetching, isError } = useAuth();
+    const { isLoading, isFetching, isError, loadingMessage } = useAuth();
 
     const { usePost } = useApi();
-    const { mutate, } = usePost( '/auth/logout', '', { credentials: 'include' }, [ '/profile' ] );
+    const { mutate } = usePost( '/auth/logout', '', { credentials: 'include' }, [ '/profile' ] );
 
     if ( isLoading || isFetching ) {
-        return <LoadingPage message={tCommon( 'loading', { objectToLoad: tCommon( 'general.userdata' ) } )}/>
+        return <LoadingPage message={loadingMessage}/>
     }
 
     if ( isError ) {
