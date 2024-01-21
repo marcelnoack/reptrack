@@ -2,6 +2,7 @@
   "submit": "Submit",
   "loading": "Loading {{objectToLoad}}...",
   "continueWithGoogle": "Continue with Google",
+  "openSettingsMenu": "Open Settings Menu",
   "general": {
     "orCapitalized": "Or",
     "firstName": "First Name",
