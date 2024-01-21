@@ -1,4 +1,8 @@
 import { Api403Error, Api404Error } from '../../common/errors';
+import {
+  GENERAL_PERMISSION_ERROR,
+  GENERAL_RESOURCE_NOT_FOUND_ERROR
+} from '../../common/i18n/errors';
 import { UserDTO } from '../users/usersAPI';
 import { WorkoutDTO, WorkoutInputDTO } from './workoutsAPI';
 import WorkoutsDao from './workoutsDao';
@@ -24,12 +28,7 @@ export default class WorkoutsService {
     userId: string,
     language = 'en'
   ): Promise<WorkoutDTO[]> => {
-    const workouts: WorkoutDTO[] = await this._workoutsDao.getAll(
-      userId,
-      language
-    );
-
-    return workouts;
+    return await this._workoutsDao.getAll(userId, language);
   };
 
   /* ---------------------------------------------------------------------------------------------- */
@@ -44,13 +43,11 @@ export default class WorkoutsService {
     );
 
     if (!workout) {
-      throw new Api404Error('The requested workout was not found');
+      throw new Api404Error(GENERAL_RESOURCE_NOT_FOUND_ERROR);
     }
 
     if (workout.userId !== userId) {
-      throw new Api403Error(
-        'The requesting user does not have the permission to view the requested workout'
-      );
+      throw new Api403Error(GENERAL_PERMISSION_ERROR);
     }
 
     return workout;
@@ -62,13 +59,13 @@ export default class WorkoutsService {
     workout: WorkoutInputDTO
   ): Promise<string> => {
     // TODO: Provide option to let the user add additional user-specific exercises if not provided by the application per default
-    const newWorkoutId: string = await this._workoutsDao.create({
-      ...workout,
-      userId: user.userId,
-      createdBy: user.username,
-      lastChangedBy: user.username
-    });
+    // return await this._workoutsDao.create({
+    //   ...workout,
+    //   userId: user.userId,
+    //   createdBy: user.email,
+    //   lastChangedBy: user.email
+    // });
 
-    return newWorkoutId;
+    return '';
   };
 }

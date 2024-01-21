@@ -7,23 +7,23 @@ import { Logger } from './Logger';
 
 interface ManagedDTO {
   createdAt: Date;
-  createdBy: string;
+  createdBy?: string;
   lastChangedAt: Date;
-  lastChangedBy: string;
+  lastChangedBy?: string;
 }
 
 /* ---------------------------------------------------------------------------------------------- */
 interface BaseDAO<T, InputT, RelatedT> {
   getAll: (userId: string, language: string) => Promise<T[]>;
   getById: (id: string) => Promise<T | undefined>;
-  create: (newResource: InputT) => Promise<string>;
+  create: (newResource: InputT) => Promise<T>;
   update: (id: string, updatedResource: InputT) => Promise<T>;
   delete: (id: string) => Promise<void>;
   getByUniqueProperty?: (
     uniquePropName: string,
     uniquePropValue: string,
     language: string
-  ) => Promise<T[]>;
+  ) => Promise<T[] | undefined>;
   getRelated?: (
     relatedEntity: RelatedT,
     id: string,
@@ -35,6 +35,8 @@ interface BaseDAO<T, InputT, RelatedT> {
 enum SupportedHttpStatusCodes {
   OK = 200,
   CREATED = 201,
+
+  NO_CONTENT = 204,
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   FORBIDDEN = 403,

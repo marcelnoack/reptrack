@@ -1,8 +1,0 @@
-{
-  "common": {
-    "prompts": {
-      "enterEmail": "Geben sie ihre E-Mail Adresse ein",
-      "enterPassword": "Geben Sie Ihr Passwort ein"
-    }
-  }
-}

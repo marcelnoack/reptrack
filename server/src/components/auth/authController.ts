@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { SupportedHttpStatusCodes } from '../../common';
-import { Api400Error } from '../../common/errors/Api400Error';
-import config from '../../config';
+import { Api500Error } from '../../common/errors';
 import { UserInputDTO } from '../users/usersAPI';
-import AuthService, { TokenObject } from './authService';
+import AuthService from './authService';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -23,45 +22,36 @@ export default class AuthController {
   }
 
   /* ---------------------------------------------------------------------------------------------- */
-  public signIn = async (req: Request, res: Response, next: NextFunction) => {
+  public signInLocal = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
-      const { email, password } = req.body.user;
-
-      const tokenObject: TokenObject = await this._authService.signIn(
-        email,
-        password
-      );
-      const cookie = JSON.stringify({
-        httponly: true,
-        samesite: 'None',
-        maxage: config.accessTokenExpiration,
-        jwt: tokenObject.accessToken
-      });
-
-      res.cookie('token', tokenObject.accessToken, {
-        sameSite: 'none',
-        secure: true,
-        httpOnly: true,
-        // maxAge: config.accessTokenExpiration?.toString() || "",
-        path: '/'
-      });
-      // res.set("set-cookie", "token=" + tokenObject.accessToken + ";Path=/;" + "HttpOnly; SameSite=None; Secure");
-      res.set('X-CSRF-Token', tokenObject.csrfToken);
       return res.status(SupportedHttpStatusCodes.OK).send({});
-      // return res.json(tokenObject);
     } catch (err) {
       next(err);
     }
   };
 
   /* ---------------------------------------------------------------------------------------------- */
-  public signUp = async (req: Request, res: Response, next: NextFunction) => {
+  public signUpLocal = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
-      const { username, email, firstName, lastName, password } = req.body.user;
-      const user: UserInputDTO = {
-        username,
+      const {
         email,
         firstName,
+        middleName = '',
+        lastName,
+        password
+      } = req.body.user;
+      const user: UserInputDTO = {
+        email,
+        firstName,
+        middleName,
         lastName,
         password
       };
@@ -76,20 +66,14 @@ export default class AuthController {
     }
   };
 
-  /* ---------------------------------------------------------------------------------------------- */
-  public renew = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const refreshToken: string = req.body.refreshToken;
-      if (!refreshToken) {
-        throw new Api400Error('No refresh token was provided');
-      }
+  public logout = (req: Request, res: Response, next: NextFunction) => {
+    req.session.destroy((err) => {
+      if (err) throw new Api500Error('Something went wrong while logging out');
 
-      const newToken: TokenObject = await this._authService.renewToken(
-        refreshToken
-      );
-      return res.json(newToken);
-    } catch (err) {
-      next(err);
-    }
+      res
+        .clearCookie('connect.sid')
+        .status(SupportedHttpStatusCodes.NO_CONTENT)
+        .send();
+    });
   };
 }

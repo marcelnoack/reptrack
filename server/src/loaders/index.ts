@@ -1,11 +1,13 @@
 import express from 'express';
 
 import { checkDbConnection } from '../common/db';
+import DBHelper from '../common/db/helper';
 import { Logger } from '../common/Logger';
 import httpsRedirectLoader from './https-redirect';
 import expressLoader from './express';
 import morganLoader from './morgan';
-import DBHelper from '../common/db/helper';
+import passportLoader from './passport';
+import i18nextLoader from './i18n';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -16,9 +18,17 @@ export default async ({ expressApp }: { expressApp: express.Express }) => {
   await httpsRedirectLoader({ app: expressApp });
   Logger.info('HTTPS-Redirect applied');
 
-  // Setup loggin middleware
+  // Setup logging middleware
   await morganLoader({ app: expressApp });
   Logger.info('Morgan middleware loaded');
+
+  // Initialize passport
+  await passportLoader({ app: expressApp });
+  Logger.info('Passport loaded');
+
+  // Initialize i18next
+  await i18nextLoader({ app: expressApp });
+  Logger.info('i18next loaded');
 
   // Initialize express
   await expressLoader({ app: expressApp });

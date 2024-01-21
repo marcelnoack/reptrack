@@ -1,0 +1,14 @@
+{
+  "submit": "Bestätigen",
+  "loading": "Lade {{objectToLoad}}...",
+  "continueWithGoogle": "Mit Google fortfahren",
+  "openSettingsMenu": "Öffne Einstellungen",
+  "general": {
+    "orCapitalized": "Oder",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "Email",
+    "password": "Passwort",
+    "userdata": "Nutzerdaten"
+  }
+}
