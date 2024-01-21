@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import rptLogo from '../../assets/Logo-192x192.png';
 import authRegisterImg from '../../assets/auth-register.jpg';
 import { GoogleAuthButton } from '../../components/google/GoogleAuthButton';
-import { useApi } from '../../lib/data-access/useApi';
+import { useApi } from '../../hooks/data-access/useApi';
 import { RptInput } from '../../components/input/RptInput';
 import { AuthPage } from './AuthLayout';
 

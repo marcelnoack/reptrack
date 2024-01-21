@@ -8,7 +8,7 @@ import rptLogo from '../../assets/Logo-192x192.png';
 import authLoginImg from '../../assets/auth-login.jpg';
 import { RptInput } from '../../components/input/RptInput';
 import { GoogleAuthButton } from '../../components/google/GoogleAuthButton';
-import { useApi } from '../../lib/data-access/useApi';
+import { useApi } from '../../hooks/data-access/useApi';
 import { AuthPage } from './AuthLayout';
 
 interface Props {

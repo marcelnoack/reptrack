@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useTranslation } from 'react-i18next';
 
 import { useHttp } from './useHttp';
+import { config } from '../../config';
 
 export interface QueryFilter {
     filterKey: string;
@@ -17,7 +18,7 @@ const _queryFiltersToString = ( queryFilters?: QueryFilter[] ): string => {
         .join( '&' );
 }
 
-export const baseUrl: string = import.meta.env['VITE_API_BASE_URL'] || '';
+export const baseUrl: string = config.envs.baseUrl;
 
 export const useApi = () => {
     const queryClient = useQueryClient();

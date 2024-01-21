@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
 
+import { config } from '../../config';
+
 export const GoogleAuthButton = () => {
-    const googleHref = import.meta.env['VITE_API_BASE_URL'] + '/auth/google/login';
+    const googleHref = config.envs.baseUrl + '/auth/google/login';
     const { t: tCommon } = useTranslation( 'common' )
 
     return (
