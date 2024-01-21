@@ -2,6 +2,7 @@
   "submit": "Bestätigen",
   "loading": "Lade {{objectToLoad}}...",
   "continueWithGoogle": "Mit Google fortfahren",
+  "openSettingsMenu": "Öffne Einstellungen",
   "general": {
     "orCapitalized": "Oder",
     "firstName": "Vorname",
