@@ -7,7 +7,7 @@ export const GoogleAuthButton = () => {
     const { t: tCommon } = useTranslation( 'common' )
 
     return (
-        <a className="gsi-material-button" href={googleHref}>
+        <a className="gsi-material-button" href={googleHref} referrerPolicy="origin" >
             <div className="gsi-material-button-state"></div>
             <div className="gsi-material-button-content-wrapper">
                 <div className="gsi-material-button-icon">

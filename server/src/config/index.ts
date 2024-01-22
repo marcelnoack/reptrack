@@ -12,6 +12,7 @@ if (process.env.NODE_ENV !== 'production' && envFound.error) {
 }
 
 export default {
+  host: process.env.HOST || '',
   port: parseInt(process.env.PORT || '80', 10),
   accessTokenSecret: process.env.ACCESS_TOKEN_SECRET || '',
   refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET || '',
