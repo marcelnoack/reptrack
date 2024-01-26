@@ -1,9 +1,7 @@
 import { Router } from 'express';
 
-import authRoute from './routes/authRoute';
-import workoutsRoute from './routes/workoutsRoute';
-import healthCheckRoute from './routes/healthCheckRoute';
-import profileRoute from './routes/profileRoute';
+import apiRoute from './api';
+import authRoute from './auth';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -12,10 +10,8 @@ import profileRoute from './routes/profileRoute';
 export default () => {
   const app = Router();
 
+  apiRoute(app);
   authRoute(app);
-  workoutsRoute(app);
-  healthCheckRoute(app);
-  profileRoute(app);
 
   return app;
 };
