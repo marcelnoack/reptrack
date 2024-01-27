@@ -41,7 +41,7 @@ export default ({ app }: { app: express.Application }) => {
         //     ? config.clientUrl
         //     : 'localhost',
         httpOnly: true,
-        secure: false,
+        secure: true,
         maxAge: 360000,
         sameSite: 'none'
       }
