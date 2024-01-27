@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { Navigate } from 'react-router-dom';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -51,18 +50,14 @@ export const RegisterPage = ( { onNav }: Props ) => {
     const emailValue = watch( 'email' );
     const passwordValue = watch( 'password' );
 
-    const { mutate, isLoading, isSuccess, isError, error } = usePost( '/auth/signup', JSON.stringify( {
+    const { mutate, isLoading, isError, error } = usePost( '/auth/local/signup', JSON.stringify( {
         user: {
             firstName: firstNameValue,
             lastName: lastNameValue,
             email: emailValue,
             password: passwordValue
         }
-    } ), { credentials: 'include' }, [ '/profile' ] )
-
-    if ( !isLoading && isSuccess ) {
-        return <Navigate to={'/'} replace={true}/>
-    }
+    } ), { credentials: 'include' }, [ '/api/profile' ] )
 
     return (
         <div className={'min-h-screen flex items-center justify-center'}>
