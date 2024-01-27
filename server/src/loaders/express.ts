@@ -29,9 +29,6 @@ export default ({ app }: { app: express.Application }) => {
   app.use(express.urlencoded());
   app.use(express.json());
 
-  Logger.info(
-    'MYINFO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' + ' ' + process.env.NODE_ENV
-  );
   app.use(
     session({
       secret: config.accessTokenSecret,
@@ -39,6 +36,10 @@ export default ({ app }: { app: express.Application }) => {
       saveUninitialized: false,
       unset: 'keep',
       cookie: {
+        domain:
+          process.env.NODE_ENV === 'production'
+            ? config.clientUrl
+            : 'localhost',
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 360000,
