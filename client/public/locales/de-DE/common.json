@@ -9,6 +9,7 @@
     "lastName": "Nachname",
     "email": "Email",
     "password": "Passwort",
+    "password_confirm": "Passwort bestätigen",
     "userdata": "Nutzerdaten"
   }
 }

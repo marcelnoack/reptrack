@@ -29,7 +29,12 @@ export const RegisterPage = ( { onNav }: Props ) => {
             .email( { message: tRegister( 'register.labelEmailInvalid' ) } ),
         password: z.string()
             .min( 1, { message: tRegister( 'register.labelPasswordRequired' ) } )
-            .regex( /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{10,}$/, { message: tRegister( 'register.labelPasswordInvalid' ) } )
+            .regex( /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{10,}$/, { message: tRegister( 'register.labelPasswordInvalid' ) } ),
+        passwordConfirm: z.string()
+            .min( 1, { message: tRegister( 'register.labelPasswordConfirmRequired' ) } )
+    } ).refine( ( data ) => data.password === data.passwordConfirm, {
+        message: tRegister( 'register.labelPasswordsMustMatch' ),
+        path: [ 'passwordConfirm' ],
     } );
 
     type RegisterType = z.infer<typeof RegisterSchema>;
@@ -41,7 +46,7 @@ export const RegisterPage = ( { onNav }: Props ) => {
             firstName: '',
             lastName: '',
             email: '',
-            password: ''
+            password: '',
         }
     } );
 
@@ -49,6 +54,7 @@ export const RegisterPage = ( { onNav }: Props ) => {
     const lastNameValue = watch( 'lastName' );
     const emailValue = watch( 'email' );
     const passwordValue = watch( 'password' );
+    const passwordConfirmValue = watch( 'passwordConfirm' );
 
     const { mutate, isLoading, isError, error } = usePost( '/auth/local/signup', JSON.stringify( {
         user: {
@@ -118,13 +124,23 @@ export const RegisterPage = ( { onNav }: Props ) => {
                                 required
                                 isPassword
                             />
+                            <RptInput
+                                id={'register_password_input'}
+                                label={tCommon( 'general.password_confirm' )}
+                                placeholder={tCommon( 'general.password_confirm' )}
+                                error={errors?.passwordConfirm?.message}
+                                value={passwordConfirmValue}
+                                {...register( 'passwordConfirm' )}
+                                required
+                                isPassword
+                            />
                             {isError &&
                               <span data-cy={'register_error'}
                                     className={'text-red-500'}>{( error as any )?.message}</span>}
                             <button
                                 data-cy={'register_submit_btn'}
                                 type="submit"
-                                disabled={isLoading || !!errors?.firstName || !!errors?.lastName || !!errors?.email || !!errors?.password}
+                                disabled={isLoading || !!errors?.firstName || !!errors?.lastName || !!errors?.email || !!errors?.password || !!errors?.passwordConfirm}
                                 className="bg-green-500 text-black rounded-md p-3 flex items-center justify-center gap-2 hover:bg-green-400 focus:bg-green-400 disabled:bg-gray-600 disabled:cursor-not-allowed outline-none"
                             >
                                 {isLoading && (
