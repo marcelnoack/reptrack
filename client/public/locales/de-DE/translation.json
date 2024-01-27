@@ -29,6 +29,8 @@
     "labelPasswordRequired": "Passwort ist erforderlich",
     "labelPasswordInvalid": "Passwort ist ungültig",
     "labelFirstNameRequired": "Vorname ist erforderlich",
-    "labelLastNameRequired": "Nachname ist erforderlich"
+    "labelLastNameRequired": "Nachname ist erforderlich",
+    "labelPasswordConfirmRequired": "Bitte bestätige dein Passwort",
+    "labelPasswordsMustMatch": "Passwörter müssen übereinstimmen"
   }
 }

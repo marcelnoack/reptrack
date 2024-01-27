@@ -29,6 +29,8 @@
     "labelPasswordRequired": "Password is required",
     "labelPasswordInvalid": "Password is invalid",
     "labelFirstNameRequired": "First name is required",
-    "labelLastNameRequired": "Last name is required"
+    "labelLastNameRequired": "Last name is required",
+    "labelPasswordConfirmRequired": "Please confirm your password",
+    "labelPasswordsMustMatch": "Passwords must match"
   }
 }

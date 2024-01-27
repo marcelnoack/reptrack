@@ -1,4 +1,5 @@
 import * as Avatar from '@radix-ui/react-avatar';
+import { useEffect, useRef } from 'react';
 
 interface RptAvatarProps {
     firstName: string;
@@ -15,9 +16,17 @@ const capitalizeNameInitials = ( firstName: string, lastName: string ): string =
 }
 
 export const RptAvatar = ( { firstName, lastName, imageSrc }: RptAvatarProps ) => {
+    const imgRef = useRef<HTMLImageElement>( null );
+
+    useEffect( () => {
+        if ( imgRef.current ) {
+            imgRef.current.setAttribute( 'referrerpolicy', 'no-referrer' );
+        }
+    }, [ imgRef ] );
+
     return (
         <Avatar.Root className="size-full">
-            <Avatar.Image src={imageSrc}
+            <Avatar.Image src={imageSrc} referrerPolicy={'no-referrer'} ref={imgRef}
                           className="w-full h-full rounded-full"/>
             <Avatar.Fallback delayMs={600}
                              className="size-full flex items-center justify-center bg-zinc-700 hover:bg-zinc-500 rounded-full text-sm border-green-500 border">
