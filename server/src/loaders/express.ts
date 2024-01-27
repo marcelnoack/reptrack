@@ -7,7 +7,7 @@ import passport from 'passport';
 
 import config from '../config';
 import routes from '../routes';
-import { ErrorHandler } from '../common';
+import { ErrorHandler, Logger } from '../common';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -29,7 +29,9 @@ export default ({ app }: { app: express.Application }) => {
   app.use(express.urlencoded());
   app.use(express.json());
 
-  console.log('MYINFO', process.env.NODE_ENV);
+  Logger.info(
+    'MYINFO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' + ' ' + process.env.NODE_ENV
+  );
   app.use(
     session({
       secret: config.accessTokenSecret,
