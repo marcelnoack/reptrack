@@ -39,12 +39,12 @@ export default ({ app }: { app: express.Application }) => {
       saveUninitialized: false,
       unset: 'keep',
       cookie: {
-        domain: config.clientUrl,
+        // domain: config.clientUrl,
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 360000,
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : undefined,
-        path: '/'
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : undefined
+        // path: '/'
       }
     })
   );
