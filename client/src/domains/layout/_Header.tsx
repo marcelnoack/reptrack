@@ -13,7 +13,7 @@ const RptHeader = () => {
         <div className="py-3 mx-4 lg:mx-0">
             <div className="flex items-center justify-between">
                 <img src={rptLogo} alt="Logo" className="h-8"/>
-                {user?.user.provider?.picture &&
+                {user?.user &&
                     (
                         <Tooltip.Provider delayDuration={500}>
                             <Tooltip.Root>

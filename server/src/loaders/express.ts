@@ -35,12 +35,16 @@ export default ({ app }: { app: express.Application }) => {
       resave: false,
       saveUninitialized: false,
       unset: 'keep',
+      proxy: true,
       cookie: {
+        domain:
+          process.env.NODE_ENV === 'production'
+            ? config.clientUrl
+            : 'localhost',
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 360000,
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : undefined,
-        path: '/'
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : undefined
       }
     })
   );
