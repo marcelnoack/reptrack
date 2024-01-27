@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -42,14 +41,10 @@ export const LoginPage = ( { onNav }: Props ) => {
     const emailValue = watch( 'email' );
     const passwordValue = watch( 'password' );
 
-    const { mutateAsync, isLoading, isSuccess, isError, error } = usePost( '/auth/login', JSON.stringify( {
+    const { mutate, isLoading, isError, error } = usePost( '/auth/local/login', JSON.stringify( {
         email: emailValue,
         password: passwordValue
-    } ), { credentials: 'include' }, [ '/profile' ] )
-
-    if ( !isLoading && isSuccess ) {
-        return <Navigate to={'/'} replace={true}/>
-    }
+    } ), { credentials: 'include' }, [ '/api/profile' ] )
 
     return <div className='min-h-screen flex items-center justify-center'>
         <div className='border rounded-lg border-white max-w-5xl m-10 lg:m-20'>
@@ -67,7 +62,7 @@ export const LoginPage = ( { onNav }: Props ) => {
                 <div className='lg:w-1/2 lg:min-w-[430px]'>
                     <form
                         className={'flex flex-col gap-4 p-10 w-full overflow-hidden transition-{max-height} ease duration-300 max-h-[2000px]'}
-                        onSubmit={handleSubmit( () => mutateAsync() )}
+                        onSubmit={handleSubmit( () => mutate() )}
                     >
                         <h1 className={'lg:hidden flex items-center justify-center gap-2'}>
                             <img src={rptLogo} alt="reptrack logo" className="h-12"/>

@@ -6,8 +6,6 @@ import { isAuth } from '../middleware';
 import healthCheckRoute from './healthCheckRoute';
 import profileRoute from './profileRoute';
 import workoutsRoute from './workoutsRoute';
-import { Api403Error } from '../../common/errors';
-import config from '../../config';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */

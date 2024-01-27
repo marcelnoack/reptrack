@@ -101,11 +101,6 @@ export const validateSignUp = (
             })
             .min(1, { message: FIRST_NAME_REQUIRED })
             .max(100, { message: FIRST_NAME_MAX_LENGTH }),
-          middleName: z
-            .string({
-              invalid_type_error: MIDDLE_NAME_INVALID_TYPE
-            })
-            .max(100, { message: MIDDLE_NAME_MAX_LENGTH }),
           lastName: z
             .string({
               required_error: LAST_NAME_REQUIRED,
