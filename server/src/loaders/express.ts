@@ -42,7 +42,7 @@ export default ({ app }: { app: express.Application }) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 360000,
-        sameSite: process.env.NODE_ENV === 'production' ? '"none"' : undefined,
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : undefined,
         path: '/'
       }
     })
