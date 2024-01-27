@@ -41,9 +41,9 @@ export default ({ app }: { app: express.Application }) => {
         //     ? config.clientUrl
         //     : 'localhost',
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: false,
         maxAge: 360000,
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : undefined
+        sameSite: false
       }
     })
   );
