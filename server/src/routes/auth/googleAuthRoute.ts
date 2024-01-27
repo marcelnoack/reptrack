@@ -1,9 +1,12 @@
 import { Router } from 'express';
 import passport from 'passport';
+import cors from 'cors';
 
 import { GENERAL_GOOGLE_SIGN_IN_ERROR } from '../../common/i18n/errors';
 import config from '../../config';
+import { Api403Error } from '../../common/errors';
 import { isAuth } from '../middleware';
+import { corsDefaultHandler } from '../../utils';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -16,6 +19,13 @@ export default (app: Router) => {
 
   route.get(
     '/login',
+    (req, res, next) => {
+      req.headers.origin = req.headers.origin || req.headers.referer;
+      next();
+    },
+    cors({
+      origin: corsDefaultHandler
+    }),
     passport.authenticate('google', {
       scope: ['profile', 'email']
     })

@@ -1,28 +1,35 @@
 import { Router } from 'express';
 import passport from 'passport';
+import cors from 'cors';
 
-import { GENERAL_GOOGLE_SIGN_IN_ERROR } from '../../common/i18n/errors';
 import AuthController from '../../components/auth/authController';
-import config from '../../config';
-import {
-  isAuth,
-  validateSignInCredentials,
-  validateSignUp
-} from '../middleware';
+import { validateSignInCredentials, validateSignUp } from '../middleware';
+import { corsDefaultHandler } from '../../utils';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
+
+const route = Router();
 
 export default (app: Router) => {
+  app.use('/local', route);
+
+  route.use(
+    cors({
+      origin: corsDefaultHandler,
+      credentials: true
+    })
+  );
+
   const authController: AuthController = new AuthController();
 
-  app.post('/signup', validateSignUp, authController.signUpLocal);
-  app.post(
+  route.post('/signup', validateSignUp, authController.signUpLocal);
+  route.post(
     '/login',
     validateSignInCredentials,
     passport.authenticate('local'),
     authController.signInLocal
   );
-  app.post('/logout', authController.logout);
+  route.post('/logout', authController.logout);
 };

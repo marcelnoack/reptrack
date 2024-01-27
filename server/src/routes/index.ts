@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import apiRoute from './api';
 import authRoute from './auth';
+import apiRoute from './api';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -10,8 +10,8 @@ import authRoute from './auth';
 export default () => {
   const app = Router();
 
-  apiRoute(app);
   authRoute(app);
+  apiRoute(app);
 
   return app;
 };

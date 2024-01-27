@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import cors from 'cors';
 
-import config from '../../config';
-import { Api403Error } from '../../common/errors';
+import { corsDefaultHandler } from '../../utils';
 import { isAuth } from '../middleware';
 import healthCheckRoute from './healthCheckRoute';
 import profileRoute from './profileRoute';
 import workoutsRoute from './workoutsRoute';
+import { Api403Error } from '../../common/errors';
+import config from '../../config';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -15,21 +16,14 @@ import workoutsRoute from './workoutsRoute';
 const route = Router();
 
 export default (app: Router) => {
-  app.use('/api', isAuth, route);
+  app.use('/api', route);
 
   route.use(
     cors({
-      origin: (origin, callback) => {
-        const whiteList = [config.clientUrl];
-        if (whiteList.some((entry) => entry === origin)) {
-          return callback(null, true);
-        }
-        return callback(
-          new Api403Error(`Origin ${origin} not allowed by CORS`)
-        );
-      },
+      origin: corsDefaultHandler,
       credentials: true
-    })
+    }),
+    isAuth
   );
 
   healthCheckRoute(route);
