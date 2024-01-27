@@ -35,6 +35,7 @@ export default ({ app }: { app: express.Application }) => {
       resave: false,
       saveUninitialized: false,
       unset: 'keep',
+      proxy: true,
       cookie: {
         // domain:
         //   process.env.NODE_ENV === 'production'
