@@ -43,7 +43,7 @@ export default ({ app }: { app: express.Application }) => {
         httpOnly: true,
         secure: false,
         maxAge: 360000,
-        sameSite: false
+        sameSite: 'none'
       }
     })
   );
