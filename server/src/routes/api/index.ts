@@ -20,8 +20,8 @@ export default (app: Router) => {
     cors({
       origin: corsDefaultHandler,
       credentials: true
-    }),
-    isAuth
+    })
+    // isAuth
   );
 
   healthCheckRoute(route);
