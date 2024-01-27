@@ -4,7 +4,6 @@ import cors from 'cors';
 
 import { GENERAL_GOOGLE_SIGN_IN_ERROR } from '../../common/i18n/errors';
 import config from '../../config';
-import { Api403Error } from '../../common/errors';
 import { isAuth } from '../middleware';
 import { corsDefaultHandler } from '../../utils';
 
