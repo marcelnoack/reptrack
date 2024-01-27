@@ -40,9 +40,9 @@ export default ({ app }: { app: express.Application }) => {
       unset: 'keep',
       cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV !== 'development',
+        secure: false,
         maxAge: 360000,
-        // sameSite: process.env.NODE_ENV === 'production' ? 'none' : undefined,
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : undefined,
         path: '/'
       }
     })
