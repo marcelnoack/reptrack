@@ -29,6 +29,7 @@ export default ({ app }: { app: express.Application }) => {
   app.use(express.urlencoded());
   app.use(express.json());
 
+  console.log('MYINFO', process.env.NODE_ENV);
   app.use(
     session({
       secret: config.accessTokenSecret,
@@ -39,7 +40,7 @@ export default ({ app }: { app: express.Application }) => {
         httpOnly: true,
         secure: process.env.NODE_ENV !== 'development',
         maxAge: 360000,
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : undefined,
+        // sameSite: process.env.NODE_ENV === 'production' ? 'none' : undefined,
         path: '/'
       }
     })
