@@ -37,10 +37,6 @@ export default ({ app }: { app: express.Application }) => {
       unset: 'keep',
       proxy: true,
       cookie: {
-        domain:
-          process.env.NODE_ENV === 'production'
-            ? config.clientUrl
-            : 'localhost',
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 360000,
