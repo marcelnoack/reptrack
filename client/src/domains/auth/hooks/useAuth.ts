@@ -16,7 +16,7 @@ export const useAuth = (): { user: Profile | undefined; isLoading: boolean; isFe
         isError,
         data,
         isFetching
-    } = useGet<Profile>( '/profile', { credentials: 'include', schema: ProfileSchema } );
+    } = useGet<Profile>( '/api/profile', { credentials: 'include', schema: ProfileSchema } );
 
     useEffect( () => {
         if ( ( isLoading || isFetching ) ) {

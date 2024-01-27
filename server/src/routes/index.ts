@@ -1,9 +1,7 @@
 import { Router } from 'express';
 
-import authRoute from './routes/authRoute';
-import workoutsRoute from './routes/workoutsRoute';
-import healthCheckRoute from './routes/healthCheckRoute';
-import profileRoute from './routes/profileRoute';
+import authRoute from './auth';
+import apiRoute from './api';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -13,9 +11,7 @@ export default () => {
   const app = Router();
 
   authRoute(app);
-  workoutsRoute(app);
-  healthCheckRoute(app);
-  profileRoute(app);
+  apiRoute(app);
 
   return app;
 };
