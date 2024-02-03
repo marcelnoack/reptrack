@@ -28,7 +28,7 @@ const RptFooter = () => {
                                                           return `${baseStyling} ${isActive ? 'text-green-500' : 'text-slate-50'}`
                                                       }
                                                       }>
-                    <span className="material-icons">{mainRoute.icon}</span>
+                    <span className="material-symbols-rounded">{mainRoute.icon}</span>
                     {t( mainRoute.translationKey, { defaultValue: mainRoute.name } )}
                 </NavLink> )}
             </div>

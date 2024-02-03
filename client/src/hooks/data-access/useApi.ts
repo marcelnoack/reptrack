@@ -51,14 +51,14 @@ export const useApi = () => {
             }
         } );
 
-    const usePost = <T, >( path: string, body: BodyInit, options?: { credentials: RequestCredentials }, collectionKeys?: string[] ) => useMutation(
+    const usePost = <T, >( path: string, body: BodyInit, options?: {
+        credentials: RequestCredentials, headers?: HeadersInit
+    }, collectionKeys?: string[] ) => useMutation(
         async () => await http.post<T>( `${baseUrl}${path}`, body, options ), {
             onSuccess: () => {
-                console.log( 'ONSUCCESS', collectionKeys )
                 queryClient.invalidateQueries( { queryKey: collectionKeys } );
             },
             onError: ( error ) => {
-                console.log( 'ONERROR' )
                 console.error( error );
             }
         }

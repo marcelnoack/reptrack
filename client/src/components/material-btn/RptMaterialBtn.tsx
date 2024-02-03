@@ -12,6 +12,6 @@ export const RptMaterialBtn = ( props: RptMaterialBtnProps ) => <button
         'focus:border-green-500 focus:bg-zinc-400 hover:bg-zinc-400 ' +
         `${props.mini ? 'p-2' : 'p-2.5'} ${props.label?.length && 'rounded-lg pl-3 pr-5'}`}
     onClick={props.action}>
-    <span className={'material-icons text-white light:text-black'}>{props.icon}</span>
+    <span className={'material-symbols-rounded text-white light:text-black'}>{props.icon}</span>
     {props.label?.length && <label>{props.label}</label>}
 </button>

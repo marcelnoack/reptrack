@@ -11,7 +11,7 @@ export const RptDrawer = ( { open, onBackdropClick, drawerContent }: RptDrawerPr
     return (
         <>
             <div
-                className={clsx( 'fixed top-0 left-0 bottom-0 w-9/12 bg-zinc-800 transform transition-transform duration-500 ease-in-out z-50', !open && '-translate-x-full' )}>
+                className={clsx( 'fixed top-0 left-0 bottom-0 w-9/12 min-w-min bg-zinc-800 transform transition-all z-50 border-zinc-500', open ? 'border-r ' : '-translate-x-full' )}>
                 {drawerContent}
             </div>
             <div

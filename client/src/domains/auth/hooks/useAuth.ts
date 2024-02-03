@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Profile, ProfileSchema } from '../../../types/Profile';
 import { useApi } from '../../../hooks/data-access/useApi';
 
-export const useAuth = (): { user: Profile | undefined; isLoading: boolean; isFetching: boolean; isError: boolean; loadingMessage: string } => {
+export const useAuth = (): { user: Profile['user'] | undefined; isLoading: boolean; isFetching: boolean; isError: boolean; loadingMessage: string } => {
     const { t: tCommon } = useTranslation( 'common' )
 
     const [ loadingMessage, setLoadingMessage ] = useState<string>( '' );
@@ -28,7 +28,7 @@ export const useAuth = (): { user: Profile | undefined; isLoading: boolean; isFe
     }, [ isLoading, isFetching, data, tCommon ] )
 
     return {
-        user: data,
+        user: data?.user,
         isLoading,
         isFetching,
         isError,
