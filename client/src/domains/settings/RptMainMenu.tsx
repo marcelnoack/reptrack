@@ -1,12 +1,15 @@
+import { useTranslation } from 'react-i18next';
+
 import { useRptStore } from '../../stores';
+import { RptLanguageSwitcher } from '../../components/RptLanguageSwitcher';
 import { RptDrawer } from '../../components/overlay/RptDrawer';
 import { RptAvatar } from '../../components/RptAvatar';
 import { useAuth } from '../auth/hooks/useAuth';
 import { useLogout } from '../auth/hooks/useLogout';
 import { RptMenuItem } from './components/RptMenuItem';
-import { RptLanguageSwitcher } from '../../components/RptLanguageSwitcher';
 
 export const RptMainMenu = () => {
+    const { t } = useTranslation();
     const { user } = useAuth();
     const { logout } = useLogout();
     const { mainMenuOpen, toggleMainMenu } = useRptStore();
@@ -31,15 +34,19 @@ export const RptMainMenu = () => {
                               </div>
                           </section>
                           <section className="p-3 border-b border-zinc-500 flex flex-col gap-3">
-                              <RptMenuItem label="Account" icon="account_circle"
+                              <RptMenuItem label={t( 'settings.labelAccount', { defaultValue: 'Account' } )}
+                                           icon="account_circle"
                                            onClick={() => console.log( 'Soon' )} disabled/>
-                              <RptMenuItem label="Settings" icon="settings" onClick={() => console.log( 'Soon' )}
+                              <RptMenuItem label={t( 'settings.labelSettings', { defaultValue: 'Settings' } )}
+                                           icon="settings" onClick={() => console.log( 'Soon' )}
                                            disabled/>
                           </section>
                           <section className="p-3 border-b border-zinc-500 flex flex-col gap-3">
-                              <RptMenuItem label="FAQ/Help" icon="help" onClick={() => console.log( 'Soon' )}
+                              <RptMenuItem label={t( 'settings.labelFAQ', { defaultValue: 'FAQ/Help' } )} icon="help"
+                                           onClick={() => console.log( 'Soon' )}
                                            href="https://google.com" disabled/>
-                              <RptMenuItem label="About" icon="info" onClick={() => console.log( 'Soon' )} disabled/>
+                              <RptMenuItem label={t( 'settings.labelAbout', { defaultValue: 'About' } )} icon="info"
+                                           onClick={() => console.log( 'Soon' )} disabled/>
                           </section>
                           <div className="w-full border-b border-zinc-500 grow"></div>
                           <section className="p-3">

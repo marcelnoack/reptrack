@@ -32,5 +32,12 @@
     "labelLastNameRequired": "Nachname ist erforderlich",
     "labelPasswordConfirmRequired": "Bitte bestätige dein Passwort",
     "labelPasswordsMustMatch": "Passwörter müssen übereinstimmen"
+  },
+  "settings": {
+    "labelAccount": "Konto",
+    "labelSettings": "Einstellungen",
+    "labelFAQ": "FAQ/Hilfe",
+    "labelAbout": "Über",
+    "labelLogout": "Logout"
   }
 }
