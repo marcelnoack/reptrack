@@ -1,13 +1,16 @@
+import { clsx } from 'clsx';
+
 interface RptMenuItemProps {
     label: string;
     icon?: string;
     href?: string;
+    disabled?: boolean;
     onClick: () => void;
 }
 
-const _wrapperClasses = 'py-2 w-full text-slate-200 hover:bg-zinc-500 rounded-lg';
+export const RptMenuItem = ( { label, icon, href, disabled, onClick }: RptMenuItemProps ) => {
+    const _wrapperClasses = clsx( 'py-2 w-full rounded-lg', !disabled && 'text-slate-200 hover:bg-zinc-500', disabled && 'cursor-auto text-slate-500' );
 
-export const RptMenuItem = ( { label, icon, href, onClick }: RptMenuItemProps ) => {
     const content = (
         <div className="flex items-center ps-3 gap-6">
             {icon && <span className="material-symbols-rounded">{icon}</span>}

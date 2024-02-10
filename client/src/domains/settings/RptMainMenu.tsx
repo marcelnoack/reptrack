@@ -4,7 +4,7 @@ import { RptAvatar } from '../../components/RptAvatar';
 import { useAuth } from '../auth/hooks/useAuth';
 import { useLogout } from '../auth/hooks/useLogout';
 import { RptMenuItem } from './components/RptMenuItem';
-import { RptLanguageSwitcher } from './RptLanguageSwitcher';
+import { RptLanguageSwitcher } from '../../components/RptLanguageSwitcher';
 
 export const RptMainMenu = () => {
     const { user } = useAuth();
@@ -31,13 +31,15 @@ export const RptMainMenu = () => {
                               </div>
                           </section>
                           <section className="p-3 border-b border-zinc-500 flex flex-col gap-3">
-                              <RptMenuItem label="Account" icon="account_circle" onClick={() => console.log( 'Soon' )}/>
-                              <RptMenuItem label="Settings" icon="settings" onClick={() => console.log( 'Soon' )}/>
+                              <RptMenuItem label="Account" icon="account_circle"
+                                           onClick={() => console.log( 'Soon' )} disabled/>
+                              <RptMenuItem label="Settings" icon="settings" onClick={() => console.log( 'Soon' )}
+                                           disabled/>
                           </section>
                           <section className="p-3 border-b border-zinc-500 flex flex-col gap-3">
                               <RptMenuItem label="FAQ/Help" icon="help" onClick={() => console.log( 'Soon' )}
-                                           href="https://google.com"/>
-                              <RptMenuItem label="About" icon="info" onClick={() => console.log( 'Soon' )}/>
+                                           href="https://google.com" disabled/>
+                              <RptMenuItem label="About" icon="info" onClick={() => console.log( 'Soon' )} disabled/>
                           </section>
                           <div className="w-full border-b border-zinc-500 grow"></div>
                           <section className="p-3">
