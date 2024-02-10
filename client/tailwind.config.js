@@ -14,6 +14,9 @@ export default {
         info: '#1976d2',
         warning: '#ffbb33',
         error: '#ff4444'
+      },
+      backdropBlur: {
+        xs: '2px',
       }
     },
   },

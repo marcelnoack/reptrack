@@ -10,7 +10,7 @@ interface RequestOptions {
 
 export const useHttp = ( options: RequestOptions ): {
     get: <T>( url: string, options?: { credentials: RequestCredentials, schema?: z.Schema<T> } ) => Promise<T>;
-    post: <T>( url: string, body: BodyInit, options?: { credentials: RequestCredentials } ) => Promise<T>;
+    post: <T>( url: string, body: BodyInit, options?: { credentials: RequestCredentials, headers?: HeadersInit } ) => Promise<T>;
     patch: <T>( url: string, body: BodyInit ) => Promise<T>;
     httpDelete: <T>( url: string ) => Promise<T>;
 } => {
@@ -44,9 +44,11 @@ export const useHttp = ( options: RequestOptions ): {
         throw new Error( err );
     } )
 
-    const post = <T, >( url: string, body: BodyInit, options?: { credentials?: RequestCredentials } ): Promise<T> => fetch( url, {
+    const post = <T, >( url: string, body: BodyInit, options?: {
+        credentials?: RequestCredentials, headers?: HeadersInit
+    } ): Promise<T> => fetch( url, {
         method: 'POST',
-        headers: _headers,
+        headers: options?.headers ? options.headers : _headers,
         credentials: options?.credentials,
         body,
     } ).then( res => {

@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { SupportedHttpStatusCodes } from '../../common';
-import { Api500Error } from '../../common/errors';
 import { UserInputDTO } from '../users/usersAPI';
 import AuthService from './authService';
 
@@ -64,16 +63,5 @@ export default class AuthController {
     } catch (err) {
       next(err);
     }
-  };
-
-  public logout = (req: Request, res: Response, next: NextFunction) => {
-    req.session.destroy((err) => {
-      if (err) throw new Api500Error('Something went wrong while logging out');
-
-      res
-        .clearCookie('connect.sid')
-        .status(SupportedHttpStatusCodes.NO_CONTENT)
-        .send();
-    });
   };
 }

@@ -31,5 +31,4 @@ export default (app: Router) => {
     passport.authenticate('local'),
     authController.signInLocal
   );
-  route.post('/logout', authController.logout);
 };
