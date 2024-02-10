@@ -22,7 +22,7 @@ const RptHeader = () => {
                             <Tooltip.Root>
                                 {/*TODO: Outsource tooltip into own component once its used again somewhere else*/}
                                 <Tooltip.Trigger
-                                    className="size-8 border border-transparent outline-green-500 rounded-full"
+                                    className="size-8 border border-transparent outline-green-500 rounded-lg"
                                     onClick={() => toggleMainMenu()}>
                                     <RptAvatar firstName={user.firstName} lastName={user.lastName}
                                                imageSrc={user.provider?.picture}/>

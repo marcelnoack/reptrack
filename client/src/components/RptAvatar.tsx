@@ -29,7 +29,7 @@ export const RptAvatar = ( { firstName, lastName, imageSrc }: RptAvatarProps ) =
             <Avatar.Image src={imageSrc} referrerPolicy={'no-referrer'} ref={imgRef}
                           className="w-full h-full rounded-lg"/>
             <Avatar.Fallback delayMs={600}
-                             className="size-full flex items-center justify-center bg-zinc-700 text-slate-200 rounded-full text-sm border-green-500 border">
+                             className="size-full flex items-center justify-center bg-zinc-700 text-slate-200 rounded-lg text-sm border-green-500 border">
                 {capitalizeNameInitials( firstName, lastName )}
             </Avatar.Fallback>
         </Avatar.Root>

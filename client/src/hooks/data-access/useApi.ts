@@ -40,7 +40,7 @@ export const useApi = () => {
             refetchOnMount: false,
             keepPreviousData: true,
             staleTime: Infinity,
-            retry: 2,
+            retry: 1,
         } );
     };
 

@@ -23,7 +23,7 @@ const RptFooter = () => {
             <div className="w-full h-full flex items-center justify-evenly bg-transparent">
                 {mainRoutes.map( mainRoute => <NavLink key={`Main-Route-${mainRoute.name}`} to={mainRoute.path}
                                                       className={( { isActive } ) => {
-                                                          const baseStyling = 'w-full h-full flex flex-col items-center justify-center bg-gray-600 outline-none border-t-2 border-transparent text-xs hover:border-green-400 hover:bg-gray-500';
+                                                          const baseStyling = 'w-full h-full flex flex-col items-center justify-center bg-gray-600 outline-none border-t-2 border-transparent text-xs hover:border-green-400 hover:bg-gray-500 focus:border-green-400 focus:bg-gray-500';
 
                                                           return `${baseStyling} ${isActive ? 'text-green-500' : 'text-slate-50'}`
                                                       }
