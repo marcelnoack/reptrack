@@ -17,6 +17,9 @@ dependencies:
   clsx:
     specifier: ^2.1.0
     version: 2.1.0
+  country-flag-icons:
+    specifier: ^1.5.9
+    version: 1.5.9
   i18next:
     specifier: ^23.5.1
     version: 23.5.1
@@ -3496,6 +3499,10 @@ packages:
   /core-util-is@1.0.2:
     resolution: {integrity: sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ==}
     dev: true
+
+  /country-flag-icons@1.5.9:
+    resolution: {integrity: sha512-9jrjv2w7kRbqNtdtMdK2j3gmDIZzd5l9L2pZiQjF9J0mUcB+NKIGDNADTDHBEp8EQtjOkCOcciJGGSOpERdXPQ==}
+    dev: false
 
   /cross-fetch@3.1.6:
     resolution: {integrity: sha512-riRvo06crlE8HiqOwIpQhxwdOk4fOeR7FVM/wXoxchFEqMNUjvbs3bfo4OTgMEMHzppd4DxFBDbyySj8Cv781g==}
