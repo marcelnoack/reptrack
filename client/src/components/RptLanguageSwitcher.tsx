@@ -22,7 +22,6 @@ export const RptLanguageSwitcher = () => {
         if ( language === 'de-DE' ) {
             return 'Deutsch';
         }
-
         return 'English';
     }
 
