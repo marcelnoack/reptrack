@@ -32,5 +32,12 @@
     "labelLastNameRequired": "Last name is required",
     "labelPasswordConfirmRequired": "Please confirm your password",
     "labelPasswordsMustMatch": "Passwords must match"
+  },
+  "settings": {
+    "labelAccount": "Account",
+    "labelSettings": "Settings",
+    "labelFAQ": "FAQ/Help",
+    "labelAbout": "About",
+    "labelLogout": "Logout"
   }
 }
