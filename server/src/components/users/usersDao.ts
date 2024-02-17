@@ -3,13 +3,14 @@ import { QueryResult } from 'pg';
 import { BaseDAO } from '../../common';
 import { query } from '../../common/db';
 import { ProviderDTO } from '../auth/authAPI';
-import { Api500Error } from '../../common/errors';
+import { Api400Error, Api500Error } from '../../common/errors';
 import { Api409Error } from '../../common/errors/Api409Error';
 import {
   GENERAL_RESOURCE_CREATION_ERROR,
   USER_EXISTS
 } from '../../common/i18n/errors';
 import { UserDTO, UserInputDTO, UserRelatedEntities } from './usersAPI';
+import { TableTypes } from '../../common/db/helper';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -18,6 +19,16 @@ import { UserDTO, UserInputDTO, UserRelatedEntities } from './usersAPI';
 export default class UsersDao
   implements BaseDAO<UserDTO, UserInputDTO, UserRelatedEntities>
 {
+  private _propertyMapping: Record<string, string> = {
+    // userId: 'userid',
+    email: 'email',
+    password: 'password',
+    firstName: 'firstname',
+    middleName: 'middlename',
+    lastName: 'lastname',
+    active: 'active'
+  };
+
   /* ---------------------------------------------------------------------------------------------- */
   public async getAll(id?: string): Promise<UserDTO[]> {
     return [];
@@ -41,7 +52,8 @@ export default class UsersDao
       password: result.rows[0].password,
       firstName: result.rows[0].firstname,
       middleName: result.rows[0]?.middleName || '',
-      lastName: result.rows[0].lastname
+      lastName: result.rows[0].lastname,
+      active: result.rows[0].active
     };
     return user;
   }
@@ -89,6 +101,7 @@ export default class UsersDao
           lastName: creationResult.rows[0].lastName,
           createdAt: creationResult.rows[0].createdat,
           lastChangedAt: creationResult.rows[0].lastchangedat,
+          active: creationResult.rows[0].active,
           provider: {
             providerName: 'google',
             googleId: googleCreationResult.rows[0].googleid,
@@ -115,7 +128,8 @@ export default class UsersDao
       middleName: creationResult.rows[0].middlename,
       lastName: creationResult.rows[0].lastName,
       createdAt: creationResult.rows[0].createdat,
-      lastChangedAt: creationResult.rows[0].lastchangedat
+      lastChangedAt: creationResult.rows[0].lastchangedat,
+      active: creationResult.rows[0].active
     };
   }
 
@@ -127,14 +141,43 @@ export default class UsersDao
   /* ---------------------------------------------------------------------------------------------- */
   public async update(
     id: string,
-    updatedResource: UserInputDTO
+    updatedResource: Partial<UserInputDTO>
   ): Promise<UserDTO> {
+    const updateQueryString = Object.keys(updatedResource)
+      .map((key, index) => {
+        if (!this._propertyMapping[key]) {
+          throw new Api400Error(
+            'usersDao::update::Invalid property provided for USER'
+          );
+        }
+
+        return `${this._propertyMapping[key]} = $${index + 1}`;
+      })
+      .join(', ');
+
+    const updatedResult = await query(
+      `UPDATE ${TableTypes.User} SET ${updateQueryString} WHERE userid = $${
+        Object.keys(updatedResource).length + 1
+      } RETURNING *`,
+      [...Object.values(updatedResource), id]
+    );
+
+    if (!updatedResult || !updatedResult.rows || !updatedResult.rows.length) {
+      throw new Api500Error('Something went wrong while updating user data');
+    }
+
     return {
-      userId: '',
-      firstName: '',
-      middleName: '',
-      lastName: '',
-      email: ''
+      userId: updatedResult.rows[0].userid,
+      email: updatedResult.rows[0].email,
+      password: updatedResult.rows[0].password,
+      firstName: updatedResult.rows[0].firstname,
+      middleName: updatedResult.rows[0]?.middleName,
+      lastName: updatedResult.rows[0].lastname,
+      createdAt: updatedResult.rows[0].createdat,
+      createdBy: updatedResult.rows[0].createdby,
+      lastChangedAt: updatedResult.rows[0].lastchangedat,
+      lastChangedBy: updatedResult.rows[0].lastchangedby,
+      active: updatedResult.rows[0].active
     };
   }
 
@@ -187,6 +230,7 @@ export default class UsersDao
       createdBy: result.rows[0].createdby,
       lastChangedAt: result.rows[0].lastchangedat,
       lastChangedBy: result.rows[0].lastchangedby,
+      active: result.rows[0].active,
       provider
     };
 

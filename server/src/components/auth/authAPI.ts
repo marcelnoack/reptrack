@@ -12,6 +12,12 @@ interface GithubProviderDTO {
 
 export type ProviderDTO = GoogleProviderDTO | GithubProviderDTO;
 
+export interface UserVerificationDTO {
+  userId: string;
+  emailVerificationToken: string;
+  emailVerificationTokenExpiresAt: Date;
+}
+
 // Passport provides its own type definition
 // export interface PassportGoogleDTO {
 //   id: string;

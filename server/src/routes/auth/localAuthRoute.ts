@@ -16,6 +16,15 @@ export default (app: Router) => {
   app.use('/local', route);
 
   route.use(
+    '/signup',
+    cors({
+      origin: corsDefaultHandler,
+      credentials: true
+    })
+  );
+
+  route.use(
+    '/login',
     cors({
       origin: corsDefaultHandler,
       credentials: true
@@ -31,4 +40,6 @@ export default (app: Router) => {
     passport.authenticate('local'),
     authController.signInLocal
   );
+
+  route.get('/email-verification/:token', authController.verifyEmail);
 };

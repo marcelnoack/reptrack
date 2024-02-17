@@ -25,6 +25,10 @@ export default {
   googleClientId: process.env.GOOGLE_CLIENT_ID,
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
 
+  noReplyGmailAppEmail: process.env.NO_REPLY_GMAIL_APP_EMAIL,
+  noReplyGmailAppPass: process.env.NO_REPLY_GMAIL_APP_PASS,
+  emailVerifyTokenSecret: process.env.EMAIL_VERIFY_TOKEN_SECRET,
+
   // API configuration
   api: {
     prefix: 'v1'

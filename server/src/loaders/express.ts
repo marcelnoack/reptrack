@@ -1,8 +1,8 @@
 import express from 'express';
+import session from 'express-session';
 import { rateLimit } from 'express-rate-limit';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import session from 'express-session';
 import passport from 'passport';
 
 import config from '../config';

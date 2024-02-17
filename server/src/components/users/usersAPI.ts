@@ -12,6 +12,7 @@ export interface UserDTO extends Partial<ManagedDTO> {
   firstName: string;
   middleName: string;
   lastName: string;
+  active: boolean;
   provider?: ProviderDTO;
 }
 
@@ -21,6 +22,7 @@ export interface UserInputDTO extends Partial<ManagedDTO> {
   firstName: string;
   middleName?: string;
   lastName: string;
+  active?: boolean;
   provider?: ProviderDTO;
 }
 

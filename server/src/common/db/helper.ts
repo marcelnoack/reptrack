@@ -21,7 +21,8 @@ export enum TableTypes {
   Workout = 'workout',
   Training = 'training',
   ExerciseInWorkout = 'exerciseinworkout',
-  ExerciseInTraining = 'exerciseintraining'
+  ExerciseInTraining = 'exerciseintraining',
+  UserVerifyToken = 'user_verify_token'
 }
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -140,7 +141,8 @@ export default class DBHelper {
         `lastName VARCHAR(100) NOT NULL,` +
         `middleName VARCHAR(100),` +
         `email TEXT UNIQUE NOT NULL,` +
-        `password TEXT` +
+        `password TEXT,` +
+        `active BOOLEAN NOT NULL DEFAULT FALSE` +
         `) INHERITS (${TableTypes.Managed});`
     );
 
@@ -153,6 +155,16 @@ export default class DBHelper {
         `displayname VARCHAR(50),` +
         `pictureurl TEXT` +
         `) INHERITS (${TableTypes.Managed});`
+    );
+
+    Logger.info(`DB_CREATE::${TableTypes.UserVerifyToken}`);
+    await query(
+      `CREATE TABLE ${TableTypes.UserVerifyToken} ( ` +
+        `userid INTEGER REFERENCES ${TableTypes.User} (userid) ON DELETE CASCADE, ` +
+        `token TEXT NOT NULL, ` +
+        `expiry TIMESTAMP NOT NULL, ` +
+        `PRIMARY KEY (userid, token) ` +
+        `);`
     );
 
     Logger.info(`DB_CREATE::${TableTypes.Workout}`);

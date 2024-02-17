@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { SupportedHttpStatusCodes } from '../../common';
 import { UserInputDTO } from '../users/usersAPI';
 import AuthService from './authService';
+import { Language } from '../../common/i18n';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -55,11 +56,30 @@ export default class AuthController {
         password
       };
 
-      const newUserId: string = await this._authService.signUp(user);
+      const newUserId: string = await this._authService.signUp(
+        user,
+        req.language as Language
+      );
       res
         .set('Location', `/v1/users/${newUserId}`)
         .status(SupportedHttpStatusCodes.CREATED)
         .send({});
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  /* ---------------------------------------------------------------------------------------------- */
+  public verifyEmail = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { token } = req.params;
+      await this._authService.verifyEmail(decodeURIComponent(token));
+
+      return res.redirect(`${process.env.CLIENT_URL}?verified=true`);
     } catch (err) {
       next(err);
     }
