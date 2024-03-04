@@ -192,7 +192,7 @@ export default class UsersDao
     }
 
     const result = await query(
-      `SELECT userid, email, password, firstname, middleName, lastname, createdAt, createdBy, lastChangedAt, lastChangedBy FROM users where ${uniquePropName} = $1`,
+      `SELECT userid, email, password, firstname, middleName, lastname, active, createdAt, createdBy, lastChangedAt, lastChangedBy FROM users where ${uniquePropName} = $1`,
       [uniquePropValue]
     );
 

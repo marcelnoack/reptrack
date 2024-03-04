@@ -19,17 +19,24 @@ import {
   PASSWORD_INVALID_TYPE,
   PASSWORD_REQUIRED
 } from '../../common/i18n/errors';
+import { Api403Error } from '../../common/errors';
+import { UserDTO } from '../../components/users/usersAPI';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
 
 export const isAuth = (req: Request, res: Response, next: NextFunction) => {
-  if (req.isAuthenticated()) {
-    return next();
+  if (!req.isAuthenticated()) {
+    throw new Api401Error(NO_SESSION);
   }
 
-  throw new Api401Error(NO_SESSION);
+  const isActivated = (req.user as UserDTO).active;
+  if (!isActivated) {
+    throw new Api403Error('Users email is not verified');
+  }
+
+  return next();
 };
 
 export const validateSignInCredentials = (
