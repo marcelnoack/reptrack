@@ -37,7 +37,7 @@ export default class UsersDao
   /* ---------------------------------------------------------------------------------------------- */
   public async getById(id: string): Promise<UserDTO> {
     const result = await query(
-      'SELECT userid, password, email, firstname, middleName, lastname FROM users where userid = $1',
+      'SELECT userid, password, email, firstname, middleName, lastname, active FROM users where userid = $1',
       [id]
     );
 

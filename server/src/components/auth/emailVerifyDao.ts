@@ -10,6 +10,7 @@ import { UserVerificationDTO } from './authAPI';
 export class EmailVerifyDao
   implements BaseDAO<UserVerificationDTO, UserVerificationDTO, any>
 {
+  /* ---------------------------------------------------------------------------------------------- */
   public async create(
     newResource: UserVerificationDTO
   ): Promise<UserVerificationDTO> {
@@ -28,6 +29,28 @@ export class EmailVerifyDao
     return newResource;
   }
 
+  /* ---------------------------------------------------------------------------------------------- */
+  public async update(
+    id: string,
+    updatedResource: UserVerificationDTO
+  ): Promise<UserVerificationDTO> {
+    await query(
+      `
+      UPDATE ${TableTypes.UserVerifyToken}
+      SET token = $1, expiry = $2
+      WHERE userid = $3
+    `,
+      [
+        updatedResource.emailVerificationToken,
+        updatedResource.emailVerificationTokenExpiresAt,
+        id
+      ]
+    );
+
+    return updatedResource;
+  }
+
+  /* ---------------------------------------------------------------------------------------------- */
   public async getById(id: string): Promise<UserVerificationDTO> {
     return {
       userId: '123',
@@ -36,23 +59,19 @@ export class EmailVerifyDao
     };
   }
 
+  /* ---------------------------------------------------------------------------------------------- */
   public async getAll(id?: string): Promise<UserVerificationDTO[]> {
     return [];
   }
 
+  /* ---------------------------------------------------------------------------------------------- */
   public async delete(id: string): Promise<void> {
     await query(`DELETE FROM ${TableTypes.UserVerifyToken} WHERE userid = $1`, [
       id
     ]);
   }
 
-  public async update(
-    id: string,
-    updatedResource: UserVerificationDTO
-  ): Promise<UserVerificationDTO> {
-    return Promise.resolve(updatedResource);
-  }
-
+  /* ---------------------------------------------------------------------------------------------- */
   public async getByUniqueProperty(
     uniquePropName: string,
     uniquePropValue: string,

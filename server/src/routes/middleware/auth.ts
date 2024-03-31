@@ -12,8 +12,6 @@ import {
   LAST_NAME_INVALID_TYPE,
   LAST_NAME_MAX_LENGTH,
   LAST_NAME_REQUIRED,
-  MIDDLE_NAME_INVALID_TYPE,
-  MIDDLE_NAME_MAX_LENGTH,
   NO_SESSION,
   PASSWORD_INVALID,
   PASSWORD_INVALID_TYPE,
@@ -32,7 +30,21 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
   }
 
   const isActivated = (req.user as UserDTO).active;
-  if (!isActivated) {
+  const isProvided = (req.user as UserDTO).provider;
+
+  const requestedPath = req.path;
+  const activatedWhiteList = [
+    '/profile',
+    '/verify-email',
+    '/resend-verification-email'
+  ];
+
+  // non-provider accounts (e.g. google, etc) need to be verified
+  if (
+    !isProvided &&
+    !isActivated &&
+    !activatedWhiteList.includes(requestedPath)
+  ) {
     throw new Api403Error('Users email is not verified');
   }
 

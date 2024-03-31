@@ -2,7 +2,9 @@
   "errors": {
     "user_exists": "Nutzer existiert bereits",
     "no_session": "Keine Session",
+    "invalid_email_verification_code": "Ungültiger Email-Verifizierungscode",
     "incorrect_user_credentials": "Falsche Login-Daten",
+    "user_not_verified": "Nutzer ist nicht verifiziert",
     "general_sign_in_error": "Etwas ist schief gelaufen bei dem Versuch Sie anzumelden",
     "general_google_sign_in_error": "Etwas ist schief gelaufen bei dem Versuch sie über Google anzumelden",
     "general_permission_error": "Sie haben keine Berechtigung auf die angefragte Resource zuzugreifen",

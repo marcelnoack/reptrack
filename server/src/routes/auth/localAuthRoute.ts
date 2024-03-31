@@ -1,10 +1,15 @@
 import { Router } from 'express';
 import passport from 'passport';
 import cors from 'cors';
+import { rateLimit } from 'express-rate-limit';
 
 import AuthController from '../../components/auth/authController';
-import { validateSignInCredentials, validateSignUp } from '../middleware';
 import { corsDefaultHandler } from '../../utils';
+import {
+  validateSignInCredentials,
+  validateSignUp,
+  isAuth
+} from '../middleware';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -16,15 +21,6 @@ export default (app: Router) => {
   app.use('/local', route);
 
   route.use(
-    '/signup',
-    cors({
-      origin: corsDefaultHandler,
-      credentials: true
-    })
-  );
-
-  route.use(
-    '/login',
     cors({
       origin: corsDefaultHandler,
       credentials: true
@@ -41,5 +37,31 @@ export default (app: Router) => {
     authController.signInLocal
   );
 
-  route.get('/email-verification/:token', authController.verifyEmail);
+  route.post(
+    '/verify-email',
+    isAuth,
+    rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      limit: 5,
+      standardHeaders: 'draft-7',
+      legacyHeaders: false,
+      message: 'Cannot send any more requests'
+    }),
+    authController.verifyEmail
+  );
+
+  // in pure REST it could be a PUT request for the token resource
+  // but for simplicity we are using a POST request to trigger the resend
+  route.post(
+    '/resend-verification-email',
+    isAuth,
+    rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      limit: 2,
+      standardHeaders: 'draft-7',
+      legacyHeaders: false,
+      message: 'Cannot send any more requests'
+    }),
+    authController.resendVerificationEmail
+  );
 };

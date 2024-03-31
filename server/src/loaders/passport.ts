@@ -55,7 +55,7 @@ export default ({ app }: { app: express.Application }) => {
           profile
         );
 
-        done(null, { user });
+        done(null, user);
       }
     )
   );

@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { SupportedHttpStatusCodes } from '../../common';
-import { UserInputDTO } from '../users/usersAPI';
-import AuthService from './authService';
 import { Language } from '../../common/i18n';
+import { Api500Error } from '../../common/errors';
+import { UserDTO, UserInputDTO } from '../users/usersAPI';
+import AuthService from './authService';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -76,10 +77,40 @@ export default class AuthController {
     next: NextFunction
   ) => {
     try {
-      const { token } = req.params;
-      await this._authService.verifyEmail(decodeURIComponent(token));
+      const { code } = req.body;
 
-      return res.redirect(`${process.env.CLIENT_URL}?verified=true`);
+      await this._authService.verifyEmail(code);
+
+      // refetch user and attach to request
+      const updatedUser = await this._authService.fetchUserById(
+        (req.user as any)?.userId
+      );
+      req.login(updatedUser, (err) => {
+        if (err) {
+          throw new Api500Error('There was an error updating your account');
+        }
+
+        res.status(SupportedHttpStatusCodes.OK).send();
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  /* ---------------------------------------------------------------------------------------------- */
+  public resendVerificationEmail = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { email } = req.user as UserDTO;
+      await this._authService.resendVerificationEmail(
+        email,
+        req.language as Language
+      );
+
+      return res.status(SupportedHttpStatusCodes.NO_CONTENT).send();
     } catch (err) {
       next(err);
     }

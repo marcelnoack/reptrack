@@ -2,7 +2,9 @@
   "errors": {
     "user_exists": "User already exists",
     "no_session": "No session",
+    "invalid_email_verification_code": "Invalid email verification code",
     "incorrect_user_credentials": "User credentials are not correct",
+    "user_not_verified": "User not verified",
     "general_sign_in_error": "Something went wrong while trying to sign you in",
     "general_google_sign_in_error": "Something went wrong while trying to sign you in",
     "general_permission_error": "No permission to access the requested resource",

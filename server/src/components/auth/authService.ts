@@ -1,20 +1,22 @@
-import { compare, genSaltSync, hash, hashSync } from 'bcryptjs';
+import { compare, hash } from 'bcryptjs';
 import { Profile } from 'passport';
 import nodemailer from 'nodemailer';
 
-import { Api401Error, Api500Error } from '../../common/errors';
+import { Logger } from '../../common';
+import { Language } from '../../common/i18n';
+import { Api400Error, Api401Error, Api500Error } from '../../common/errors';
 import {
   GENERAL_GOOGLE_SIGN_IN_ERROR,
   GENERAL_SIGN_IN_ERROR,
-  INCORRECT_USER_CREDENTIALS
+  INCORRECT_USER_CREDENTIALS,
+  INVALID_EMAIL_VERIFICATION_CODE
 } from '../../common/i18n/errors';
+import config from '../../config';
 import { UserDTO, UserInputDTO } from '../users/usersAPI';
 import UsersDao from '../users/usersDao';
-import config from '../../config';
-import { Logger } from '../../common';
+import { generateVerificationCode } from '../../utils';
 import { UserVerificationDTO } from './authAPI';
 import { EmailVerifyDao } from './emailVerifyDao';
-import { Language } from '../../common/i18n';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -50,17 +52,14 @@ export default class AuthService {
     // call dao to create user
     const createdUser: UserDTO = await this._usersDao.create(newUser);
 
-    // hash for email verification
-    const hashedEmailVerificationToken: string = hashSync(
-      (config.emailVerifyTokenSecret || '') + createdUser.userId,
-      genSaltSync(10)
-    );
+    // create 6-digit email verification code
+    const newEmailVerificationCode: string = generateVerificationCode();
 
     const newEmailVerificationToken: UserVerificationDTO = {
       userId: createdUser.userId,
-      emailVerificationToken: hashedEmailVerificationToken,
+      emailVerificationToken: newEmailVerificationCode,
       emailVerificationTokenExpiresAt: new Date(
-        Date.now() + 60 * 60 * 1000 // 1 hour
+        Date.now() + 30 * 60 * 1000 // 30 minutes
       )
     };
 
@@ -93,11 +92,7 @@ export default class AuthService {
           <p>Hi ${createdUser.firstName},</p>
           <p>Thank you for signing up with Reptrack. To complete your registration, please click on the following link to verify your email address:</p>
           <p>
-            <a href="${config.host}/${
-        config.api.prefix
-      }/auth/local/email-verification/${encodeURIComponent(
-        newEmailVerificationToken.emailVerificationToken
-      )}">
+            <a href="${config.clientUrl}/email-verification?code=${newEmailVerificationToken.emailVerificationToken}">
             Verify Email
             </a>      
           </p>
@@ -175,28 +170,119 @@ export default class AuthService {
   };
 
   /* ---------------------------------------------------------------------------------------------- */
-  public verifyEmail = async (token: string): Promise<void> => {
+  public verifyEmail = async (code: string): Promise<void> => {
+    // validate the code to be a 6-digit number
+    if (!/^\d{6}$/.test(code)) {
+      throw new Api400Error(INVALID_EMAIL_VERIFICATION_CODE);
+    }
+
     // call dao to get token
-    const verifyToken = await this._emailVerifyDao.getByUniqueProperty(
+    const verifyCode = await this._emailVerifyDao.getByUniqueProperty(
       'token',
-      token,
+      code,
       'en'
     );
 
-    if (!verifyToken?.length || verifyToken?.length > 1) {
-      throw new Api401Error('No token found');
+    console.log('token', code, verifyCode);
+    if (!verifyCode?.length || verifyCode?.length > 1) {
+      // reason token not found
+      throw new Api400Error(INVALID_EMAIL_VERIFICATION_CODE);
     }
 
-    if (verifyToken[0].emailVerificationTokenExpiresAt < new Date(Date.now())) {
-      throw new Api401Error('Token expired');
+    if (verifyCode[0].emailVerificationTokenExpiresAt < new Date(Date.now())) {
+      // reason token expired
+      throw new Api400Error(INVALID_EMAIL_VERIFICATION_CODE);
     }
 
     // activate user
-    await this._usersDao.update(verifyToken[0].userId, { active: true });
+    await this._usersDao.update(verifyCode[0].userId, { active: true });
 
     // delete user verify token(s)
-    await this._emailVerifyDao.delete(verifyToken[0].userId);
+    await this._emailVerifyDao.delete(verifyCode[0].userId);
 
     return;
+  };
+
+  /* ---------------------------------------------------------------------------------------------- */
+  public resendVerificationEmail = async (
+    email: string,
+    language: Language
+  ): Promise<void> => {
+    const dbUser: UserDTO[] | undefined =
+      await this._usersDao.getByUniqueProperty('email', email, language);
+
+    if (!dbUser || !dbUser[0] || dbUser[0].active) {
+      // using general error message for security reasons
+      throw new Api400Error('Error during email verification retry');
+    }
+
+    const verifyToken = await this._emailVerifyDao.getByUniqueProperty(
+      'userid',
+      dbUser[0].userId,
+      language
+    );
+
+    if (!verifyToken || verifyToken.length === 0) {
+      // using general error message for security reasons
+      throw new Api400Error('Error during email verification retry');
+    }
+
+    const newEmailVerificationCode: string = generateVerificationCode();
+    const newVerifyToken: UserVerificationDTO = {
+      userId: dbUser[0].userId,
+      emailVerificationToken: newEmailVerificationCode,
+      emailVerificationTokenExpiresAt: new Date(Date.now() + 30 * 60 * 1000) // 30 minutes
+    };
+
+    await this._emailVerifyDao.update(dbUser[0].userId, newVerifyToken);
+
+    // use nodemailer to send hashedEmailVerificationToken to users email
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: config.noReplyGmailAppEmail,
+        pass: config.noReplyGmailAppPass
+      }
+    });
+
+    const info = await transporter.sendMail({
+      from: `"Reptrack" <${config.noReplyGmailAppEmail}>`,
+      to: dbUser[0].email,
+      subject: 'Verify your email',
+      text: 'Click the link to verify your email',
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Confirm Your Email Address</title>
+        </head>
+        <body>
+          <p>Hi ${dbUser[0].firstName},</p>
+          <p>Thank you for signing up with Reptrack. To complete your registration, please click on the following link to verify your email address:</p>
+          <p>
+            <a href="${config.clientUrl}/auth/email-verification?code=${newVerifyToken.emailVerificationToken}">
+            Verify Email
+            </a>      
+          </p>
+          <p>If you did not sign up for Reptrack, please ignore this email.</p>
+          <p>Thank you,<br>
+          Reptrack Team</p>
+        </body>
+        </html>
+      `
+    });
+
+    Logger.info(`Email sent: ${info.messageId}`);
+
+    return;
+  };
+
+  /* ---------------------------------------------------------------------------------------------- */
+  public fetchUserById = async (userId: string): Promise<UserDTO> => {
+    const dbUser: UserDTO = await this._usersDao.getById(userId);
+
+    return dbUser;
   };
 }
