@@ -47,7 +47,9 @@ export const useApi = () => {
     const usePatch = <T, >( path: string, body: BodyInit, collectionKeys?: string[] ) => useMutation(
         async () => await http.patch<T>( `${baseUrl}${path}`, body ), {
             onSuccess: () => {
-                queryClient.invalidateQueries( { queryKey: collectionKeys } );
+                if ( collectionKeys?.length ) {
+                    queryClient.invalidateQueries( { queryKey: collectionKeys } );
+                }
             }
         } );
 
@@ -56,7 +58,9 @@ export const useApi = () => {
     }, collectionKeys?: string[] ) => useMutation(
         async () => await http.post<T>( `${baseUrl}${path}`, body, options ), {
             onSuccess: () => {
-                queryClient.invalidateQueries( { queryKey: collectionKeys } );
+                if ( collectionKeys?.length ) {
+                    queryClient.invalidateQueries( { queryKey: collectionKeys } );
+                }
             },
             onError: ( error ) => {
                 console.error( error );
@@ -67,7 +71,9 @@ export const useApi = () => {
     const useDelete = <T, >( path: string, collectionKeys?: string[] ) => useMutation(
         async () => await http.httpDelete<T>( `${baseUrl}${path}` ), {
             onSuccess: () => {
-                queryClient.invalidateQueries( { queryKey: collectionKeys } );
+                if ( collectionKeys?.length ) {
+                    queryClient.invalidateQueries( { queryKey: collectionKeys } );
+                }
             }
         } );
 
