@@ -1,5 +1,6 @@
 {
   "submit": "Submit",
+  "login": "Login",
   "loading": "Loading {{objectToLoad}}...",
   "continueWithGoogle": "Continue with Google",
   "openSettingsMenu": "Open Settings Menu",

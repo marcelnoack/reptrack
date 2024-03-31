@@ -1,5 +1,6 @@
 {
   "submit": "Bestätigen",
+  "login": "Anmelden",
   "loading": "Lade {{objectToLoad}}...",
   "continueWithGoogle": "Mit Google fortfahren",
   "openSettingsMenu": "Öffne Einstellungen",

@@ -33,6 +33,10 @@
     "labelPasswordConfirmRequired": "Bitte bestätige dein Passwort",
     "labelPasswordsMustMatch": "Passwörter müssen übereinstimmen"
   },
+  "emailConfirm": {
+    "labelConfirmSuccessTitle": "Bestätigung erfolgreich",
+    "labelConfirmSuccessMessage": "Ihre Email wurde erfolgreich bestätigt. Sie können sich jetzt einloggen."
+  },
   "settings": {
     "labelAccount": "Konto",
     "labelSettings": "Einstellungen",

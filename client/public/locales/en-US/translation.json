@@ -33,6 +33,10 @@
     "labelPasswordConfirmRequired": "Please confirm your password",
     "labelPasswordsMustMatch": "Passwords must match"
   },
+  "emailConfirm": {
+    "labelConfirmSuccessTitle": "Email confirmed",
+    "labelConfirmSuccessMessage": "Your email has been confirmed. You can now login."
+  },
   "settings": {
     "labelAccount": "Account",
     "labelSettings": "Settings",
