@@ -6,6 +6,7 @@ export const ProfileSchema = z.object( {
     firstName: z.string(),
     middleName: z.string().optional(),
     lastName: z.string(),
+    active: z.boolean(),
     provider: z.object( {
         providerName: z.string(),
         googleId: z.string(),

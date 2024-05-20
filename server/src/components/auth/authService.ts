@@ -17,6 +17,9 @@ import UsersDao from '../users/usersDao';
 import { generateVerificationCode } from '../../utils';
 import { UserVerificationDTO } from './authAPI';
 import { EmailVerifyDao } from './emailVerifyDao';
+import * as fs from 'fs';
+import { handle } from 'i18next-http-middleware';
+import * as handlebars from 'handlebars';
 
 /* ---------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------- */
@@ -77,31 +80,28 @@ export default class AuthService {
       }
     });
 
+    const verifyEmailTemplateSource = fs.readFileSync(
+      'templates/VerifyEmail.hbs',
+      'utf8'
+    );
+    const verifyEmailTemplate = handlebars.compile(verifyEmailTemplateSource);
+
     const info = await transporter.sendMail({
       from: `"Reptrack" <${config.noReplyGmailAppEmail}>`,
       to: user.email,
       subject: 'Verify your email',
       text: 'Click the link to verify your email',
-      html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Confirm Your Email Address</title>
-        </head>
-        <body>
-          <p>Hi ${createdUser.firstName},</p>
-          <p>Thank you for signing up with Reptrack. To complete your registration, please click on the following link to verify your email address:</p>
-          <p>
-            <a href="${config.clientUrl}/email-verification?code=${newEmailVerificationToken.emailVerificationToken}">
-            Verify Email
-            </a>      
-          </p>
-          <p>If you did not sign up for Reptrack, please ignore this email.</p>
-          <p>Thank you,<br>
-          Reptrack Team</p>
-        </body>
-        </html>
-      `
+      html: verifyEmailTemplate({
+        title: 'Confirm Your Email Address',
+        greeting: `Hi ${createdUser.firstName}`,
+        greetingMessage:
+          'Thank you for signing up with Reptrack. To complete your registration, please click on the following link to verify your email address:',
+        verifyLink: `${config.clientUrl}/auth/email-verify?code=${newEmailVerificationToken.emailVerificationToken}`,
+        verifyLinkText: 'Verify Email',
+        closingWords:
+          'If you did not sign up for Reptrack, please ignore this email.',
+        closingThanks: 'Thank you,'
+      })
     });
 
     Logger.info(`Email sent: ${info.messageId}`);
@@ -247,31 +247,28 @@ export default class AuthService {
       }
     });
 
+    const verifyEmailTemplateSource = fs.readFileSync(
+      'templates/VerifyEmail.hbs',
+      'utf8'
+    );
+    const verifyEmailTemplate = handlebars.compile(verifyEmailTemplateSource);
+
     const info = await transporter.sendMail({
       from: `"Reptrack" <${config.noReplyGmailAppEmail}>`,
       to: dbUser[0].email,
       subject: 'Verify your email',
       text: 'Click the link to verify your email',
-      html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Confirm Your Email Address</title>
-        </head>
-        <body>
-          <p>Hi ${dbUser[0].firstName},</p>
-          <p>Thank you for signing up with Reptrack. To complete your registration, please click on the following link to verify your email address:</p>
-          <p>
-            <a href="${config.clientUrl}/auth/email-verification?code=${newVerifyToken.emailVerificationToken}">
-            Verify Email
-            </a>      
-          </p>
-          <p>If you did not sign up for Reptrack, please ignore this email.</p>
-          <p>Thank you,<br>
-          Reptrack Team</p>
-        </body>
-        </html>
-      `
+      html: verifyEmailTemplate({
+        title: 'Confirm Your Email Address',
+        greeting: `Hi ${dbUser[0].firstName}`,
+        greetingMessage:
+          'Thank you for signing up with Reptrack. To complete your registration, please click on the following link to verify your email address:',
+        verifyLink: `${config.clientUrl}/auth/email-verify?code=${newVerifyToken.emailVerificationToken}`,
+        verifyLinkText: 'Verify Email',
+        closingWords:
+          'If you did not sign up for Reptrack, please ignore this email.',
+        closingThanks: 'Thank you,'
+      })
     });
 
     Logger.info(`Email sent: ${info.messageId}`);

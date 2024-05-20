@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { PropsWithChildren } from 'react';
+import { Navigate } from 'react-router-dom';
 
-import { LoginPage } from './LoginPage';
-import { RegisterPage } from './RegisterPage';
+import { useAuth } from './hooks/useAuth';
+import { LoadingPage } from '../../components/LoadingPage';
 
-export type AuthPage = 'login' | 'register';
+export const AuthLayout = ( { children }: PropsWithChildren ) => {
+    const { user, isLoading, isFetching, isError } = useAuth();
 
-export const AuthLayout = () => {
-    const [ activePage, setActivePage ] = useState<AuthPage>( 'login' );
+    if ( isLoading || isFetching ) {
+        return <LoadingPage/>;
+    }
+
+    if ( !isError && user ) {
+        return <Navigate to={'/'} replace/>
+    }
 
     return <main className="flex-1 overflow-y-auto bg-zinc-800">
-        {activePage === 'login' ? <LoginPage onNav={( to ) => setActivePage( to )}/> :
-            <RegisterPage onNav={( to ) => setActivePage( to )}/>}
+        <div className='min-h-screen flex items-center justify-center'>
+            {children}
+        </div>
     </main>
 }
